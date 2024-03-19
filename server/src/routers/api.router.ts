@@ -5,4 +5,4 @@ const apiRouter = express.Router();
 
 
 export default apiRouter
-.use("/register", registerRouter)
+    .use("/register", registerRouter)

@@ -9,7 +9,7 @@ app.use(cors());
 
 app.use("/", apiRouter);
 
-app.use((err: any) => {
+app.use((err: express.ErrorRequestHandler) => {
     console.log("error", err)
 })
 
