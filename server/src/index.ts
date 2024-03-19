@@ -1,10 +1,5 @@
-import express from "express";
-import cors from "cors";
-
-const app = express();
-
-app.use(cors());
+import app from "./app";
 
 app.listen(9090, () => {
-    console.log("listening")
+    console.log("listeningtest")
 })
