@@ -1,11 +1,10 @@
 import { initializeApp } from "firebase/app";
 import fbConfig from "./fbConfig";
 import { getAuth } from "firebase/auth";
-import { test } from "./fbFunctions";
 
 const app = initializeApp(fbConfig);
 const auth = getAuth(app);
-// export default getAuth(app);
+export default auth;
 
 // console.log(auth)
-test(auth, "testEmail@gmail.com", "testPword")
+// test(auth, "testEmail@gmail.com", "testPword")

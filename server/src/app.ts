@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import apiRouter from "./routers/api.router";
+import "./mongo/connection";
 
 const app = express();
 

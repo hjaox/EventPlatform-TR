@@ -11,6 +11,7 @@ export default (async () => {
     if (process.env.MONGODBURL) {
         try {
             await mongoose.connect(process.env.MONGODBURL)
+            console.log("Connected to MongoDB")
         } catch (err) {
             console.log(err)
         }

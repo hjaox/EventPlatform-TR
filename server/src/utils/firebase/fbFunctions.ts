@@ -1,12 +1,13 @@
 import { Auth, createUserWithEmailAndPassword } from "firebase/auth";
 
-export async function test(auth: Auth, email: string, password: string) {
+export async function signUp(auth: Auth, email: string, password: string) {
     try{
-        const userCedentials = await createUserWithEmailAndPassword(auth, email, password);
-        const userToken = await userCedentials.user.getIdToken();
-        const uid = userCedentials.user.uid
+        const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+        return userCredentials;
+
     } catch (err) {
         console.log(err)
+        return Promise.reject({status: 400, msg: "Sign Up failed"})
     }
 
 }
