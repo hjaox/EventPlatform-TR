@@ -11,7 +11,7 @@ export async function postUser(name: string, email: string, password: string) {
 
         const newUser = await UserModel.create({ name, email, password, _id: uid });
 
-        return newUser;
+        return { newUser, userToken };
     } catch (err) {
         console.log("model", err)
         return Promise.reject(err)
