@@ -1,7 +1,10 @@
 import * as dotenv from "dotenv";
+
+const ENV = process.env.NODE_ENV || "development";
+
 dotenv.config({
-    path: `${__dirname}/../../../.env.firebase`
-})
+    path: `${__dirname}/../../.env.${ENV}`
+});
 
 export default {
     apiKey: process.env.apiKey,
