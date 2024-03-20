@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "seed": "ts-node ./src/mongo/seed/run-seed.ts"
   },
   "keywords": [],
   "author": "",

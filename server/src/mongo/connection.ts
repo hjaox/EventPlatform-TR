@@ -1,4 +1,4 @@
-import mongoose, { connection } from "mongoose";
+import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 
 const ENV = process.env.NODE_ENV || "development";
@@ -7,7 +7,7 @@ dotenv.config({
     path: `${__dirname}/../../.env.${ENV}`
 });
 
-export default async () => {
+export default (async () => {
     if (process.env.MONGODBURL) {
         try {
             await mongoose.connect(process.env.MONGODBURL)
@@ -17,4 +17,4 @@ export default async () => {
     } else {
         console.log("Provide URL for database connection in env file")
     }
-}
+})();
