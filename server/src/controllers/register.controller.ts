@@ -1,8 +1,16 @@
 import express from "express";
+import { postUser } from "../models/register.model";
 
 export const registerUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.log("test")
-    next();
-    return res.status(200).send("test")
+    const { name, email, password } = req.body;
 
+    try {
+        const { newUser, userToken } = await postUser(name, email, password);
+
+        return res.status(201)
+            .setHeader("Authorization", `Bearer ${userToken}`)
+            .send({ newUser })
+    } catch (err) {
+        console.log("controller", err)
+    }
 }
