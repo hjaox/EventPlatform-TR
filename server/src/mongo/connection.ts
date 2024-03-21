@@ -7,15 +7,17 @@ dotenv.config({
     path: `${__dirname}/../../.env.${ENV}`
 });
 
-export default (async () => {
+const db = async () => {
     if (process.env.MONGODBURL) {
         try {
-            await mongoose.connect(process.env.MONGODBURL)
+            await mongoose.connect(process.env.MONGODBURL);
             console.log("Connected to MongoDB")
         } catch (err) {
-            console.log(err)
+            console.log("Failed to connect to MongoDB")
         }
     } else {
         console.log("Provide URL for database connection in env file")
     }
-})();
+};
+
+export default db;
