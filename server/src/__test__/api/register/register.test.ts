@@ -1,12 +1,13 @@
 import app from "../../../app";
 import request from "supertest";
-import UserModer from "../../../mongo/models/user.model";
+import UserModel from "../../../mongo/models/user.model";
 import seed from "../../../mongo/seed/seed";
 import testData from "../../../mongo/seed/data/test-data/users";
 import db from "../../../mongo/connection";
 import mongoose from "mongoose";
 
-beforeAll(() => db());
+beforeAll(async () => await db());
+beforeEach(async () => await seed(testData));
 afterAll(() => mongoose.connection.close());
 
 describe("POST /register tests", () => {
@@ -18,8 +19,8 @@ describe("POST /register tests", () => {
 
     test("201: returns 201 upon succesful request", async () => {
         await request(app)
-        .post("/register")
-        .send(testUser)
-        .expect(201)
+            .post("/register")
+            .send(testUser)
+            .expect(201)
     });
 });

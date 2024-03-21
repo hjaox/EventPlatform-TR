@@ -6,7 +6,8 @@
   "scripts": {
     "server": "nodemon",
     "lint": "eslint .",
-    "seed": "ts-node ./src/mongo/seed/run-seed.ts"
+    "seed": "ts-node ./src/mongo/seed/run-seed.ts",
+    "test-server": "jest ./src/__test__"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
     "firebase": "^10.9.0",
+    "firebase-admin": "^12.0.0",
     "mongoose": "^8.2.2",
     "nodemon": "^3.1.0"
   },
