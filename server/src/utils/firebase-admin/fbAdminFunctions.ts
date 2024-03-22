@@ -6,7 +6,8 @@ export async function getAllUsers() {
 
         return users.map(UserRecord => ({ uid: UserRecord.uid, email: UserRecord.email }));
     } catch (err) {
-        console.log("Error listing Users", err);
+        console.log("Error listing users", err);
+        return null;
     }
 
 }
@@ -17,6 +18,7 @@ export async function deleteAllUsers(users: string[]) {
         if (result.failureCount) console.log("Something went wrong.", result.errors);
     } catch (err) {
         console.log("Error deleting users", err);
+        return null;
     }
 }
 
