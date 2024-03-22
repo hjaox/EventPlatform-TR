@@ -7,7 +7,7 @@ export async function postUser(name: string, email: string, password: string) {
     try {
         const userCredentials = await signUp(auth, email, password);
         const userToken = await userCredentials.user.getIdToken();
-        const uid = userCredentials.user.uid
+        const uid = userCredentials.user.uid;
 
         const newUser = await UserModel.create({ name, email, password, _id: uid });
 

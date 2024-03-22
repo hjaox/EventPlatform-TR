@@ -32,3 +32,25 @@ export async function createUser(email: string, password: string) {
         return null;
     }
 }
+
+export async function getCustomToken(uid: string) {
+    try {
+        const customToken = await auth.createCustomToken(uid);
+
+        return customToken;
+    } catch(err) {
+        console.log("Error creating custom token", err);
+        return null
+    }
+}
+
+export async function verifyIdToken(uidToken: string) {
+    try{
+        const decodedToken = await auth.verifyIdToken(uidToken);
+
+        return decodedToken;
+    } catch (err) {
+        console.log("Error verifying token ", err);
+        return null;
+    }
+}
