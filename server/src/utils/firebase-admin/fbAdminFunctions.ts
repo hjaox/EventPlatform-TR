@@ -43,3 +43,14 @@ export async function getCustomToken(uid: string) {
         return null
     }
 }
+
+export async function verifyIdToken(uidToken: string) {
+    try{
+        const decodedToken = await auth.verifyIdToken(uidToken);
+
+        return decodedToken;
+    } catch (err) {
+        console.log("Error verifying token ", err);
+        return null;
+    }
+}

@@ -8,7 +8,7 @@ beforeEach(async () => {
     }
 })
 
-describe("friebase-admin getAllUsers function tests", () => {
+describe("firebase-admin getAllUsers function tests", () => {
     test("returns an array of user detail objects upon successful request", async () => {
         const testUsers = [
             {
