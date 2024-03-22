@@ -1,7 +1,10 @@
-export type User = {
-    name: string,
+export type TUser = {
     _id: string,
+    name: string,
     email: string,
-    eventsAttending?: [],
-    eventsOrganized?: [],
-}
+    eventsAttending?: any[],
+    eventsOrganized?: any[],
+    createdAt?: string|Date,
+    updatedAt?: string|Date,
+    __v?: number
+  }

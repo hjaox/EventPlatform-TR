@@ -6,8 +6,7 @@ export async function signUp(auth: Auth, email: string, password: string) {
         return userCredentials;
 
     } catch (err) {
-        console.log(err)
-        return Promise.reject({status: 400, msg: "Sign Up failed"})
+        return Promise.reject("Sign Up failed")
     }
 
 }

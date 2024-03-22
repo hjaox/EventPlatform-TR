@@ -13,7 +13,8 @@ export async function postUser(name: string, email: string, password: string) {
 
         return { newUser, userToken };
     } catch (err) {
-        console.log("model", err)
+        if(err === "Sign Up failed") return Promise.reject({status: 400, msg: err})
+        console.log("Model postUser error", err)
         return Promise.reject(err)
     }
 }
