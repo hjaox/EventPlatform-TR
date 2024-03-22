@@ -8,7 +8,7 @@ beforeEach(async () => {
     }
 })
 
-describe("firebase-admin deleteAllUser function tests", () => {
+describe("firebase-admin deleteAllUsers function tests", () => {
     test("deletes all users in firebase authentication upon successful request", async () => {
         const testUsers = [
             {
