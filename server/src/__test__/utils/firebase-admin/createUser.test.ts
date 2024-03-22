@@ -9,6 +9,33 @@ beforeEach(async () => {
 })
 
 describe("firebase-admin createUser function tests", () => {
+    test("returns an array of user detail objects upon succesful request", async () => {
+        const testUsers = [
+            {
+                email: "test1@gmail.com",
+                password: "testpass1"
+            },
+            {
+                email: "test2@gmail.com",
+                password: "testpass2"
+            },
+            {
+                email: "test3@gmail.com",
+                password: "testpass3"
+            }
+        ];
+
+        await Promise.all(testUsers.map(userDetails => createUser(userDetails.email, userDetails.password)));
+
+        const expected = await getAllUsers();
+
+        expect(Array.isArray(expected)).toBeTruthy();
+
+        testUsers.forEach(testUser => {
+            expect(typeof testUser).toBe("object");
+            expect(Array.isArray(testUser)).toBeFalsy();
+        })
+    });
     test("returns user email and uid upon successful request", async () => {
         const testUsers = [
             {
@@ -33,7 +60,7 @@ describe("firebase-admin createUser function tests", () => {
             expect(expected?.some(expectedUser => expectedUser.email === testUser.email)).toBeTruthy();
         })
     });
-    test.only("returns null if email already exist and the request is unsuccessful", async () => {
+    test("returns null if email already exist and the request is unsuccessful", async () => {
         const testUser =
         {
             email: "test1@gmail.com",
