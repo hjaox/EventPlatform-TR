@@ -1,5 +1,5 @@
 import UserModel from "../mongo/models/user.model";
-import auth from "../utils/firebase/fbApp";
+import auth from "../utils/firebase/fbAuth";
 import { signUp } from "../utils/firebase/fbFunctions";
 
 
