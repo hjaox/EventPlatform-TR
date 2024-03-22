@@ -11,6 +11,6 @@ export const registerUser = async (req: express.Request, res: express.Response, 
             .setHeader("Authorization", `Bearer ${userToken}`)
             .send({ newUser })
     } catch (err) {
-        console.log("controller", err)
+        next(err)
     }
 }
