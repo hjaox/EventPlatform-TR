@@ -5,7 +5,7 @@ import seed from "../../../mongo/seed/seed";
 import testData from "../../../mongo/seed/data/test-data/users";
 import db from "../../../mongo/connection";
 import mongoose from "mongoose";
-import { getAllUsers, deleteAllUsers, createUser } from "../../../utils/firebase-admin/fbAdminFunctions";
+import { getAllUsers, deleteAllUsers, createUser, verifyIdToken } from "../../../utils/firebase-admin/fbAdminFunctions";
 import { TUser } from "../../../common/models/types";
 
 beforeAll(async () => await db());
@@ -55,6 +55,17 @@ describe("POST /register tests", () => {
           };
 
           expect(testVal).toEqual(expected);
+    });
+    test("returns response with authorization header containing valid access token", async () => {
+        const testResponse = await request(app)
+        .post("/register")
+        .send(testUser);
+
+        const testVal = await verifyIdToken(testResponse.header.authorization.split(" ")[1]);
+
+        if(!testVal) throw new Error("Unexpected null value of testval");
+
+        expect(Object.entries(testVal).length).toBeTruthy();
     });
     test("400: returns status code 400 when email already exist", async () => {
         await request(app)
