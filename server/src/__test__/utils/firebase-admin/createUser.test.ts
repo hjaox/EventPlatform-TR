@@ -9,56 +9,29 @@ beforeEach(async () => {
 })
 
 describe("firebase-admin createUser function tests", () => {
-    test("returns an array of user detail objects upon succesful request", async () => {
-        const testUsers = [
-            {
-                email: "test1@gmail.com",
-                password: "testpass1"
-            },
-            {
-                email: "test2@gmail.com",
-                password: "testpass2"
-            },
-            {
-                email: "test3@gmail.com",
-                password: "testpass3"
-            }
-        ];
+    test("returns an object upom successful request", async () => {
+        const testUser =
+        {
+            email: "test1@gmail.com",
+            password: "testpass1"
+        };
 
-        await Promise.all(testUsers.map(userDetails => createUser(userDetails.email, userDetails.password)));
+        const testVal = await createUser(testUser.email, testUser.password);
 
-        const expected = await getAllUsers();
-
-        expect(Array.isArray(expected)).toBeTruthy();
-
-        testUsers.forEach(testUser => {
-            expect(typeof testUser).toBe("object");
-            expect(Array.isArray(testUser)).toBeFalsy();
-        })
+        expect(typeof testVal).toBe("object");
+        expect(Array.isArray(testVal)).toBeFalsy();
     });
     test("returns user email and uid upon successful request", async () => {
-        const testUsers = [
-            {
-                email: "test1@gmail.com",
-                password: "testpass1"
-            },
-            {
-                email: "test2@gmail.com",
-                password: "testpass2"
-            },
-            {
-                email: "test3@gmail.com",
-                password: "testpass3"
-            }
-        ];
+        const testUser =
+        {
+            email: "test1@gmail.com",
+            password: "testpass1"
+        };
 
-        await Promise.all(testUsers.map(userDetails => createUser(userDetails.email, userDetails.password)));
+        const testVal = await createUser(testUser.email, testUser.password);
 
-        const expected = await getAllUsers();
-
-        testUsers.forEach(testUser => {
-            expect(expected?.some(expectedUser => expectedUser.email === testUser.email)).toBeTruthy();
-        })
+        expect(testVal).toHaveProperty("email");
+        expect(testVal).toHaveProperty("uid");
     });
     test("returns null if email already exist and the request is unsuccessful", async () => {
         const testUser =
