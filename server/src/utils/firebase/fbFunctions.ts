@@ -6,7 +6,7 @@ export async function signUp(auth: Auth, email: string, password: string) {
 
         return userCredentials;
     } catch (err) {
-        return Promise.reject("Sign Up failed")
+        return Promise.reject("Email already exist")
     }
 
 }
