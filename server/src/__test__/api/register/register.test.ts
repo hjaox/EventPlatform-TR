@@ -9,16 +9,7 @@ import { getAllUsers, deleteAllUsers, createUser, verifyIdToken } from "../../..
 import { TUser } from "../../../common/models/types";
 
 beforeAll(async () => await db());
-beforeEach(async () => {
-    const allUsers = await getAllUsers();
-
-    if (allUsers?.length) {
-        await deleteAllUsers(allUsers.map(user => user.uid));
-    }
-
-    await seed(testData);
-    await Promise.all(testData.map(user => createUser(user.email, user.password)));
-});
+beforeEach(async () => await seed(testData));
 afterAll(() => mongoose.connection.close());
 
 describe("POST /register tests", () => {
