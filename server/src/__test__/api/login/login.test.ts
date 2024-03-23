@@ -6,7 +6,7 @@ import testData from "../../../mongo/seed/data/test-data/users";
 import db from "../../../mongo/connection";
 import mongoose from "mongoose";
 import { verifyIdToken } from "../../../utils/firebase-admin/fbAdminFunctions";
-import { TUser } from "../../../common/models/types";
+import { TUser } from "../../../common/types";
 
 beforeAll(async () => {
     await db();

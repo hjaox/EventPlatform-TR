@@ -1,4 +1,4 @@
-import { TTestUser } from "common/models/types";
+import { TTestUser } from "../../common/types";
 import mongoose from "mongoose";
 import { deleteAllUsers, getAllUsers } from "../../utils/firebase-admin/fbAdminFunctions";
 import { signUp } from "../../utils/firebase/fbFunctions";
