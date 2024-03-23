@@ -22,7 +22,7 @@ app.use((err: express.ErrorRequestHandler | { status: number, msg: string },
 app.use((err: express.ErrorRequestHandler,
     _: express.Request,
     res: express.Response,
-    next: express.NextFunction) => { //internale server error
+    next: express.NextFunction) => {
     console.log("Internal Server Error");
     return res.status(500).send({ msg: "Internal Server Error" });
 })

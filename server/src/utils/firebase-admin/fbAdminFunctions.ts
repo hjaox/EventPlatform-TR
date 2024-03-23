@@ -12,9 +12,9 @@ export async function getAllUsers() {
 
 }
 
-export async function deleteAllUsers(users: string[]) {
+export async function deleteAllUsers(uid: string[]) {
     try {
-        const result = await auth.deleteUsers(users);
+        const result = await auth.deleteUsers(uid);
         if (result.failureCount) console.log("Something went wrong.", result.errors);
     } catch (err) {
         console.log("Error deleting users", err);
@@ -38,14 +38,14 @@ export async function getCustomToken(uid: string) {
         const customToken = await auth.createCustomToken(uid);
 
         return customToken;
-    } catch(err) {
+    } catch (err) {
         console.log("Error creating custom token", err);
         return null
     }
 }
 
 export async function verifyIdToken(uidToken: string) {
-    try{
+    try {
         const decodedToken = await auth.verifyIdToken(uidToken);
 
         return decodedToken;
