@@ -5,14 +5,14 @@ import seed from "../../../mongo/seed/seed";
 import testData from "../../../mongo/seed/data/test-data/users";
 import db from "../../../mongo/connection";
 import mongoose from "mongoose";
-import { getAllUsers, deleteAllUsers, createUser, verifyIdToken } from "../../../utils/firebase-admin/fbAdminFunctions";
+import { verifyIdToken } from "../../../utils/firebase-admin/fbAdminFunctions";
 import { TUser } from "../../../common/models/types";
 
 beforeAll(async () => await db());
 beforeEach(async () => await seed(testData));
 afterAll(() => mongoose.connection.close());
 
-describe("POST /register tests", () => {
+describe("POST /register endpoint tests", () => {
     const testUser = {
         name: "testPost User",
         email: "testPostEmail@gmail.com",
