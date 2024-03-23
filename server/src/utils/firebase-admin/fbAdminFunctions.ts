@@ -6,7 +6,6 @@ export async function getAllUsers() {
 
         return users.map(UserRecord => ({ uid: UserRecord.uid, email: UserRecord.email }));
     } catch (err) {
-        console.log("Error listing users", err);
         return null;
     }
 
@@ -17,7 +16,6 @@ export async function deleteAllUsers(uid: string[]) {
         const result = await auth.deleteUsers(uid);
         if (result.failureCount) console.log("Something went wrong.", result.errors);
     } catch (err) {
-        console.log("Error deleting users", err);
         return null;
     }
 }
@@ -28,7 +26,6 @@ export async function createUser(email: string, password: string) {
 
         return { uid: result.uid, email: result.email };
     } catch (err) {
-        console.log("Error creating user", err);
         return null;
     }
 }
@@ -39,7 +36,6 @@ export async function getCustomToken(uid: string) {
 
         return customToken;
     } catch (err) {
-        console.log("Error creating custom token", err);
         return null
     }
 }
@@ -50,7 +46,6 @@ export async function verifyIdToken(uidToken: string) {
 
         return decodedToken;
     } catch (err) {
-        console.log("Error verifying token ", err);
         return null;
     }
 }
