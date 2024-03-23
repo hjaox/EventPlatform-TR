@@ -3,8 +3,8 @@ import UserModel from "../mongo/models/user.model";
 import { singIn } from "../utils/firebase/fbFunctions";
 import auth from "../utils/firebase/fbAuth";
 
-export async function getUserWithCredentials(name: string, email: string, password: string) {
-    const sanitizedQuery = sanitizeFilter({ name, email });
+export async function getUserWithCredentials(email: string, password: string) {
+    const sanitizedQuery = sanitizeFilter({ email });
 
     try {
         const [userDetails] = await UserModel.find(sanitizedQuery);
