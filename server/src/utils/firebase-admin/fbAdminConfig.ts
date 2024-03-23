@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 
 dotenv.config({
-    path: `${__dirname}/../../../.env.firebaseAdminSDK`
+    path: `${__dirname}/../../../.env.${process.env.NODE_ENV || "development"}`
 })
 
 export default {
