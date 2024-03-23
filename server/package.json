@@ -7,7 +7,8 @@
     "server": "nodemon",
     "lint": "eslint .",
     "seed": "ts-node ./src/mongo/seed/run-seed.ts",
-    "test-server": "jest --runInBand ./src/__test__"
+    "test-server": "jest --runInBand ./src/__test__/api",
+    "test-server-utils": "jest --runInBand ./src/__test__/utils"
   },
   "keywords": [],
   "author": "",

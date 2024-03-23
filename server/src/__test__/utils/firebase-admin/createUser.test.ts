@@ -1,6 +1,6 @@
 import { createUser, deleteAllUsers, getAllUsers } from "../../../utils/firebase-admin/fbAdminFunctions";
 
-beforeEach(async () => {
+beforeAll(async () => {
     const allUsers = await getAllUsers();
 
     if (allUsers?.length) {
@@ -24,8 +24,8 @@ describe("firebase-admin createUser function tests", () => {
     test("returns user email and uid upon successful request", async () => {
         const testUser =
         {
-            email: "test1@gmail.com",
-            password: "testpass1"
+            email: "test2@gmail.com",
+            password: "testpass2"
         };
 
         const testVal = await createUser(testUser.email, testUser.password);
@@ -36,8 +36,8 @@ describe("firebase-admin createUser function tests", () => {
     test("returns null if email already exist and the request is unsuccessful", async () => {
         const testUser =
         {
-            email: "test1@gmail.com",
-            password: "testpass1"
+            email: "test3@gmail.com",
+            password: "testpass3"
         };
 
         await createUser(testUser.email, testUser.password);

@@ -8,27 +8,24 @@ import mongoose from "mongoose";
 import { verifyIdToken } from "../../../utils/firebase-admin/fbAdminFunctions";
 import { TUser } from "../../../common/models/types";
 
-beforeAll(async () => await db());
-beforeEach(async () => await seed(testData));
-afterAll(() => mongoose.connection.close());
+beforeAll(async () => {
+    await db();
+    await seed(testData);
+});
+afterAll(async () => await mongoose.connection.close());
 
 describe("POST /register endpoint tests", () => {
-    const testUser = {
-        name: "testPost User",
-        email: "testPostEmail@gmail.com",
-        password: "testPostPass"
-    };
+    test("201: returns status code 201 and new user details upon succesful request", async () => {
+        const testUser = {
+            name: "testPost User1",
+            email: "testPostEmail1@gmail.com",
+            password: "testPostPass1"
+        };
 
-    test("201: returns 201 upon succesful request", async () => {
-        await request(app)
+        const { body: { newUser } } = await request(app)
             .post("/register")
             .send(testUser)
             .expect(201);
-    });
-    test("201: returns new user details upon successful request", async () => {
-        const { body: { newUser } } = await request(app)
-            .post("/register")
-            .send(testUser);
 
         const testVal: TUser = newUser;
 
@@ -48,6 +45,12 @@ describe("POST /register endpoint tests", () => {
         expect(testVal).toEqual(expected);
     });
     test("returns response with authorization header containing valid access token", async () => {
+        const testUser = {
+            name: "testPost User2",
+            email: "testPostEmail2@gmail.com",
+            password: "testPostPass2"
+        };
+
         const testResponse = await request(app)
             .post("/register")
             .send(testUser);
@@ -59,9 +62,11 @@ describe("POST /register endpoint tests", () => {
         expect(Object.entries(testVal).length).toBeTruthy();
     });
     test("400: returns status code 400 when email already exist", async () => {
-        await request(app)
-            .post("/register")
-            .send(testUser);
+        const testUser = {
+            name: "testPost User1",
+            email: "testPostEmail1@gmail.com",
+            password: "testPostPass1"
+        };
 
         await request(app)
             .post("/register")
@@ -69,6 +74,12 @@ describe("POST /register endpoint tests", () => {
             .expect(400);
     });
     test("400: returns message 'Email already exist' when email already exist", async () => {
+        const testUser = {
+            name: "testPost User1",
+            email: "testPostEmail1@gmail.com",
+            password: "testPostPass1"
+        };
+
         await request(app)
             .post("/register")
             .send(testUser);

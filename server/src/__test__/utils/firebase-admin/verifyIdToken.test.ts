@@ -2,7 +2,7 @@ import { deleteAllUsers, getAllUsers, verifyIdToken } from "../../../utils/fireb
 import { signUp } from "../../../utils/firebase/fbFunctions";
 import auth from "../../../utils/firebase/fbAuth";
 
-beforeEach(async () => {
+beforeAll(async () => {
     const allUsers = await getAllUsers();
 
     if (allUsers?.length) {
@@ -13,8 +13,8 @@ beforeEach(async () => {
 describe("firebase-admin verifyIdToken tests", () => {
     test("returns decoded token upon successful request", async () => {
         const testUser = {
-            email: "test@gmail.com",
-            password: "testPass"
+            email: "test1@gmail.com",
+            password: "test1Pass"
         };
         const userCredentials = await signUp(auth, testUser.email, testUser.password);
         const userToken = await userCredentials.user.getIdToken();
