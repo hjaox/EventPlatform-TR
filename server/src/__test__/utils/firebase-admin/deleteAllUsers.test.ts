@@ -1,6 +1,6 @@
 import { createUser, deleteAllUsers, getAllUsers } from "../../../utils/firebase-admin/fbAdminFunctions";
 
-beforeEach(async () => {
+beforeAll(async () => {
     const allUsers = await getAllUsers();
 
     if (allUsers?.length) {
@@ -12,16 +12,16 @@ describe("firebase-admin deleteAllUsers function tests", () => {
     test("deletes all users in firebase authentication upon successful request", async () => {
         const testUsers = [
             {
-                email: "test1@gmail.com",
+                email: "test1.0@gmail.com",
                 password: "testpass1"
             },
             {
-                email: "test2@gmail.com",
-                password: "testpass2"
+                email: "test1.1@gmail.com",
+                password: "testpass1.1"
             },
             {
-                email: "test3@gmail.com",
-                password: "testpass3"
+                email: "test1.2@gmail.com",
+                password: "testpass1.2"
             }
         ];
 

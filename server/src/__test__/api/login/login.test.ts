@@ -8,32 +8,35 @@ import mongoose from "mongoose";
 import { verifyIdToken } from "../../../utils/firebase-admin/fbAdminFunctions";
 import { TUser } from "../../../common/models/types";
 
-beforeAll(async () => await db());
-beforeEach(async () => await seed(testData));
-afterAll(() => mongoose.connection.close());
+beforeAll(async () => {
+    await db();
+    await seed(testData);
+});
+afterAll(async () => await mongoose.connection.close());
 
 describe("POST /login endpoint tests", () => {
-    const testUser1 = {
-        email: "testUser1@gmail.com",
-        password: "testPass1"
-    };
-    const testUser2 = {
-        email: "emailDoesNotExist@gmail.com",
-        password: "anyPassword"
-    };
-
     test("200: returns status code 200 upon successful request", async () => {
+        const testUser = {
+            email: "testUser1@gmail.com",
+            password: "testPass1"
+        };
+
         await request(app)
             .post("/login")
-            .send(testUser1)
+            .send(testUser)
             .expect(200);
     })
     test("200: returns user details upon successful request", async () => {
+        const testUser = {
+            email: "testUser2@gmail.com",
+            password: "testPass2"
+        };
+
         const { body: { userDetails } } = await request(app)
             .post("/login")
-            .send(testUser1);
+            .send(testUser);
 
-        const result = await UserModel.find({ email: testUser1.email });
+        const result = await UserModel.find({ email: testUser.email });
 
         const expected: TUser = {
             name: result[0].name,
@@ -49,9 +52,14 @@ describe("POST /login endpoint tests", () => {
         expect(userDetails).toEqual(expected);
     });
     test("200: returns response with authorization header containing valid access token", async() => {
+        const testUser = {
+            email: "testUser3@gmail.com",
+            password: "testPass3"
+        };
+
         const testResponse = await request(app)
             .post("/login")
-            .send(testUser1);
+            .send(testUser);
 
         const testVal = await verifyIdToken(testResponse.header.authorization.split(" ")[1]);
 
@@ -60,14 +68,24 @@ describe("POST /login endpoint tests", () => {
         expect(Object.entries(testVal).length).toBeTruthy();
     });
     test("400: returns status code 400 upon failed request", async () => {
+        const testUser = {
+            email: "emailDoesNotExist@gmail.com",
+            password: "anyPassword"
+        };
+
         await request(app)
         .post("/login")
-        .send(testUser2);
+        .send(testUser);
     });
     test("400: returns status code 400 when sent with incorrect email or password", async () => {
+        const testUser = {
+            email: "emailDoesNotExist@gmail.com",
+            password: "anyPassword"
+        };
+
         const {body: {msg}} = await request(app)
         .post("/login")
-        .send(testUser2)
+        .send(testUser)
         .expect(400);
 
         expect(msg).toBe("Incorrect email or password");
