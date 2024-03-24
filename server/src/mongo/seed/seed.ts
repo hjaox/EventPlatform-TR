@@ -1,11 +1,12 @@
-import { TTestUser } from "common/models/types";
+import { TTestUser, TEvent } from "../../common/types";
 import mongoose from "mongoose";
 import { deleteAllUsers, getAllUsers } from "../../utils/firebase-admin/fbAdminFunctions";
 import { signUp } from "../../utils/firebase/fbFunctions";
 import auth from "../../utils/firebase/fbAuth";
 import UserModel from "../../mongo/models/user.model";
+import EventsModel from "../../mongo/models/event.model";
 
-export default async function seed(usersData: TTestUser[]) {
+export default async function seed(usersData: TTestUser[], eventsData: TEvent[]) {
     try {
         await mongoose.connection.dropDatabase();
         const usersFirebase = await getAllUsers();
@@ -14,7 +15,9 @@ export default async function seed(usersData: TTestUser[]) {
 
         await Promise.all(usersData.map(user => signUp(auth, user.email, user.password)));
         await UserModel.create(usersData);
+        await EventsModel.create(eventsData);
     } catch (err) {
+        console.log(err)
         console.log("Seeding failed")
     }
 }

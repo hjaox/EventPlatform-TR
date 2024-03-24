@@ -7,7 +7,7 @@ export type TUser = {
   createdAt?: string | Date,
   updatedAt?: string | Date,
   __v?: number
-}
+};
 
 export type TTestUser = {
   _id: string,
@@ -19,4 +19,20 @@ export type TTestUser = {
   createdAt?: string | Date,
   updatedAt?: string | Date,
   __v?: number
-}
+};
+
+export type TEvent = {
+  title: string,
+  dateStart: Date,
+  dateEnd: Date,
+  location: {
+    address: string,
+    coordinates: [number, number],
+  },
+  description: string,
+  tag: string[],
+  organizer: string,
+  createdAt?: string | Date,
+  updatedAt?: string | Date,
+  __v?: number
+};

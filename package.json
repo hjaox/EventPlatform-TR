@@ -4,9 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "seed-server": "ts-node ./server/src/mongo/seed/run-seed.ts",
+    "lint-server": "eslint ./server",
+    "test-server": "jest --runInBand ./server/src/__test__/api",
+    "test-server-utils": "jest --runInBand ./server/src/__test__/utils",
+    "server": "nodemon"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.3"
+  }
 }

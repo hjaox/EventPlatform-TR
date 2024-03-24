@@ -1,14 +1,14 @@
 import seed from "./seed";
-import data from "../seed/data/development-data/users";
-import { TTestUser } from "../../common/models/types";
+import {usersData, eventsData} from "../seed/data/development-data/";
+import { TEvent, TTestUser } from "../../common/types";
 import mongoose from "mongoose";
 import db from "../connection";
 
-async function runSeed(usersData: TTestUser[]) {
+async function runSeed(usersData: TTestUser[], eventsData: TEvent[]) {
     await db();
-    await seed(usersData);
+    await seed(usersData, eventsData);
     await mongoose.connection.close();
     console.log("Development data seeded successfully.");
 }
 
-runSeed(data);
+runSeed(usersData, eventsData);
