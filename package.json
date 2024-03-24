@@ -8,7 +8,9 @@
     "lint-server": "eslint ./server",
     "test-server": "jest --runInBand ./server/src/__test__/api",
     "test-server-utils": "jest --runInBand ./server/src/__test__/utils",
-    "server": "nodemon"
+    "server": "nodemon",
+    "client": "npm run --prefix ./client dev",
+    "app": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
@@ -21,5 +23,8 @@
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
   }
 }
