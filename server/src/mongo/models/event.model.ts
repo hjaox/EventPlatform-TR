@@ -1,5 +1,15 @@
 import { Schema, model } from "mongoose";
 
+const locationSchema = new Schema(
+    {
+        address: String,
+        coordinates: [Number, Number],
+    },
+    {
+        _id: false,
+    }
+);
+
 const eventSchema = new Schema(
     {
         title: {
@@ -14,21 +24,7 @@ const eventSchema = new Schema(
             type: Date,
             required: true,
         },
-        location: {
-            type: Map,
-            of: new Schema(
-                {
-                    address: {
-                        type: String,
-                        required: true,
-                    },
-                    coordinates: {
-                        type: [Number],
-                        required: true,
-                    }
-                }
-            )
-        },
+        location: locationSchema,
         description: {
             type: String,
             required: false,
@@ -45,9 +41,11 @@ const eventSchema = new Schema(
         }
     },
     {
-        timestamps: true
+        timestamps: true,
     }
 );
 
-const EventsModel = model("Events", eventSchema);
+
+
+const EventsModel = model("Event", eventSchema);
 export default EventsModel;
