@@ -2,7 +2,7 @@ import app from "../../../app";
 import request from "supertest";
 import UserModel from "../../../mongo/models/user.model";
 import seed from "../../../mongo/seed/seed";
-import testData from "../../../mongo/seed/data/test-data/users";
+import { usersData, eventsData } from "../../../mongo/seed/data/test-data";
 import db from "../../../mongo/connection";
 import mongoose from "mongoose";
 import { verifyIdToken } from "../../../utils/firebase-admin/fbAdminFunctions";
@@ -10,7 +10,7 @@ import { TUser } from "../../../common/types";
 
 beforeAll(async () => {
     await db();
-    await seed(testData);
+    await seed(usersData, eventsData);
 });
 afterAll(async () => await mongoose.connection.close());
 
@@ -51,7 +51,7 @@ describe("POST /login endpoint tests", () => {
 
         expect(userDetails).toEqual(expected);
     });
-    test("200: returns response with authorization header containing valid access token", async() => {
+    test("200: returns response with authorization header containing valid access token", async () => {
         const testUser = {
             email: "testUser3@gmail.com",
             password: "testPass3"
@@ -74,8 +74,8 @@ describe("POST /login endpoint tests", () => {
         };
 
         await request(app)
-        .post("/login")
-        .send(testUser);
+            .post("/login")
+            .send(testUser);
     });
     test("400: returns status code 400 when sent with incorrect email or password", async () => {
         const testUser = {
@@ -83,10 +83,10 @@ describe("POST /login endpoint tests", () => {
             password: "anyPassword"
         };
 
-        const {body: {msg}} = await request(app)
-        .post("/login")
-        .send(testUser)
-        .expect(400);
+        const { body: { msg } } = await request(app)
+            .post("/login")
+            .send(testUser)
+            .expect(400);
 
         expect(msg).toBe("Incorrect email or password");
     });
