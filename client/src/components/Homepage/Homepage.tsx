@@ -7,5 +7,6 @@ export default function Homepage() {
     return <>
     Homepage
     <span onClick={() => navigation("/Login")}>Login</span>
+    <span onClick={() => navigation("/Register")}>Register</span>
     </>
 }
