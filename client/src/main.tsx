@@ -5,8 +5,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App.tsx'
 import Homepage from './components/Homepage/Homepage.tsx';
-import Login from './components/Homepage/Login/Login.tsx';
-import Register from './components/Homepage/Register/Register.tsx';
+import Login from './components/Homepage/components/Login/Login.tsx';
+import Register from './components/Homepage/components/Register/Register.tsx';
 import Dashboard from './components/Dashboard/Dashboard.tsx';
 
 const router = createBrowserRouter(
