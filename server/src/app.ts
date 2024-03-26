@@ -16,6 +16,7 @@ app.use(async (req: express.Request, res: express.Response, next: express.NextFu
     const token = auth && auth.split(" ")[1];
 
     const result = await verifyIdToken(token);
+
     if(!result) return res.status(400).send({msg: "Bad request"});
 
     next();
