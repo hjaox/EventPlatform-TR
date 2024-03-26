@@ -17,7 +17,7 @@ beforeAll(async () => {
 });
 afterAll(async () => await mongoose.connection.close());
 
-describe("POST /event tests", () => {
+describe("POST /event endpoint tests", () => {
     const testEvent = {
         title: "testEvent",
         dateStart: new Date("2024-03-26T10:17:25.449Z"),
@@ -29,20 +29,20 @@ describe("POST /event tests", () => {
         organizer: "organizer",
         createdAt: new Date("2024-03-26T10:17:25.449Z"),
         updatedAt: new Date("2024-03-26T10:17:25.449Z"),
-      };
+    };
 
     test("201: returns status code 201 upon successful request", async () => {
         await request(app)
-        .post("/event")
-        .set({"Authorization": `Bearer ${process.env.ACCESSTOKEN}`})
-        .send(testEvent)
-        .expect(201);
+            .post("/event")
+            .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
+            .send(testEvent)
+            .expect(201);
     });
     test("201: returns the new event details upon successful request", async () => {
-        const {body: {newEvent}} = await request(app)
-        .post("/event")
-        .set({"Authorization": `Bearer ${process.env.ACCESSTOKEN}`})
-        .send(testEvent);
+        const { body: { newEvent } } = await request(app)
+            .post("/event")
+            .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
+            .send(testEvent);
 
         const testVal = {
             ...testEvent,
@@ -52,27 +52,27 @@ describe("POST /event tests", () => {
             updatedAt: testEvent.updatedAt.toISOString(),
         };
 
-        const expected = {...newEvent};
+        const expected = { ...newEvent };
         delete expected._id;
         delete expected.__v;
 
         expect(testVal).toEqual(expected);
     });
-    test("400: returns status code 400 upon failed request", async() => {
+    test("400: returns status code 400 upon failed request", async () => {
         await request(app)
-        .post("/event")
-        .set({"Authorization": `Bearer ${process.env.ACCESSTOKEN}`})
-        .send({})
-        .expect(400);
+            .post("/event")
+            .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
+            .send({})
+            .expect(400);
     });
-    test("400: returns status code 400 when event is missing the required properties", async() => {
-        const testEvent1 = {...testEvent} as any;
+    test("400: returns status code 400 when event is missing the required properties", async () => {
+        const testEvent1 = { ...testEvent } as any;
         delete testEvent1.title;
 
         await request(app)
-        .post("/event")
-        .set({"Authorization": `Bearer ${process.env.ACCESSTOKEN}`})
-        .send(testEvent1)
-        .expect(400);
+            .post("/event")
+            .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
+            .send(testEvent1)
+            .expect(400);
     });
 });
