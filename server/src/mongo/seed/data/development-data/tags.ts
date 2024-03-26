@@ -2,11 +2,9 @@ export default {
     tags: ["Music",
         "Pets",
         "Films",
-        "Animals",
         "Books",
-        "Outdoor Activities",
+        "Outdoor",
         "Sports",
-        "Indoor Activities",
         "Plants",
         "Community"]
 };
