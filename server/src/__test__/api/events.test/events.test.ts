@@ -2,7 +2,7 @@ import app from "../../../app";
 import request from "supertest";
 import EventModel from "../../../mongo/models/event.model";
 import seed from "../../../mongo/seed/seed";
-import { usersData, eventsData } from "../../../mongo/seed/data/test-data";
+import { usersData, eventsData, tagsData } from "../../../mongo/seed/data/test-data";
 import db from "../../../mongo/connection";
 import mongoose from "mongoose";
 import { TEvent } from "../../../common/types";
@@ -13,7 +13,7 @@ dotenv.config({
 
 beforeAll(async () => {
     await db();
-    await seed(usersData, eventsData);
+    await seed(usersData, eventsData, tagsData);
 });
 afterAll(async () => await mongoose.connection.close());
 

@@ -2,7 +2,7 @@ import app from "../../../app";
 import request from "supertest";
 import UserModel from "../../../mongo/models/user.model";
 import seed from "../../../mongo/seed/seed";
-import { usersData, eventsData } from "../../../mongo/seed/data/test-data";
+import { usersData, eventsData, tagsData } from "../../../mongo/seed/data/test-data";
 import db from "../../../mongo/connection";
 import mongoose from "mongoose";
 import { verifyIdToken } from "../../../utils/firebase-admin/fbAdminFunctions";
@@ -10,7 +10,7 @@ import { TUser } from "../../../common/types";
 
 beforeAll(async () => {
     await db();
-    await seed(usersData, eventsData);
+    await seed(usersData, eventsData, tagsData);
 });
 afterAll(async () => await mongoose.connection.close());
 
