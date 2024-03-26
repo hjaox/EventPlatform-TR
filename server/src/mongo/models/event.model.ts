@@ -1,15 +1,5 @@
 import { Schema, model } from "mongoose";
 
-const locationSchema = new Schema(
-    {
-        address: String,
-        coordinates: [Number, Number],
-    },
-    {
-        _id: false,
-    }
-);
-
 const eventSchema = new Schema(
     {
         title: {
@@ -24,7 +14,13 @@ const eventSchema = new Schema(
             type: Date,
             required: true,
         },
-        location: locationSchema,
+        address: {
+            type: String,
+            required: true
+        },
+        coordinates: {
+            type: [Number, Number]
+        },
         description: {
             type: String,
             required: false,
@@ -47,5 +43,5 @@ const eventSchema = new Schema(
 
 
 
-const EventsModel = model("Event", eventSchema);
-export default EventsModel;
+const EventModel = model("Event", eventSchema);
+export default EventModel;
