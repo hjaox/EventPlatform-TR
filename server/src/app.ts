@@ -8,18 +8,19 @@ const app = express();
 app.use(express.json());
 app.use(cors({ exposedHeaders: ["Authorization"] }));
 
-// app.use(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-//     const auth = req.headers.authorization;
-//     console.log(req.headers)
-//     if(!(typeof auth === "string")) return res.status(400).send({msg: "Bad request"});
+app.use(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const auth = req.headers.authorization;
 
-//     const token = auth && auth.split(" ")[1];
+    if(!(typeof auth === "string")) return res.status(400).send({msg: "Bad request"});
 
-//     const result = await verifyIdToken(token);
-//     if(!result) return res.status(400).send({msg: "Bad request"});
+    const token = auth && auth.split(" ")[1];
 
-//     next();
-// })
+    const result = await verifyIdToken(token);
+
+    if(!result) return res.status(400).send({msg: "Bad request"});
+
+    next();
+})
 
 app.use("/", apiRouter);
 
@@ -28,7 +29,7 @@ app.use((err: express.ErrorRequestHandler | { status: number, msg: string },
     res: express.Response,
     next: express.NextFunction) => { //custom error handler
     if (typeof err === "object" && err.msg) {
-        return res.status(400).send({ msg: err.msg });
+        return res.status(err.status).send({ msg: err.msg });
     }
     next(err);
 })

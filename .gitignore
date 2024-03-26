@@ -23,6 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# non-default valies
+# non-default values
 .env
 .env.*
+test.ts

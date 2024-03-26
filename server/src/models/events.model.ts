@@ -1,9 +1,8 @@
 import EventModel from "../mongo/models/event.model";
-import { TEvent } from "../common/types";
 
-export async function postEvent(eventDetails: TEvent) {
+export async function fetchAllEvents() {
     try {
-        return await EventModel.create(eventDetails);
+        return await EventModel.find({});
     } catch(err) {
         return Promise.reject({status: 400, msg: "Bad request"})
     }
