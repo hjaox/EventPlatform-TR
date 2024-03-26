@@ -25,10 +25,8 @@ export type TEvent = {
   title: string,
   dateStart: Date,
   dateEnd: Date,
-  location: {
-    address: string,
-    coordinates: [number, number],
-  },
+  address: string,
+  coordinates: [number, number],
   description: string,
   tag: string[],
   organizer: string,
