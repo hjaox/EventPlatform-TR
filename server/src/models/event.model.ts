@@ -1,10 +1,5 @@
 import EventModel from "../mongo/models/event.model";
 import { TEvent } from "../common/types";
-import { sanitizeFilter } from "mongoose";
-
-interface testing {
-    errors: any
-}
 
 export async function postEvent(eventDetails: TEvent) {
     try {
