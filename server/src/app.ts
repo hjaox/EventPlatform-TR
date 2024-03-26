@@ -8,19 +8,19 @@ const app = express();
 app.use(express.json());
 app.use(cors({ exposedHeaders: ["Authorization"] }));
 
-app.use(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const auth = req.headers.authorization;
+// app.use(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+//     const auth = req.headers.authorization;
 
-    if(!(typeof auth === "string")) return res.status(400).send({msg: "Bad request"});
+//     if(!(typeof auth === "string")) return res.status(400).send({msg: "Bad request"});
 
-    const token = auth && auth.split(" ")[1];
+//     const token = auth && auth.split(" ")[1];
 
-    const result = await verifyIdToken(token);
+//     const result = await verifyIdToken(token);
 
-    if(!result) return res.status(400).send({msg: "Bad request"});
+//     if(!result) return res.status(400).send({msg: "Bad request"});
 
-    next();
-})
+//     next();
+// })
 
 app.use("/", apiRouter);
 
