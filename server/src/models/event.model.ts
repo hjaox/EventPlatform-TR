@@ -47,3 +47,11 @@ export async function updateEvent(eventId: string, updateDetails: TEventUpdate) 
         return Promise.reject({status: 400, msg: "Bad Request"})
     }
 }
+
+export async function deleteEvent(eventId: string) {
+    try {
+        return await EventModel.findByIdAndDelete({_id: eventId});
+    } catch(err) {
+        return Promise.reject({status: 400, msg: "Bad Request"});
+    }
+}
