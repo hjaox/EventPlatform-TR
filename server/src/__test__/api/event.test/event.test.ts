@@ -120,5 +120,55 @@ describe("/event endpoints tests", () => {
                 .expect(400);
         });
     });
+
+    describe("PATCH /event/:eventId tests", () => {
+        test("200: returns status code 200 upon successful request", async () => {
+            const testEventId = await EventModel.findOne({}, "_id");
+            const testPatchBody = { title: "testPatch" };
+
+            await request(app)
+                .patch(`/event/${testEventId?._id}`)
+                .send(testPatchBody)
+                .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
+                .expect(200);
+        });
+        test("200: returns updated event details upon successful request", async () => {
+            const testEventId = await EventModel.findOne({}, "_id");
+            const testPatchBody = { title: "testPatch" };
+
+            const { body: { updatedEventDetails } } = await request(app)
+                .patch(`/event/${testEventId?._id}`)
+                .send(testPatchBody)
+                .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` });
+
+            const expected = await EventModel.findById({ _id: testEventId?._id });
+
+            expect(JSON.stringify(updatedEventDetails)).toBe(JSON.stringify(expected));
+        });
+        test("404: status code 404 and msg 'Not Found' if eventId does not exist", async () => {
+            const testEventId = "6603478dfbe4196732000000";
+            const testPatchBody = { title: "testPatch" };
+
+            const { body: { msg } } = await request(app)
+                .patch(`/event/${testEventId}`)
+                .send(testPatchBody)
+                .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
+                .expect(404);
+
+            expect(msg).toBe("Not Found");
+        });
+        test("400: status code 400 and msg 'Bad Request' if eventId is not a valid ObjectId", async () => {
+            const testEventId = "notAValidObjectId";
+            const testPatchBody = { title: "testPatch" };
+
+            const { body: { msg } } = await request(app)
+                .patch(`/event/${testEventId}`)
+                .send(testPatchBody)
+                .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
+                .expect(400);
+
+            expect(msg).toBe("Bad Request");
+        });
+    });
 });
 

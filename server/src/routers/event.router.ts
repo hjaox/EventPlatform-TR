@@ -4,7 +4,7 @@ import { getEvent, patchEvent, postEvent, removeEvent } from "../controllers/eve
 const eventRouter = express.Router();
 
 export default eventRouter
-    .post("/", postEvent)
     .get("/:eventId", getEvent)
+    .post("/", postEvent)
     .patch("/:eventId", patchEvent)
-    .delete("/:eventId", removeEvent)
+    .delete("/:eventId", removeEvent);

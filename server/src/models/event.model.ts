@@ -28,7 +28,7 @@ export async function findEvent(eventId: string) {
     try {
         const result = await EventModel.findById({ _id: eventId });
 
-        if(!result) return Promise.reject({status: 404, msg: "Not Found"})
+        if (!result) return Promise.reject({ status: 404, msg: "Not Found" })
 
         return result;
     } catch (err) {
@@ -38,7 +38,7 @@ export async function findEvent(eventId: string) {
 
 export async function updateEvent(eventId: string, updateDetails: TEventUpdate) {
     try {
-        return await EventModel.findByIdAndUpdate(
+        const result = await EventModel.findByIdAndUpdate(
             {
                 _id: eventId
             },
@@ -47,15 +47,19 @@ export async function updateEvent(eventId: string, updateDetails: TEventUpdate) 
                 new: true
             }
         );
-    } catch(err) {
-        return Promise.reject({status: 400, msg: "Bad Request"})
+
+        if (!result) return Promise.reject({ status: 404, msg: "Not Found" });
+
+        return result;
+    } catch (err) {
+        return Promise.reject({ status: 400, msg: "Bad Request" })
     }
 }
 
 export async function deleteEvent(eventId: string) {
     try {
-        return await EventModel.findByIdAndDelete({_id: eventId});
-    } catch(err) {
-        return Promise.reject({status: 400, msg: "Bad Request"});
+        return await EventModel.findByIdAndDelete({ _id: eventId });
+    } catch (err) {
+        return Promise.reject({ status: 400, msg: "Bad Request" });
     }
 }
