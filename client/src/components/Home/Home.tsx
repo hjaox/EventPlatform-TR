@@ -6,16 +6,7 @@ import { TEvent } from "../../common/types";
 import Header from "../subcomponents/Header/Header";
 import Footer from "../subcomponents/Footer/Footer";
 import { getAllTags } from "../../utils/axios/tags";
-
-import { GiMicrophone } from "react-icons/gi";
-import { FaList } from "react-icons/fa";
-import { MdPets } from "react-icons/md";
-import { BsFilm } from "react-icons/bs";
-import { GoBook } from "react-icons/go";
-import { TbRun } from "react-icons/tb";
-import { MdOutlineSportsSoccer } from "react-icons/md";
-import { PiPlantLight } from "react-icons/pi";
-import { GrGroup } from "react-icons/gr";
+import { getIcon, handleDate } from "../../utils/utils";
 
 export default function Home() {
     const navigation = useNavigate();
@@ -36,34 +27,11 @@ export default function Home() {
         return tagList.map((tag, i) => {
             return (
                 <li key={i} className="home-tags-list-item">
-                    <span className="home-tags-list-item-icon">{getIcon(tag)}</span>
-                    <span className="home-tags-list-item-text">{tag}</span>
+                    <span className="icon">{getIcon(tag)}</span>
+                    <span className="text">{tag}</span>
                 </li>
             )
         })
-    }
-
-    function getIcon(item: string) {
-        switch (item) {
-            case "Music":
-                return <GiMicrophone size={30} />;
-            case "Pets":
-                return <MdPets size={30} />;
-            case "Films":
-                return <BsFilm size={30} />;
-            case "Books":
-                return <GoBook size={30} />;
-            case "Outdoor":
-                return <TbRun size={30} />;
-            case "Sports":
-                return <MdOutlineSportsSoccer size={30} />;
-            case "Plants":
-                return <PiPlantLight size={30} />
-            case "Community":
-                return <GrGroup size={30} />
-            default:
-                return <FaList size={30} />;
-        }
     }
 
     function handleEventsToDisplay(eventList: TEvent[]) {
@@ -72,8 +40,8 @@ export default function Home() {
                 <li key={i} className="home-events-list-item">
                     <img className="home-events-list-item-image" src={event.images[0]} alt="pic" />
                     <div className="home-events-list-item-text">
-                        <h1 className="title">{event.title}</h1>
-                        <span className="dateStart">{event.dateStart.toString()}</span>
+                        <h1 className="title">Test</h1>
+                        <span className="dateStart">{handleDate(event.dateStart)}</span>
                         <span className="address">{event.address}</span>
                         <span className="tag">{event.tag}</span>
                         <span className="organizer">{event.organizer}</span>
@@ -118,11 +86,9 @@ export default function Home() {
                                             </div>
                                         )
                                 }
-
                             </>
                         )
                 }
-
             </section>
             <Footer />
         </section>
