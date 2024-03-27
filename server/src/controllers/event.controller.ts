@@ -5,8 +5,8 @@ export async function postEvent(req: express.Request, res: express.Response, nex
     try {
         const newEvent = await createEvent(req.body);
 
-        return res.status(201).send({newEvent});
-    } catch(err) {
+        return res.status(201).send({ newEvent });
+    } catch (err) {
         next(err)
     }
 
@@ -16,7 +16,7 @@ export async function getEvent(req: express.Request, res: express.Response, next
     try {
         const eventDetails = await findEvent(req.params.eventId);
 
-        return res.status(200).send({eventDetails});
+        return res.status(200).send({ eventDetails });
     } catch (err) {
         next(err)
     }
@@ -24,9 +24,9 @@ export async function getEvent(req: express.Request, res: express.Response, next
 
 export async function patchEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
     try {
-        const updatedEvent = await updateEvent(req.params.eventId, req.body);
+        const updatedEventDetails = await updateEvent(req.params.eventId, req.body);
 
-        return res.status(200).send({updatedEvent});
+        return res.status(200).send({ updatedEventDetails });
     } catch (err) {
         next(err)
     }
