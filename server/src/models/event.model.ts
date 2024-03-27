@@ -58,7 +58,11 @@ export async function updateEvent(eventId: string, updateDetails: TEventUpdate) 
 
 export async function deleteEvent(eventId: string) {
     try {
-        return await EventModel.findByIdAndDelete({ _id: eventId });
+        const result =  await EventModel.findByIdAndDelete({ _id: eventId });
+
+        if(!result) return Promise.reject({ status: 404, msg: "Not Found"});
+
+        return result;
     } catch (err) {
         return Promise.reject({ status: 400, msg: "Bad Request" });
     }
