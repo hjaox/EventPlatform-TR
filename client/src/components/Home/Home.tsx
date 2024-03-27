@@ -34,10 +34,14 @@ export default function Home() {
         })
     }
 
+    function navigateToEvent(eventId: string) {
+        navigation(`/Event/${eventId}`);
+    }
+
     function handleEventsToDisplay(eventList: TEvent[]) {
         return eventList.map((event, i) => {
             return (
-                <li key={i} className="home-events-list-item">
+                <li  onClick={() => navigateToEvent(event._id)} key={i} className="home-events-list-item">
                     <img className="home-events-list-item-image" src={event.images[0]} alt="pic" />
                     <div className="home-events-list-item-text">
                         <h1 className="title">Test</h1>
