@@ -1,4 +1,4 @@
-import { createEvent, findEvent } from "../models/event.model";
+import { createEvent, findEvent, updateEvent } from "../models/event.model";
 import express from "express";
 
 export async function postEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
@@ -14,9 +14,19 @@ export async function postEvent(req: express.Request, res: express.Response, nex
 
 export async function getEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
     try {
-        const event = await findEvent(req.params.eventId);
+        const eventDetails = await findEvent(req.params.eventId);
 
-        return res.status(200).send({event});
+        return res.status(200).send({eventDetails});
+    } catch (err) {
+        next(err)
+    }
+}
+
+export async function patchEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
+    try {
+        const updatedEvent = await updateEvent(req.params.eventId, req.body);
+
+        return res.status(200).send({updatedEvent});
     } catch (err) {
         next(err)
     }
