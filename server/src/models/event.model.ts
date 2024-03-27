@@ -26,7 +26,11 @@ export async function createEvent(eventDetails: TEvent) {
 
 export async function findEvent(eventId: string) {
     try {
-        return await EventModel.findById({ _id: eventId });
+        const result = await EventModel.findById({ _id: eventId });
+
+        if(!result) return Promise.reject({status: 404, msg: "Not Found"})
+
+        return result;
     } catch (err) {
         return Promise.reject({ status: 400, msg: "Bad Request" });
     }
