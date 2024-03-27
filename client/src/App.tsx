@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function App() {
   const navigation = useNavigate();
   useEffect(() => {
-    navigation("/Homepage");
+    navigation("/Home");
   }, []);
 
   return <></>
