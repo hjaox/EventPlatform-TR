@@ -9,6 +9,7 @@ import Login from './components/SignIn/components/Login/Login.tsx';
 import Register from './components/SignIn/components/Register/Register.tsx';
 import Dashboard from './components/Dashboard/Dashboard.tsx';
 import SignIn from './components/SignIn/SignIn.tsx';
+import Event from './components/EventPage/Event.tsx';
 
 const router = createBrowserRouter(
   [
@@ -35,6 +36,10 @@ const router = createBrowserRouter(
     {
       path: "/SignIn",
       element: <SignIn />
+    },
+    {
+      path: "/Event/:eventId",
+      element: <Event />
     }
   ]
 );
