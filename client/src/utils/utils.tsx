@@ -8,20 +8,14 @@ import { MdOutlineSportsSoccer } from "react-icons/md";
 import { PiPlantLight } from "react-icons/pi";
 import { GrGroup } from "react-icons/gr";
 
-export function handleDate(date: Date) {
-    const dateToConvert = new Date(date);
+export function handleDate(dateInput: Date) {
+    const dateToConvert = new Date(dateInput);
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "August", "October", "November", "December"];
     const month = months[dateToConvert.getMonth()];
-    const day = dateToConvert.getDate();
-    const hour = dateToConvert.getHours();
-    const regMinutes = dateToConvert.getMinutes();
-    const regHour = hour === 0
-        ? 12
-        : hour > 12
-            ? hour - 12
-            : hour;
+    const date = dateToConvert.getDate();
+    const time = dateToConvert.toLocaleTimeString("en-US")
 
-    return `${month} ${day} • ${regHour}:${regMinutes} ${hour > 11 ? "PM" : "AM"}`
+    return `${month} ${date} • ${time}`
 }
 
 export function getIcon(item: string) {
