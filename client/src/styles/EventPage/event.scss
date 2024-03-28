@@ -1,0 +1,18 @@
+@use "../index.scss";
+
+.event-page {
+    @include index.page-layout;
+
+    .event-display {
+        @include index.page-display;
+        background-color: green;
+
+        .image {
+            height: 30rem;
+        }
+
+        .title {
+            font-size: 3em;
+        }
+    }
+}
