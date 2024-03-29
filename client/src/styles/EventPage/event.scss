@@ -14,5 +14,10 @@
         .title {
             font-size: 3em;
         }
+
+        .time {
+            display: flex;
+            flex-direction: column;
+        }
     }
 }

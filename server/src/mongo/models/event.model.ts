@@ -24,7 +24,12 @@ const eventSchema = new Schema(
         coordinates: {
             type: [Number, Number]
         },
-        description: {
+        summary: {
+            type: String,
+            required: false,
+            default: ""
+        },
+        details: {
             type: String,
             required: false,
             default: "",
