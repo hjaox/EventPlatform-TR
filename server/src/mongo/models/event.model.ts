@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 const eventSchema = new Schema(
     {
@@ -33,6 +33,21 @@ const eventSchema = new Schema(
             type: String,
             required: false,
             default: "",
+        },
+        attendees: {
+            type: [mongoose.Schema.Types.ObjectId],
+            required: false,
+            default: []
+        },
+        price: {
+            type: Number,
+            required: false,
+            default: 0
+        },
+        openPrice: {
+            type: Boolean,
+            required: false,
+            default: false
         },
         tag: {
             type: [String],
