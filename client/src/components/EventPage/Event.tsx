@@ -5,10 +5,12 @@ import { TEvent } from "../../common/types";
 import Header from "../subcomponents/Header/Header";
 import Footer from "../subcomponents/Footer/Footer";
 import "../../styles/EventPage/event.scss";
+import Payment from "../Payment";
 
 export default function Event() {
     const { eventId } = useParams();
     const [eventDetails, setEventDetails] = useState<null | TEvent>(null);
+    const [showPayment, setShowPayment] = useState(false);
 
     useEffect(() => {
         if (eventId) {
@@ -48,6 +50,10 @@ export default function Event() {
         console.log(test.toLocaleTimeString("en-US"))
     }
 
+    function handleBuyTicket(price: number) {
+        setShowPayment(showPayment => !showPayment)
+    }
+
     return (
         <section className="event-page">
             <Header />
@@ -60,7 +66,15 @@ export default function Event() {
                     : (
                         <section className="event-display">
                             <img className="image" src={eventDetails.images[0]} alt="pic" />
-                            <h1 className="title">{eventDetails.title}</h1>
+                            <div className="event-header">
+                                <h1 className="text">{eventDetails.title}</h1>
+
+                                <div className="ticket">
+                                    <span>{eventDetails.price}</span>
+                                <button onClick={() => handleBuyTicket(eventDetails.price)}>Buy ticket</button>
+                                </div>
+
+                            </div>
                             <div className="summary">{eventDetails.summary}</div>
                             <div className="time">
                                 <h3 className="time-title">Date and Time</h3>
@@ -80,7 +94,16 @@ export default function Event() {
                             <div className="organizer">
                                 <h3>Organized by</h3>
                                 <p>{eventDetails.organizer}</p>
-                                </div>
+                            </div>
+
+                            {
+                                showPayment && (
+                                    <div className="payment-page">
+                                        <Payment />
+                                    </div>
+
+                                )
+                            }
                         </section>
                     )
             }
