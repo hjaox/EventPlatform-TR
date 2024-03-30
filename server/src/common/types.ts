@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export type TUser = {
   _id: string,
   name: string,
@@ -31,6 +33,9 @@ export type TEvent = {
   details: string,
   summary: string,
   tag: string[],
+  attendees: mongoose.Schema.Types.ObjectId[]|[],
+  price: number,
+  openPrice: boolean,
   organizer: string,
   createdAt?: string | Date,
   updatedAt?: string | Date,
