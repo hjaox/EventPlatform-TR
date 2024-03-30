@@ -1,7 +1,8 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithRedirect } from "firebase/auth"
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth"
 import app from "../../utils/firebase/fbAuth";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { useNavigate } from "react-router-dom";
+import "../../styles/Login/login.scss";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -13,29 +14,16 @@ export default function Login() {
         return signInWithPopup(auth, provider)
             .then(result => {
                 console.log(result)
-                navigate("/Dashboard")
+                navigate("/Home")
             })
             .catch(err => {
                 console.log(err, "err")
             })
     }
 
-    // return <>login
-    //     <form id="loginForm">
-
-    //         <label htmlFor="emailInput">Email</label>
-    //         <input id="emailInput" type="text" />
-
-    //         <label htmlFor="passwordInput">Password</label>
-    //         <input type="text" id="passwordInput" />
-    //     </form>
-    //     <span>or</span>
-    //     <GoogleLoginButton onClick={() => signIn()} style={{width: "fit-content"}}/>
-    // </>
-
     return (
         <section className="login-page">
-            <section>
+            <section className="form">
                 <form id="loginForm">
 
                     <label htmlFor="emailInput">Email</label>
