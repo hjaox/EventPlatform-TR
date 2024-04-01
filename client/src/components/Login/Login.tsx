@@ -1,12 +1,11 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth"
-import app from "../../utils/firebase/fbAuth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import auth from "../../utils/firebase/fbAuth";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Login/login.scss";
 
 export default function Login() {
     const navigate = useNavigate();
-    const auth = getAuth(app)
     const provider = new GoogleAuthProvider();
     provider.addScope("https://www.googleapis.com/auth/calendar");
 

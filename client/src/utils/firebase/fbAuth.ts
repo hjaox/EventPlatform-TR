@@ -1,4 +1,7 @@
 import { initializeApp } from "firebase/app";
 import fbConfig from "./fbConfig";
+import { getAuth } from "firebase/auth";
 
-export default initializeApp(fbConfig);
+const app = initializeApp(fbConfig);
+
+export default getAuth(app)

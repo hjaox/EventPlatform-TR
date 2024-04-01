@@ -20,11 +20,21 @@ export type TEvent = {
     details: string,
     summary: string,
     tag: string[],
-    attendees: string[]|[],
+    attendees: string[] | [],
     price: number,
     openPrice: boolean,
     organizer: string,
     createdAt?: string | Date,
     updatedAt?: string | Date,
     __v?: number
-  };
+};
+
+export type TReduxUser = {
+    userDetails: {
+        uid: string,
+        displayName: string,
+        email: string,
+        accessToken: string,
+    },
+    isLoggedIn: boolean
+}
