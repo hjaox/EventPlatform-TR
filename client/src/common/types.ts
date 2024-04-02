@@ -10,7 +10,7 @@ export type TUser = {
 };
 
 export type TEvent = {
-    _id: string
+    _id: string,
     title: string,
     dateStart: Date,
     dateEnd: Date,
@@ -20,8 +20,21 @@ export type TEvent = {
     details: string,
     summary: string,
     tag: string[],
+    attendees: string[] | [],
+    price: number,
+    openPrice: boolean,
     organizer: string,
-    createdAt: string | Date,
-    updatedAt: string | Date,
+    createdAt?: string | Date,
+    updatedAt?: string | Date,
     __v?: number
 };
+
+export type TReduxUser = {
+    userDetails: {
+        uid: string,
+        displayName: string,
+        email: string,
+        accessToken: string,
+    },
+    isLoggedIn: boolean
+}
