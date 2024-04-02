@@ -6,6 +6,7 @@ import customTokenRouter from "./customToken.router";
 import eventsRouter from "./events.router";
 import tagsRouter from "./tags.router";
 import { getPaymentIntent } from "../controllers/stripe.controller";
+import googleRouter from "./google.router";
 
 const apiRouter = express.Router();
 
@@ -16,4 +17,5 @@ export default apiRouter
     .use("/customToken", customTokenRouter)
     .use("/events", eventsRouter)
     .use("/tags", tagsRouter)
-    .get("/create-payment-intent/:price", getPaymentIntent);
+    .get("/create-payment-intent/:price", getPaymentIntent)
+    .use("/google", googleRouter)
