@@ -12,7 +12,6 @@ export async function loginUser(email: string, password: string) {
             accessToken: userDetails.accessToken,
         };
     } catch (err) {
-        console.log(err)
         return null
     }
 }

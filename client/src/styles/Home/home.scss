@@ -17,7 +17,7 @@
                 justify-content: space-between;
 
                 .home-tags-list-item {
-                    @include index.center-elements;
+                    @include index.center-elements-column;
                     gap: 0.5em;
 
                     .icon {
