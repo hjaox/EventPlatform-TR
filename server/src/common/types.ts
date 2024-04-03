@@ -12,7 +12,7 @@ export type TUser = {
 };
 
 export type TTestUser = {
-  _id: string,
+  _id?: string,
   password: string,
   name: string,
   email: string,

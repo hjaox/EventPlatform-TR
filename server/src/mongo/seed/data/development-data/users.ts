@@ -1,7 +1,6 @@
 export default [
     {
         name: "test User1",
-        _id: "testUser1Id",
         email: "testUser1@gmail.com",
         password: "testPass1",
     },

@@ -5,11 +5,10 @@ export async function loginUser(req: express.Request, res: express.Response, nex
     const { email, password } = req.body;
 
     try {
-        const { userDetails, userToken } = await getUserWithCredentials(email, password);
-
+        const userDetails = await getUserWithCredentials(email, password);
+        console.log(userDetails)
         return res.status(200)
-            .setHeader("Authorization", `Bearer ${userToken}`)
-            .send({ userDetails });
+            .send({userDetails});
     } catch (err) {
         next(err);
     }
