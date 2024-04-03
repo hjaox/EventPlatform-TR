@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 const userSchema = new Schema(
     {
@@ -8,7 +8,8 @@ const userSchema = new Schema(
         },
         _id: {
             type: String,
-            required: true
+            required: true,
+            default: new mongoose.Types.ObjectId()
         },
         email: {
             type: String,

@@ -32,9 +32,13 @@
 
 @mixin center-elements {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+@mixin center-elements-column {
+  @include center-elements();
+  flex-direction: column
 }
 
 @mixin page-display {

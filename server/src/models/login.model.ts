@@ -7,11 +7,10 @@ export async function getUserWithCredentials(email: string, password: string) {
     const sanitizedQuery = sanitizeFilter({ email });
 
     try {
-        const [userDetails] = await UserModel.find(sanitizedQuery);
+        const [userDetails] = await UserModel.find(sanitizedQuery, {}, {lean: true});
         const userCredentials = await singIn(auth, email, password);
         const userToken = await userCredentials.user.getIdToken();
-
-        return { userDetails, userToken };
+        return { ...userDetails, accessToken: userToken };
     } catch (err) {
         return Promise.reject({ status: 400, msg: "Incorrect email or password" })
     }
