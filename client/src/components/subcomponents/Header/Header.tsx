@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "../../../styles/subcomponents/Header/header.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { TReduxUser } from "../../../common/types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PiUserLight } from "react-icons/pi";
 import { RiArrowUpSLine } from "react-icons/ri";
 import { RiArrowDownSLine } from "react-icons/ri";
