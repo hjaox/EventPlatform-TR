@@ -6,7 +6,7 @@ export async function loginUser(req: express.Request, res: express.Response, nex
 
     try {
         const userDetails = await getUserWithCredentials(email, password);
-        console.log(userDetails)
+
         return res.status(200)
             .send({userDetails});
     } catch (err) {

@@ -1,20 +1,130 @@
 .header-component {
-    color: blue;//temp
+    color: purple;
     width: 100%;
     height: 3.5rem;
     flex-shrink: 0;
-    background-color: red; //temp
     z-index: 1;
     position: fixed;
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid gainsboro;
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    background-color: whitesmoke;
 
     .platform-name {
         .text {
             font-family: Satisfy;
-            padding-left: 1rem;
             font-weight: bold;
             font-size: xx-large;
+        }
+    }
+
+    .state {
+        display: flex;
+        gap: 1rem;
+
+        .loggedIn {
+            height: fit-content;
+            position: relative;
+
+            .settings {
+                color: purple;
+                min-width: fit-content;
+                padding: 0.5rem 1rem;
+                border: 1px solid transparent;
+                border-radius: 1rem;
+                background-color: whitesmoke;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+
+                .user-icon {
+                    border: 1px solid;
+                    border-radius: 50%;
+                    padding: 0.2rem;
+                }
+            }
+
+            .settings-expanded {
+                color: white;
+                background-color: purple;
+                font-weight: bold;
+            }
+
+            .settings:hover {
+                color: white;
+                background-color: purple;
+                font-weight: bold;
+                transition: all 0.3s ease;
+
+            }
+
+            .options {
+                position: absolute;
+                list-style: none;
+                transition: all 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                border: 1px solid whitesmoke;
+                width: 100%;
+                background-color: white;
+                height: fit-content;
+
+            }
+
+            .options--show {
+                transition: all 0.1s ease;
+                visibility: visible;
+            }
+
+            .options--hide {
+                visibility: hidden;
+                color: transparent;
+                transition: all 0.1s ease;
+            }
+
+            .options-item {
+                border: 1px solid transparent;
+                padding-left: 0.5rem;
+                height: 3rem;
+                cursor: pointer;
+                padding: 5px;
+                transition: all 0.3s ease;
+                align-content: center;
+            }
+
+            .options-item:hover {
+                background-color: whitesmoke;
+                transition: all 0.3s ease;
+            }
+        }
+
+
+        .loggedOut {
+            .login,
+            .register {
+                color: purple;
+                border: 1px solid transparent;
+                border-radius: 1rem;
+                background-color: whitesmoke;
+                cursor: pointer;
+                min-width: 6rem;
+                height: 2rem;
+                font-weight: bold;
+                transition: all 0.3s ease;
+            }
+
+            .login:hover,
+            .register:hover {
+                color: white;
+                background-color: purple;
+                font-weight: bold;
+                transition: all 0.3s ease;
+            }
         }
     }
 }
