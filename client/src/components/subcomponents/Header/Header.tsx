@@ -32,7 +32,7 @@ export default function Header() {
                     isLoggedIn
                         ? (
                             <div className="loggedIn">
-                                <button id="header-settings" onClick={() => setSettingsExpand(settingsExpand => !settingsExpand)} className={`settings ${settingsExpand ? "settings-expanded": ""}`}>
+                                <button id="header-settings" onClick={() => setSettingsExpand(settingsExpand => !settingsExpand)} className={`settings ${settingsExpand ? "settings-expanded" : ""}`}>
                                     <PiUserLight className="user-icon" size={30} />
 
                                     <span className="user-email">{userEmail}</span>
@@ -47,9 +47,8 @@ export default function Header() {
                                             )
                                     }
 
-
                                 </button>
-                                <ul id="header-options"  className={`options options--${settingsExpand ? "show" : "hide"}`}>
+                                <ul id="header-options" className={`options options--${settingsExpand ? "show" : "hide"}`}>
                                     <li className="options-item">Dashboard</li>
                                     <li className="options-item" onClick={() => signOut()} >Logout</li>
 
@@ -64,9 +63,6 @@ export default function Header() {
                             </div>
                         )
                 }
-
-
-
             </section>
         </header>
     )

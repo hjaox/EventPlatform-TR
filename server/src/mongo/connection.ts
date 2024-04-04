@@ -11,12 +11,13 @@ const db = async () => {
     if (process.env.MONGODBURL) {
         try {
             await mongoose.connect(process.env.MONGODBURL);
-            console.log("Connected to MongoDB")
+            mongoose.set({sanitizeFilter: true});
+            console.log("Connected to MongoDB");
         } catch (err) {
-            console.log("Failed to connect to MongoDB")
+            console.log("Failed to connect to MongoDB");
         }
     } else {
-        console.log("Provide URL for database connection in env file")
+        console.log("Provide URL for database connection in env file");
     }
 };
 
