@@ -10,7 +10,6 @@ import { getIcon, handleDate } from "../../utils/utils";
 
 export default function Home() {
     const navigation = useNavigate();
-    const [tagParam, setTagParam] = useState<string>("All");
     const [eventList, setEventList] = useState<null | TEvent[]>(null);
     const [tagList, setTagList] = useState<null | string[]>(null);
 
@@ -27,7 +26,7 @@ export default function Home() {
         return tagList.map((tag, i) => {
             return (
                 <li key={i} className="home-tags-list-item">
-                    <span className="icon">{getIcon(tag)}</span>
+                    <span className="icon-container">{getIcon(tag)}</span>
                     <span className="text">{tag}</span>
                 </li>
             )
