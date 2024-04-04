@@ -73,7 +73,6 @@
                 width: 100%;
                 background-color: white;
                 height: fit-content;
-
             }
 
             .options--show {
@@ -105,6 +104,9 @@
 
 
         .loggedOut {
+            display: flex;
+            gap: 0.5rem;
+
             .login,
             .register {
                 color: purple;

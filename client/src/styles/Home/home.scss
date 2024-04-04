@@ -11,32 +11,62 @@
         }
 
         .home-tags {
+            border-bottom: 1px solid gainsboro;
+            padding-bottom: 1rem;
+
             .home-tags-list {
                 margin: auto;
                 display: flex;
-                justify-content: space-between;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1rem;
 
                 .home-tags-list-item {
                     @include index.center-elements-column;
-                    gap: 0.5em;
+                    gap: 0.5rem;
+                    flex: 1;
 
-                    .icon {
+                    .icon-container {
                         @include index.center-elements;
                         border: 1px solid gainsboro;
-                        width: 6.5em;
-                        height: 6.5em;
                         border-radius: 50%;
                         transition: all 0.3s ease;
+
+                        @media only screen and (min-width: 1360px) {
+                            padding: 2rem;
+
+                            .icon {
+                                font-size: 2rem;
+                            }
+                        }
+
+                        @media only screen and (min-width: 641px) and (max-width: 1359px) {
+                            padding: 1.5rem;
+                            .icon {
+                                font-size: 1.5rem;
+                            }
+                        }
+
+                        @media only screen and (max-width: 640px) {
+                            padding: 1rem;
+                            .icon {
+                                font-size: 1rem;
+                            }
+                        }
                     }
 
                     .text {
                         transition: all 0.3s ease;
+
+                        @media only screen and (max-width: 640px) {
+                            font-size: small;
+                        }
                     }
                 }
 
                 .home-tags-list-item:hover {
 
-                    .icon {
+                    .icon-container {
                         background-color: gainsboro;
                         color: purple;
                         transition: all 0.3s ease;
@@ -54,22 +84,33 @@
             .home-events-list {
                 display: flex;
                 flex-wrap: wrap;
-                justify-content: space-between;
-                gap: 2em;
+                justify-content: space-evenly;
+                gap: 1.5rem;
                 transition: all 0.3s ease;
 
                 .home-events-list-item {
-                    width: 20em;
-                    border: 0px;
-                    border-radius: 1em;
+                    border: 1px solid transparent;
+                    border-radius: 1rem;
                     transition: all 0.3s ease;
+                    cursor: pointer;
+                    @media screen and (min-width: 721px) {
+                        width: 19rem;
+                    }
+                    @media screen and (max-width: 720px) {
+                        width: 75vw;
+                    }
 
                     .home-events-list-item-image {
                         border: 0px;
-                        border-radius: 1em;
+                        border-radius: 1rem;
                         object-fit: fill;
                         width: 100%;
-                        height: 10em;
+                        @media screen and (min-width: 721px) {
+                            height: 12rem;
+                        }
+                        @media screen and (max-width: 720px) {
+                            height: 30vh;
+                        }
                     }
 
                     .home-events-list-item-text {
@@ -87,11 +128,11 @@
                     transition: all 0.3s ease;
                 }
 
-
                 .home-events-list-item:hover {
                     opacity: 1;
                     transition: all 0.3s ease;
                     color: red;
+                    box-shadow: 10px 10px 10px gainsboro;
                 }
             }
         }

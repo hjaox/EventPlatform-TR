@@ -6,6 +6,7 @@ export async function signUp(auth: Auth, email: string, password: string) {
 
         return userCredentials;
     } catch (err) {
+        console.log(err)
         return Promise.reject("Email already exist")
     }
 
@@ -17,6 +18,7 @@ export async function singIn(auth: Auth, email: string, password: string) {
 
         return userCredentials;
     } catch (err) {
+        console.log(err)
         return Promise.reject("Sign in failed")
     }
 }
@@ -25,6 +27,7 @@ export async function getCredFromCustomToken(auth: Auth, customToken: string) {
     try{
         return await signInWithCustomToken(auth, customToken);
     } catch(err) {
+        console.log(err)
         return null
     }
 }

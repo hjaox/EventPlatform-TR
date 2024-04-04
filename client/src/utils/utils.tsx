@@ -21,22 +21,22 @@ export function handleDate(dateInput: Date) {
 export function getIcon(item: string) {
     switch (item) {
         case "Music":
-            return <GiMicrophone size={35} />;
+            return <GiMicrophone className="icon" />;
         case "Pets":
-            return <MdPets size={35} />;
+            return <MdPets className="icon" />;
         case "Films":
-            return <BsFilm size={35} />;
+            return <BsFilm className="icon" />;
         case "Books":
-            return <GoBook size={35} />;
+            return <GoBook className="icon" />;
         case "Outdoor":
-            return <TbRun size={35} />;
+            return <TbRun className="icon" />;
         case "Sports":
-            return <MdOutlineSportsSoccer size={35} />;
+            return <MdOutlineSportsSoccer className="icon" />;
         case "Plants":
-            return <PiPlantLight size={35} />
+            return <PiPlantLight className="icon" />
         case "Community":
-            return <GrGroup size={35} />
+            return <GrGroup className="icon" />
         default:
-            return <FaList size={35} />;
+            return <FaList className="icon" />;
     }
 }
