@@ -23,7 +23,7 @@ export const registerUser = async (req: express.Request, res: express.Response, 
         const newUser = await postUser(name, email, password);
 
         return res.status(201)
-            .send(newUser);
+            .send({newUser});
     } catch (err) {
         next(err)
     }
