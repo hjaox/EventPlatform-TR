@@ -12,7 +12,7 @@ export async function postUser(name: string, email: string, password: string) {
 
         const newUser = await UserModel.create({ name, email, _id: uid });
 
-        return { newUser, userToken };
+        return { ...newUser.toObject(), accessToken: userToken };
     } catch (err) {
         if (err === "Sign Up failed") return Promise.reject({ status: 400, msg: err })
         console.log("Model postUser error", err);
