@@ -48,25 +48,4 @@
   gap: 2rem;
   top: 3.5rem;
   position: relative;
-
-  @media only screen and (min-width: 1800px) {
-    padding: 2rem 15%;
-  }
-
-  @media only screen and (min-width: 1530px) and (max-width: 1799px) {
-    padding: 2rem 10%;
-  }
-
-  @media only screen and (min-width: 1025px) and (max-width: 1529px) {
-    padding: 2rem 8%;
-  }
-
-  @media only screen and (min-width: 641px) and (max-width: 1024px) {
-    padding: 2rem 5%;
-  }
-
-  @media only screen and (max-width: 640px) {
-    padding: 2rem 1rem;
-  }
-
 }

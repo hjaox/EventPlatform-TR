@@ -43,7 +43,7 @@ export default function Home() {
                 <li  onClick={() => navigateToEvent(event._id)} key={i} className="home-events-list-item">
                     <img className="home-events-list-item-image" src={event.images[0]} alt="pic" />
                     <div className="home-events-list-item-text">
-                        <h1 className="title">Test</h1>
+                        <h1 className="title">{event.title}</h1>
                         <span className="dateStart">{handleDate(event.dateStart)}</span>
                         <span className="address">{event.address}</span>
                         <span className="tag">{event.tag}</span>
