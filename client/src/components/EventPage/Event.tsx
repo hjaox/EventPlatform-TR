@@ -6,6 +6,8 @@ import Header from "../subcomponents/Header/Header";
 import Footer from "../subcomponents/Footer/Footer";
 import "../../styles/EventPage/event.scss";
 import Payment from "../Payment";
+import { FaRegCalendarCheck } from "react-icons/fa6";
+import { MagnifyingGlass } from "react-loader-spinner";
 
 export default function Event() {
     const { eventId } = useParams();
@@ -61,53 +63,67 @@ export default function Event() {
             {
                 !eventDetails
                     ? (
-                        <>loading</>
+                        <div className="loading-page">
+                            <MagnifyingGlass color="purple" />
+                            <div>Loading your event</div>
+                        </div>
                     )
                     : (
                         <section className="event-display">
-                            <img className="image" src={eventDetails.images[0]} alt="pic" />
-                            <div className="event-header">
-                                <h1 className="text">{eventDetails.title}</h1>
 
-                                <div className="ticket">
-                                    <span>{eventDetails.price}</span>
-                                <button onClick={() => handleBuyTicket(eventDetails.price)}>Buy ticket</button>
-                                </div>
-
-                            </div>
-                            <div className="summary">{eventDetails.summary}</div>
-                            <div className="time">
-                                <h3 className="time-title">Date and Time</h3>
-                                <p className="time-content">
-                                    {handleDateAndTime(eventDetails.dateStart, eventDetails.dateEnd)}
-                                </p>
-                            </div>
-                            <div className="location">
-                                <h3>Location</h3>
-                                <p>{handleLocation(eventDetails.address, eventDetails.coordinates)}</p>
-                            </div>
-                            <div className="details">
-                                <h3>About</h3>
-                                {eventDetails.details}
-                            </div>
-                            <div className="tag">{eventDetails.tag}</div>
-                            <div className="organizer">
-                                <h3>Organized by</h3>
-                                <p>{eventDetails.organizer}</p>
+                            <div className="image-container">
+                                <img className="image" src={eventDetails.images[0]} alt="pic-center" />
                             </div>
 
-                            {
-                                showPayment && (
-                                    <div className="payment-page">
-                                        <Payment />
+                            <div className="info">
+                                <div className="event-header">
+                                    <h1 className="title">{eventDetails.title}</h1>
+
+                                    <div className="ticket">
+                                        <span className="price">{`£${eventDetails.price}`}</span>
+                                        <button onClick={() => handleBuyTicket(eventDetails.price)}>Buy ticket</button>
                                     </div>
 
-                                )
-                            }
+                                </div>
+
+                                <div className="summary">{eventDetails.summary}</div>
+
+                                <div className="time">
+                                    <h2 className="time-title">Date and Time</h2>
+                                    <div className="time-content">
+                                    <FaRegCalendarCheck /> {handleDateAndTime(eventDetails.dateStart, eventDetails.dateEnd)}
+                                    </div>
+                                </div>
+
+                                <div className="location">
+                                    <h2>Location</h2>
+                                    <div>{handleLocation(eventDetails.address, eventDetails.coordinates)}</div>
+                                </div>
+
+                                <div className="details">
+                                    <h2>About</h2>
+                                    <p>{eventDetails.details}</p>
+                                </div>
+
+                                <div className="tag">{eventDetails.tag}</div>
+
+                                <div className="organizer">
+                                    <h2>Organized by</h2>
+                                    <div>{eventDetails.organizer}</div>
+                                </div>
+
+                                {
+                                    showPayment && (
+                                        <div className="payment-page">
+                                            <Payment />
+                                        </div>
+
+                                    )
+                                }
+                            </div>
                         </section>
                     )
             }
-
             <Footer />
         </section >
     )

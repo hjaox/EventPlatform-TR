@@ -3,21 +3,72 @@
 .event-page {
     @include index.page-layout;
 
+    .loading-page {
+        @include index.page-display;
+        justify-content: center;
+        color: purple
+    }
+
     .event-display {
         @include index.page-display;
-        background-color: green;
+        width: 100%;
 
-        .image {
-            height: 30rem;
+        .image-container {
+            display: flex;
+            width: 100%;
+            background-image: url("/media/image-background.jpg");
+            background-size: cover;
+            justify-content: center;
+
+            img {
+                width: 60rem;
+                height: 30rem;
+            }
         }
 
-        .title {
-            font-size: 3em;
-        }
-
-        .time {
+        .info {
             display: flex;
             flex-direction: column;
+            gap: 3rem;
+            width: 70vw;
+            margin: auto;
+
+            .event-header {
+                display: flex;
+                gap: 2rem;
+
+                .title {
+                    font-size: 3rem;
+                }
+
+                .ticket {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    border: 1px solid gainsboro;
+                    border-radius: 1rem;
+                    min-width: 15rem;
+                    height: fit-content;
+                    padding: 0.5rem;
+                    align-items: center;
+
+                    .price {
+                        font-weight: bold;
+                    }
+
+                    button {
+                        width: 90%;
+                        border: 1px solid gainsboro;
+                        border-radius: 0.5rem;
+                        height: 2rem;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .summary {
+                font-weight: bold;
+            }
         }
     }
 }
