@@ -6,7 +6,7 @@
     .loading-page {
         @include index.page-display;
         justify-content: center;
-        color: purple
+        color: purple;
     }
 
     .event-display {
@@ -70,5 +70,36 @@
                 font-weight: bold;
             }
         }
+    }
+
+    .payment-page {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+
+        .payment-container {
+            position: relative;
+
+            .close-payment {
+                cursor: pointer;
+                position: absolute;
+                right: 0.3rem;
+                top: 0.3rem;
+                font-size: 1.5rem;
+            }
+        }
+    }
+
+    .show-payment {
+        visibility: visible;
+        backdrop-filter: blur(10px) brightness(50%);
+    }
+
+    .hide-payment {
+        visibility: hidden;
     }
 }

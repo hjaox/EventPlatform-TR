@@ -5,14 +5,17 @@ import { TEvent } from "../../common/types";
 import Header from "../subcomponents/Header/Header";
 import Footer from "../subcomponents/Footer/Footer";
 import "../../styles/EventPage/event.scss";
-import Payment from "../Payment";
+import Payment from "./components/Payment";
 import { FaRegCalendarCheck } from "react-icons/fa6";
 import { MagnifyingGlass } from "react-loader-spinner";
+import { SlClose } from "react-icons/sl";
+import Basket from "./components/Basket";
 
 export default function Event() {
     const { eventId } = useParams();
     const [eventDetails, setEventDetails] = useState<null | TEvent>(null);
     const [showPayment, setShowPayment] = useState(false);
+    const [showError, setShowError] = useState(false);
 
     useEffect(() => {
         if (eventId) {
@@ -20,8 +23,9 @@ export default function Event() {
                 const result = await getEvent(eventId);
                 setEventDetails(() => ({ ...result }));
             })();
+        } else {
+            setShowError(true);
         }
-
     }, []);
 
     function handleDateAndTime(dateStart: Date, dateEnd: Date) {
@@ -43,18 +47,12 @@ export default function Event() {
     function handleLocation(address: string, coords: number[]) {
         return <>{address}</>
     }
-    if (eventDetails) {
-        console.log(new Date(eventDetails.dateStart).toDateString().toString())
-        console.log(eventDetails.dateStart)
-        const test = (new Date(eventDetails.dateStart))
-        console.log(test.getDay())
-        test.setTime(test.getTime() + 100000000)
-        console.log(test.toLocaleTimeString("en-US"))
-    }
 
     function handleBuyTicket(price: number) {
         setShowPayment(showPayment => !showPayment)
     }
+
+    if (showError) return <>Incorrect Event Id</>
 
     return (
         <section className="event-page">
@@ -65,7 +63,7 @@ export default function Event() {
                     ? (
                         <div className="loading-page">
                             <MagnifyingGlass color="purple" />
-                            <div>Loading your event</div>
+                            <div>Loading event</div>
                         </div>
                     )
                     : (
@@ -91,7 +89,7 @@ export default function Event() {
                                 <div className="time">
                                     <h2 className="time-title">Date and Time</h2>
                                     <div className="time-content">
-                                    <FaRegCalendarCheck /> {handleDateAndTime(eventDetails.dateStart, eventDetails.dateEnd)}
+                                        <FaRegCalendarCheck /> {handleDateAndTime(eventDetails.dateStart, eventDetails.dateEnd)}
                                     </div>
                                 </div>
 
@@ -111,18 +109,20 @@ export default function Event() {
                                     <h2>Organized by</h2>
                                     <div>{eventDetails.organizer}</div>
                                 </div>
-
-                                {
-                                    showPayment && (
-                                        <div className="payment-page">
-                                            <Payment />
-                                        </div>
-
-                                    )
-                                }
                             </div>
                         </section>
                     )
+            }
+
+            {
+                eventDetails && (
+                    <div className={`payment-page ${showPayment ? "show" : "hide"}-payment`}>
+                        <div className="payment-container">
+                            <SlClose className="close-payment" onClick={() => setShowPayment(() => false)} />
+                            <Basket eventDetails={eventDetails} />
+                        </div>
+                    </div>
+                )
             }
             <Footer />
         </section >
