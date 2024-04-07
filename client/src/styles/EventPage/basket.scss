@@ -6,86 +6,118 @@
     border-radius: 1rem;
     align-items: center;
 
-    .title {
-        border-bottom: 1px solid gainsboro;
-        padding-bottom: 1rem;
-    }
-
-    .ticket-form {
-        display: flex;
-        justify-content: space-between;
-        height: fit-content;
-        align-items: center;
-        padding: 2rem;
-        width: 100%;
-
-        .price {
-            font-weight: bold;
-        }
-
-        .quantity-select {
+    .basket-payment {
+        .back {
             display: flex;
-            gap: 1rem;
+            border: 1px solid gainsboro;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+            gap: 0.5rem;
             align-items: center;
+            cursor: pointer;
 
-            .quantity {
-                width: 2rem;
-                text-align: center;
+            .back-icon {
+                font-size: 1.5rem;
+            }
+        }
+
+        .back:hover {
+            background-color: purple;
+            color: white;
+            transition: all 0.3s ease;
+        }
+    }
+
+    .basket-ticket {
+        .title {
+            border-bottom: 1px solid gainsboro;
+            padding-bottom: 1rem;
+        }
+
+        .ticket-form {
+            display: flex;
+            justify-content: space-between;
+            height: fit-content;
+            align-items: center;
+            padding: 2rem;
+            width: 100%;
+
+            .price {
+                font-weight: bold;
             }
 
-
-            .add-container, .subtract-container {
+            .quantity-select {
                 display: flex;
+                gap: 1rem;
                 align-items: center;
-                padding: 0.5rem;
-                border-radius: 0.5rem;
-            }
 
-            .enabled {
-                background-color: green;
-                color: white;
-                cursor: pointer;
-            }
+                .quantity {
+                    width: 2rem;
+                    text-align: center;
+                }
 
-            .disabled {
-                background-color: gainsboro;
-                color: gray;
-                cursor: not-allowed;
+                .add-container,
+                .subtract-container {
+                    display: flex;
+                    align-items: center;
+                    padding: 0.5rem;
+                    border-radius: 0.5rem;
+                }
+
+                .enabled {
+                    background-color: green;
+                    color: white;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease color 0.3s ease;
+                }
+
+                .enabled:hover {
+                    background-color: rgb(0, 89, 0);
+                    transition: all 0.3s ease;
+                }
+
+                .disabled {
+                    background-color: gainsboro;
+                    color: gray;
+                    cursor: not-allowed;
+                    transition: all 0.3s ease;
+                }
             }
         }
-    }
 
-    .price-total-container {
-        display: flex;
-        gap: 2rem;
-        width: 100%;
-        justify-content: right;
-        padding-right: 4rem;
+        .price-total-container {
+            display: flex;
+            gap: 2rem;
+            width: 100%;
+            justify-content: right;
+            padding-right: 4rem;
 
-        .label, .price-total {
-            font-weight: bold;
-            font-size: 1.5rem;
+            .label,
+            .price-total {
+                font-weight: bold;
+                font-size: 1.5rem;
+            }
+
+            .price-total {
+                min-width: 5.5rem;
+            }
         }
 
-        .price-total {
-            min-width: 5.5rem;
+        .checkout {
+            width: 50%;
+            height: 2rem;
+            border: 1px solid gainsboro;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: background-color 0.3s ease color 0.3s ease;
+        }
+
+        .checkout:hover {
+            background-color: purple;
+            color: white;
+            transition: all 0.3s ease;
         }
     }
-
-    .checkout {
-        width: 50%;
-        height: 2rem;
-        border: 1px solid gainsboro;
-        border-radius: 0.5rem;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        margin-top: 2rem;
-    }
-
-    .checkout:hover {
-        background-color: purple;
-        color: white;
-        transition: all 0.3s ease;
-    }
-
 }

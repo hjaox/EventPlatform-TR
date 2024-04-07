@@ -13,8 +13,6 @@ import Login from './components/Login/Login.tsx';
 import Register from './components/Register/Register.tsx';
 import Dashboard from './components/Dashboard/Dashboard.tsx';
 import Event from './components/EventPage/Event.tsx';
-import Payment from './components/Payment.tsx';
-import Completion from './components/Completion.tsx';
 
 const router = createBrowserRouter(
   [
@@ -42,14 +40,10 @@ const router = createBrowserRouter(
       path: "/Event/:eventId",
       element: <Event />
     },
-    {
-      path: "/Payment",
-      element: <Payment />
-    },
-    {
-      path: "/Completion",
-      element: <Completion />
-    }
+    // {
+    //   path: "/Completion/:eventId",
+    //   element: <Completion />
+    // }
   ]
 );
 
