@@ -87,4 +87,94 @@
             height: fit-content;
         }
     }
+
+    .redirect {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(10px) brightness(50%);
+        display: flex;
+        @include index.center-elements;
+        transition: all 0.3s ease;
+
+        .message {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: relative;
+
+            p {
+                border-bottom: 1px solid gainsboro;
+                padding-bottom: 1rem;
+            }
+
+            .navigation {
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+
+                .register,
+                .home {
+                    width: 5rem;
+                    padding: 0.5rem;
+                    border: 1px solid gainsboro;
+                    border-radius: 0.5rem;
+                    // transition: backgroud-color 0.3s ease;
+                    transition: background-color 0.3s ease color 0.3s ease;
+                }
+
+                .register:hover,
+                .home:hover {
+                    color: white;
+                    background-color: purple;
+                    cursor: pointer;
+                }
+            }
+
+            .close-redirect {
+                cursor: pointer;
+                position: absolute;
+                right: 0.5rem;
+                top: 0.5rem;
+                font-size: 1.5rem;
+                transition: background-color 0.3s ease color 0.3s ease;
+                border-radius: 50%;
+                border: 1px solid transparent;
+            }
+
+            .close-redirect:hover {
+                background-color: purple;
+                color: white;
+                transition: background-color 0.3s ease color 0.3s ease;
+            }
+        }
+    }
+
+    .show-redirect {
+        visibility: visible;
+    }
+
+    .hide-redirect {
+        visibility: hidden;
+    }
 }
+
+// .close-payment {
+//     cursor: pointer;
+//     position: absolute;
+//     right: 0.3rem;
+//     top: 0.3rem;
+//     font-size: 1.5rem;
+//     transition: all 0.3s ease;
+//     border-radius: 50%;
+//     border: 1px solid transparent;
+// }
+
+// .close-payment:hover {
+//     background-color: purple;
+//     color: white;
+//     transition: all 0.3s ease;
+// }

@@ -15,3 +15,14 @@ export async function loginUser(email: string, password: string) {
         return null
     }
 }
+
+export async function checkEmailIfExist(email: string) {
+    try {
+        const { data: {userDetails} } = await instance
+        .get(`/user/${email}`)
+
+        return userDetails
+    } catch(err) {
+        return "";
+    }
+}
