@@ -92,7 +92,7 @@ export default function Login() {
 
                     <div className="form-password">
                         <label htmlFor="passwordInput">Password: </label>
-                        <input type="text" id="passwordInput" onChange={handlePasswordInput} />
+                        <input type="password" id="passwordInput" onChange={handlePasswordInput} />
                     </div>
 
                     <button className="submit-button" type="submit" form="login-form" value="Submit">Continue</button>
@@ -117,7 +117,7 @@ export default function Login() {
 
                         </div>
 
-                        <IoMdClose className="close-redirect" onClick={() => setRedirect(false)}/>
+                        <IoMdClose className="close-redirect" onClick={() => setRedirect(false)} />
                     </div>
                 </div>
             }
