@@ -1,10 +1,12 @@
+import { handleMongoDBError } from "../utils/utils";
 import UserModel from "../mongo/models/user.model";
 import auth from "../utils/firebase/fbAuth";
 import { signUp, singIn } from "../utils/firebase/fbFunctions";
+import { TMongoError } from "../common/types";
 
 export async function postUser(name: string, email: string, password: string) {
     try {
-        if(await checEmailIfExists(email)) return Promise.reject({status: 400, msg: "Email already exist"})
+        if (await checEmailIfExists(email)) return Promise.reject({ status: 400, msg: "Email already exist" })
 
         const userCredentials = await signUp(auth, email, password);
         const userToken = await userCredentials.user.getIdToken();
@@ -21,7 +23,7 @@ export async function postUser(name: string, email: string, password: string) {
 
 async function checEmailIfExists(email: string) {
     try {
-        const check = await UserModel.find({email});
+        const check = await UserModel.find({ email });
 
         return !!check.length
     } catch (err) {
@@ -31,7 +33,7 @@ async function checEmailIfExists(email: string) {
 
 export async function getUserWithCredentials(email: string, password: string) {
     try {
-        const [userDetails] = await UserModel.find({ email }, {}, {lean: true});
+        const [userDetails] = await UserModel.find({ email }, {}, { lean: true });
         const userCredentials = await singIn(auth, email, password);
         const userToken = await userCredentials.user.getIdToken();
 
@@ -43,15 +45,21 @@ export async function getUserWithCredentials(email: string, password: string) {
 
 export async function createUser(name: string, email: string) {
     try {
-        if(await checEmailIfExists(email)) return Promise.reject({status: 400, msg: "Email already exist"})
+        const newUser = await UserModel.create({ name, email });
 
-        const newUser = await UserModel.create({name, email});
+        return newUser;
+    } catch (err) {
 
-        if(Object.values(newUser).length) return true;
+        return Promise.reject(handleMongoDBError(err as TMongoError));
+    }
+}
 
-        return false;
-    } catch(err) {
-        console.log(err)
-        return Promise.reject({status: 400, msg: "Something went wrong"});
+export async function findUser(email: string) {
+    try {
+        const userDetails = await UserModel.find({ email });
+
+        return userDetails;
+    } catch (err) {
+        return Promise.reject(handleMongoDBError(err as TMongoError));
     }
 }

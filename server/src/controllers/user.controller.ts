@@ -1,5 +1,5 @@
 import express from "express";
-import { getUserWithCredentials, postUser, createUser } from "../models/user.model";
+import { getUserWithCredentials, postUser, createUser, findUser } from "../models/user.model";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import auth from "../utils/firebase/fbAuth";
 
@@ -50,10 +50,22 @@ export async function insertUser(req: express.Request, res: express.Response, ne
     try {
         const { name, email } = req.body;
 
-        const status = await createUser(name, email);
+        const newUser = await createUser(name, email);
 
-        if(status) return res.status(200).send();
-        return res.status(400).send()
+        return res.status(201).send(newUser);
+    } catch(err) {
+        console.log("controller", err)
+        next(err)
+    }
+}
+
+export async function getUser(req: express.Request, res: express.Response, next: express.NextFunction) {
+    try {
+        const { email} = req.params;
+
+        const userDetails = await findUser(email);
+
+        return res.status(200).send(userDetails);
     } catch(err) {
         next(err)
     }
