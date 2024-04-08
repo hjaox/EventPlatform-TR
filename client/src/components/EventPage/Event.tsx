@@ -1,21 +1,23 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getEvent } from "../../utils/axios/event";
 import { TEvent } from "../../common/types";
 import Header from "../subcomponents/Header/Header";
 import Footer from "../subcomponents/Footer/Footer";
 import "../../styles/EventPage/event.scss";
-import Payment from "./components/Payment";
 import { FaRegCalendarCheck } from "react-icons/fa6";
 import { MagnifyingGlass } from "react-loader-spinner";
-import { SlClose } from "react-icons/sl";
 import Basket from "./components/Basket";
+import { IoMdClose } from "react-icons/io";
 
 export default function Event() {
     const { eventId } = useParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const [eventDetails, setEventDetails] = useState<null | TEvent>(null);
     const [showPayment, setShowPayment] = useState(false);
     const [showError, setShowError] = useState(false);
+    const [purchaseDetails, setPurchaseDetails] = useState<null | { quantity: number, price: number }>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (eventId) {
@@ -26,6 +28,15 @@ export default function Event() {
         } else {
             setShowError(true);
         }
+
+        const quantity = Number(searchParams.get("quantity"));
+        const price = Number(searchParams.get("price"));
+
+        if (quantity && price) {
+            setPurchaseDetails(() => ({ quantity, price }));
+            setSearchParams({});
+        }
+
     }, []);
 
     function handleDateAndTime(dateStart: Date, dateEnd: Date) {
@@ -39,17 +50,7 @@ export default function Event() {
         const startTime = start.toLocaleTimeString("en-US");
         const endTime = end.toLocaleTimeString("en-US");
 
-        return <>
-            {`${day}, ${month} ${date} • ${startTime} - ${endTime}`}
-        </>
-    }
-
-    function handleLocation(address: string, coords: number[]) {
-        return <>{address}</>
-    }
-
-    function handleBuyTicket(price: number) {
-        setShowPayment(showPayment => !showPayment)
+        return `${day}, ${month} ${date} • ${startTime} - ${endTime}`;
     }
 
     if (showError) return <>Incorrect Event Id</>
@@ -79,7 +80,7 @@ export default function Event() {
 
                                     <div className="ticket">
                                         <span className="price">{`£${eventDetails.price}`}</span>
-                                        <button onClick={() => handleBuyTicket(eventDetails.price)}>Buy ticket</button>
+                                        <button onClick={() => setShowPayment(showPayment => !showPayment)}>Buy ticket</button>
                                     </div>
 
                                 </div>
@@ -95,7 +96,7 @@ export default function Event() {
 
                                 <div className="location">
                                     <h2>Location</h2>
-                                    <div>{handleLocation(eventDetails.address, eventDetails.coordinates)}</div>
+                                    <div>eventDetails.address</div>
                                 </div>
 
                                 <div className="details">
@@ -118,8 +119,42 @@ export default function Event() {
                 eventDetails && (
                     <div className={`payment-page ${showPayment ? "show" : "hide"}-payment`}>
                         <div className="payment-container">
-                            <SlClose className="close-payment" onClick={() => setShowPayment(() => false)} />
+                            <IoMdClose className="close-payment" onClick={() => setShowPayment(() => false)} />
                             <Basket eventDetails={eventDetails} />
+                        </div>
+                    </div>
+                )
+            }
+
+            {
+                eventDetails && purchaseDetails && (
+                    <div className={`purchaseDetails-container ${purchaseDetails ? "show" : "hide"}-purchase`}>
+
+
+                        <div className="purchase-details">
+                            <h1 className="title">{eventDetails.title}</h1>
+
+                            <p className="purchase-message">🎉 You have secured your ticket/s. Thank you for your order 🎉</p>
+
+                            <div className="ticket">
+                                <div className="quantity">
+                                    <h2 className="label">Qty</h2>
+                                    1 x {purchaseDetails.quantity}
+                                </div>
+
+                                <div className="totalPrice">
+                                    <h2 className="label"> Total</h2>
+                                    £ {purchaseDetails.price * purchaseDetails.quantity}
+                                </div>
+                            </div>
+
+                            <IoMdClose className="close-purchase" onClick={() => setPurchaseDetails(null)} />
+
+                            <div className="navigation">
+                                <button className="back" onClick={() => setPurchaseDetails(null)}>Go back</button>
+
+                                <button className="home" onClick={() => navigate("/Home")}>Go Home</button>
+                            </div>
                         </div>
                     </div>
                 )

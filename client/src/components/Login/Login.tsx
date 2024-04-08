@@ -6,7 +6,8 @@ import "../../styles/Login/login.scss";
 import { useDispatch } from "react-redux";
 import { actions } from "../../utils/redux/reducers";
 import { useState } from "react";
-import { loginUser } from "../../utils/axios/login";
+import { checkEmailIfExist, loginUser } from "../../utils/axios/user";
+import { IoMdClose } from "react-icons/io";
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -14,21 +15,37 @@ export default function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [displayError, setDisplayError] = useState(false);
+    const [fbLoginError, setFBLoginError] = useState(false);
+    const [redirect, setRedirect] = useState(false);
 
     async function signInWithGoogle() {
-        const provider = new GoogleAuthProvider();
+        try {
+            const provider = new GoogleAuthProvider();
 
-        const { user } = await signInWithPopup(auth, provider);
-        const userDetails = {
-            uid: user.uid,
-            displayName: user.displayName,
-            email: user.email,
-            accessToken: await user.getIdToken()
-        };
+            const { user } = await signInWithPopup(auth, provider);
+            const userDetails = {
+                uid: user.uid,
+                displayName: user.displayName,
+                email: user.email,
+                accessToken: await user.getIdToken()
+            };
 
-        dispatch(actions.login(userDetails))
-        navigate("/Home")
+            if (user.email) {
+                const registered = await checkEmailIfExist(user.email);
+
+                if (!registered) {
+                    setRedirect(true);
+                } else {
+                    dispatch(actions.login(userDetails))
+                    navigate("/Home")
+                }
+            }
+
+
+        } catch (err) {
+            console.log(err)
+        }
+
     }
 
     async function signInWithFirebase(e: React.FormEvent, email: string, password: string) {
@@ -40,30 +57,30 @@ export default function Login() {
             navigate("/Home")
         }
 
-        setDisplayError(() => true);
+        setFBLoginError(() => true);
     }
 
     function handleEmailInput(e: React.ChangeEvent<HTMLInputElement>) {
-        setDisplayError(() => false);
+        setFBLoginError(() => false);
         setEmail(e.target.value);
     }
     function handlePasswordInput(e: React.ChangeEvent<HTMLInputElement>) {
-        setDisplayError(() => false);
+        setFBLoginError(() => false);
         setPassword(e.target.value);
     }
 
     return (
         <section className="login-page">
 
-            <section className="form">
+            <div className="form">
                 <div className="form-header">
                     <h1>Our Community</h1>
                     <span className="header-text">Login</span>
-                    <div className={`error ${displayError ? "show" : "hide"}`}>
-                    <span>
-                        Incorrect email or password
-                    </span>
-                </div>
+                    <div className={`error ${fbLoginError ? "show" : "hide"}`}>
+                        <span>
+                            Incorrect email or password
+                        </span>
+                    </div>
                 </div>
 
 
@@ -87,7 +104,23 @@ export default function Login() {
                     <div className="line"></div>
                 </span>
                 <GoogleLoginButton className="google-login" onClick={() => signInWithGoogle()} style={{ width: "fit-content" }} />
-            </section>
+            </div>
+
+            {
+                <div className={`redirect ${redirect ? "show" : "hide"}-redirect`} >
+                    <div className="message">
+                        <p>Email is not a registered user. Please register first.</p>
+
+                        <div className="navigation">
+                            <button className="register" onClick={() => navigate("/Register")}>Register</button>
+                            <button className="home" onClick={() => navigate("/Home")}>Home</button>
+
+                        </div>
+
+                        <IoMdClose className="close-redirect" onClick={() => setRedirect(false)}/>
+                    </div>
+                </div>
+            }
         </section>
     )
 }

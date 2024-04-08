@@ -1,0 +1,98 @@
+@use "../index.scss";
+
+.register-page {
+    @include index.center-elements;
+    background-image: url("/media//register.jpg");
+    background-size: cover;
+    height: 100vh;
+
+    .form {
+        display: flex;
+        align-items: center;
+        width: 20rem;
+        background-color: white;
+        border-radius: 1rem;
+        padding: 1rem;
+        flex-direction: column;
+
+        .form-header {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: fit-content;
+            align-items: center;
+
+            h1 {
+                font-family: Satisfy;
+                font-size: 2.5rem;
+                margin: auto;
+                color: purple;
+            }
+
+            .header-text {
+                font-weight: bold;
+            }
+
+            .error {
+                color: red;
+            }
+
+            .show {
+                visibility: visible;
+            }
+
+            .hide {
+                visibility: hidden;
+            }
+        }
+
+        #register-form {
+            @include index.center-elements-column;
+            width: 80%;
+            gap: 1rem;
+
+            .form-email,
+            .form-password {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .submit-button {
+                width: 50%;
+                border: 1px solid gainsboro;
+                border-radius: 0.5rem;
+                padding: 0.3rem 1rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .submit-button:hover {
+                background-color: purple;
+                border: 1px solid purple;
+                color: white;
+                transition: all 0.3s ease;
+                box-shadow: 10px 5px 10px rgb(97, 0, 97);
+            }
+        }
+
+        .form-divider {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            padding: 1rem 0;
+
+            .text {
+                padding: 0px 1rem;
+            }
+
+            .line {
+                content: "";
+                border: solid black;
+                border-width: 1px 0 0 0;
+                width: 100%;
+                height: fit-content;
+            }
+        }
+    }
+}

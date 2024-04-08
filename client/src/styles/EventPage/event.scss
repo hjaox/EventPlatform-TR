@@ -36,6 +36,7 @@
             .event-header {
                 display: flex;
                 gap: 2rem;
+                position: relative;
 
                 .title {
                     font-size: 3rem;
@@ -44,7 +45,7 @@
                 .ticket {
                     display: flex;
                     flex-direction: column;
-                    gap: 0.5rem;
+                    gap: 1rem;
                     border: 1px solid gainsboro;
                     border-radius: 1rem;
                     min-width: 15rem;
@@ -90,6 +91,15 @@
                 right: 0.3rem;
                 top: 0.3rem;
                 font-size: 1.5rem;
+                transition: all 0.3s ease;
+                border-radius: 50%;
+                border: 1px solid transparent;
+            }
+
+            .close-payment:hover {
+                background-color: purple;
+                color: white;
+                transition: all 0.3s ease;
             }
         }
     }
@@ -97,9 +107,82 @@
     .show-payment {
         visibility: visible;
         backdrop-filter: blur(10px) brightness(50%);
+        transition: all 0.3s ease;
     }
 
     .hide-payment {
         visibility: hidden;
+    }
+
+    .purchaseDetails-container {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(10px) brightness(50%);
+
+        .purchase-details {
+            position: relative;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            .title,
+            .purchase-message {
+                margin: auto;
+            }
+        }
+
+        .ticket {
+            display: flex;
+            gap: 20%;
+            justify-content: center;
+        }
+
+        .close-purchase {
+            cursor: pointer;
+            position: absolute;
+            right: 0.3rem;
+            top: 0.3rem;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            border: 1px solid transparent;
+        }
+
+        .close-purchase:hover {
+            background-color: purple;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+
+            .back,
+            .home {
+                width: 20%;
+                border: 1px solid gainsboro;
+                border-radius: 0.5rem;
+                height: 2rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .back:hover,
+            .home:hover {
+                background-color: purple;
+                color: white;
+                transition: all 0.3s ease;
+            }
+        }
     }
 }

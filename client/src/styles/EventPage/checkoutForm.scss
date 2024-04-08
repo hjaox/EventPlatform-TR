@@ -7,5 +7,14 @@
         width: 50%;
         height: 2rem;
         align-self: center;
+        border-radius: 0.5rem;
+        border: 1px solid gainsboro;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    #submit:hover {
+        background-color: purple;
+        color: white;
     }
 }

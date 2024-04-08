@@ -1,0 +1,39 @@
+import instance from "./instance";
+
+export async function loginUser(email: string, password: string) {
+    try {
+        const { data: { userDetails } } = await instance
+            .post("/login", { email, password })
+
+        return {
+            uid: userDetails._id,
+            displayName: userDetails.name,
+            email: userDetails.email,
+            accessToken: userDetails.accessToken,
+        };
+    } catch (err) {
+        return null
+    }
+}
+
+export async function checkEmailIfExist(email: string) {
+    try {
+        const { data: {userDetails} } = await instance
+        .get(`/user/${email}`)
+
+        return userDetails
+    } catch(err) {
+        return null;
+    }
+}
+
+export async function regsiterUser(fullName:string, email: string, password: string) {
+    try{
+        const { data: {newUser} } = await instance
+        .post(`/register`, {fullName, email, password});
+
+        return newUser;
+    } catch(err) {
+        return null;
+    }
+}
