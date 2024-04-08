@@ -27,13 +27,18 @@ export async function checkEmailIfExist(email: string) {
     }
 }
 
-export async function regsiterUser(name:string, email: string, password: string) {
+export async function registerUser(name:string, email: string, password: string) {
     try{
         const { data: {newUser} } = await instance
         .post(`/user/register`, {name, email, password});
 
         return newUser;
     } catch(err) {
+        console.log(err)
         return null;
     }
+}
+
+export async function postUser(name: string, email: string) {
+
 }

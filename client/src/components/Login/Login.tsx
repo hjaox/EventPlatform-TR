@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"
 import auth from "../../utils/firebase/fbAuth";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { useNavigate } from "react-router-dom";
@@ -34,6 +34,7 @@ export default function Login() {
                 const registered = await checkEmailIfExist(user.email);
 
                 if (!registered) {
+                    await signOut(auth)
                     setRedirect(true);
                 } else {
                     dispatch(actions.login(userDetails))

@@ -1,9 +1,17 @@
 import { useState } from "react";
 import "../../styles/Register/register.scss";
 import { GoogleLoginButton } from "react-social-login-buttons";
-import { regsiterUser } from "../../utils/axios/user";
+import { checkEmailIfExist, registerUser, postUser } from "../../utils/axios/user";
+import { useDispatch } from "react-redux";
+import { actions } from "../../utils/redux/reducers";
+import { useNavigate } from "react-router-dom";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import auth from "../../utils/firebase/fbAuth";
 
 export default function Register() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
@@ -20,17 +28,49 @@ export default function Register() {
         setPassword(e.target.value);
     }
 
-    function signInWithGoogle() {
+    async function signInWithGoogle() {
+        try {
+            const provider = new GoogleAuthProvider();
 
+            const { user } = await signInWithPopup(auth, provider);
+            const userDetails = {
+                uid: user.uid,
+                displayName: user.displayName,
+                email: user.email,
+                accessToken: await user.getIdToken()
+            };
+
+            if (user.email && user.displayName) {
+                const registered = await checkEmailIfExist(user.email);
+
+                if (!registered) {
+                    postUser(user.displayName, user.email)
+                } else {
+                    dispatch(actions.login(userDetails))
+                    navigate("/Home")
+                }
+            }
+
+
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     async function handleSubmit(name: string, email: string, password: string) {
         try {
-            const newUser = await regsiterUser(name, email, password);
+            const newUser = await registerUser(name, email, password);
+            const userDetails = {
+                uid: newUser._id,
+                displayName: newUser.name,
+                email: newUser.email,
+                accessToken: newUser.accessToken
+            };
 
-            console.log(newUser)
+            dispatch(actions.login(userDetails));
+            navigate("/Home");
         } catch (err) {
-
+            setFBRegisterError(true);
         }
     }
 
