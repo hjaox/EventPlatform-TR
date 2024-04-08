@@ -72,7 +72,7 @@ export default function Login() {
     return (
         <section className="login-page">
 
-            <section className="form">
+            <div className="form">
                 <div className="form-header">
                     <h1>Our Community</h1>
                     <span className="header-text">Login</span>
@@ -104,7 +104,7 @@ export default function Login() {
                     <div className="line"></div>
                 </span>
                 <GoogleLoginButton className="google-login" onClick={() => signInWithGoogle()} style={{ width: "fit-content" }} />
-            </section>
+            </div>
 
             {
                 <div className={`redirect ${redirect ? "show" : "hide"}-redirect`} >
