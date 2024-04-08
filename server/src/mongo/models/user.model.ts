@@ -6,11 +6,6 @@ const userSchema = new Schema(
             type: String,
             required: true
         },
-        _id: {
-            type: String,
-            required: true,
-            default: new mongoose.Types.ObjectId()
-        },
         email: {
             type: String,
             required: true
@@ -23,7 +18,6 @@ const userSchema = new Schema(
         },
     },
     {
-        _id: false,
         timestamps: true
     },
 );

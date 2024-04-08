@@ -8,9 +8,8 @@ export async function postUser(name: string, email: string, password: string) {
 
         const userCredentials = await signUp(auth, email, password);
         const userToken = await userCredentials.user.getIdToken();
-        const uid = userCredentials.user.uid;
 
-        const newUser = await UserModel.create({ name, email, _id: uid });
+        const newUser = await UserModel.create({ name, email });
 
         return { ...newUser.toObject(), accessToken: userToken };
     } catch (err) {
@@ -35,8 +34,24 @@ export async function getUserWithCredentials(email: string, password: string) {
         const [userDetails] = await UserModel.find({ email }, {}, {lean: true});
         const userCredentials = await singIn(auth, email, password);
         const userToken = await userCredentials.user.getIdToken();
+
         return { ...userDetails, accessToken: userToken };
     } catch (err) {
         return Promise.reject({ status: 400, msg: "Incorrect email or password" })
+    }
+}
+
+export async function createUser(name: string, email: string) {
+    try {
+        if(await checEmailIfExists(email)) return Promise.reject({status: 400, msg: "Email already exist"})
+
+        const newUser = await UserModel.create({name, email});
+
+        if(Object.values(newUser).length) return true;
+
+        return false;
+    } catch(err) {
+        console.log(err)
+        return Promise.reject({status: 400, msg: "Something went wrong"});
     }
 }

@@ -1,5 +1,5 @@
 import express from "express";
-import { getUserWithCredentials, postUser } from "../models/user.model";
+import { getUserWithCredentials, postUser, createUser } from "../models/user.model";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import auth from "../utils/firebase/fbAuth";
 
@@ -44,4 +44,17 @@ export async function signOutUser(req: express.Request, res: express.Response, n
         next({status: 400, msg: "Something went wrong"})
     }
 
+}
+
+export async function insertUser(req: express.Request, res: express.Response, next: express.NextFunction) {
+    try {
+        const { name, email } = req.body;
+
+        const status = await createUser(name, email);
+
+        if(status) return res.status(200).send();
+        return res.status(400).send()
+    } catch(err) {
+        next(err)
+    }
 }
