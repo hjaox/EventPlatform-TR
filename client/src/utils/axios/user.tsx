@@ -23,6 +23,17 @@ export async function checkEmailIfExist(email: string) {
 
         return userDetails
     } catch(err) {
-        return "";
+        return null;
+    }
+}
+
+export async function regsiterUser(fullName:string, email: string, password: string) {
+    try{
+        const { data: {newUser} } = await instance
+        .post(`/register`, {fullName, email, password});
+
+        return newUser;
+    } catch(err) {
+        return null;
     }
 }

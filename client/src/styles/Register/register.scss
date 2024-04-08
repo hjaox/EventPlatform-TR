@@ -60,11 +60,19 @@
 
             .submit-button {
                 width: 50%;
-                background-color: purple;
-                border: 0.5rem solid purple;
-                color: white;
+                border: 1px solid gainsboro;
                 border-radius: 0.5rem;
+                padding: 0.3rem 1rem;
                 cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .submit-button:hover {
+                background-color: purple;
+                border: 1px solid purple;
+                color: white;
+                transition: all 0.3s ease;
+                box-shadow: 10px 5px 10px rgb(97, 0, 97);
             }
         }
 
@@ -72,6 +80,7 @@
             display: flex;
             width: 100%;
             align-items: center;
+            padding: 1rem 0;
 
             .text {
                 padding: 0px 1rem;
