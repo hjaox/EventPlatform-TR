@@ -14,7 +14,7 @@ beforeEach(() => jest.clearAllMocks());
 afterAll(async () => await mongoose.connection.close());
 
 describe("POST /user/register endpoint tests", () => {
-    test.only("201: returns status code 201 and new user details upon succesful request", async () => {
+    test("201: returns status code 201 and new user details upon succesful request", async () => {
         const testUser = {
             name: "testPost User1",
             email: "testPostEmail1@gmail.com",
@@ -29,8 +29,13 @@ describe("POST /user/register endpoint tests", () => {
         const [result] = await UserModel.find({ name: testUser.name, email: testUser.email });
 
         Object.entries(result.toObject()).forEach(([key, val]) => {
-            if(val instanceof Date) {
+            if (val instanceof Date) {
                 expect(newUser).toHaveProperty(key, val.toISOString());
+
+            } else if (val instanceof mongoose.Types.ObjectId) {
+                expect(newUser).toHaveProperty(key);
+                expect(newUser[key].toString()).toStrictEqual(val.toString());
+
             } else {
                 expect(newUser).toHaveProperty(key, val);
             }

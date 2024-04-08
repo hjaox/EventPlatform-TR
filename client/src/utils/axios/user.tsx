@@ -40,5 +40,13 @@ export async function registerUser(name:string, email: string, password: string)
 }
 
 export async function postUser(name: string, email: string) {
+    try{
+        const { data: {newUser} } = await instance
+        .post(`/user`, {name, email});
 
+        return newUser;
+    } catch(err) {
+        console.log(err)
+        return null;
+    }
 }

@@ -34,7 +34,6 @@ export default function Register() {
 
             const { user } = await signInWithPopup(auth, provider);
             const userDetails = {
-                uid: user.uid,
                 displayName: user.displayName,
                 email: user.email,
                 accessToken: await user.getIdToken()
@@ -44,10 +43,10 @@ export default function Register() {
                 const registered = await checkEmailIfExist(user.email);
 
                 if (!registered) {
-                    postUser(user.displayName, user.email)
+                    await postUser(user.displayName, user.email)
                 } else {
-                    dispatch(actions.login(userDetails))
-                    navigate("/Home")
+                    // dispatch(actions.login(userDetails))
+                    // navigate("/Home")
                 }
             }
 

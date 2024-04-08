@@ -29,7 +29,7 @@ app.use((err: express.ErrorRequestHandler | { status: number, message: string },
     res: express.Response,
     next: express.NextFunction) => { //custom error handler
     if (typeof err === "object" && err.message && err.status) {
-        return res.status(err.status).send({ msg: err.message });
+        return res.status(err.status).send({ message: err.message });
     }
     next(err);
 })
@@ -39,7 +39,7 @@ app.use((err: express.ErrorRequestHandler,
     res: express.Response,
     next: express.NextFunction) => {
     console.log("Internal Server Error");
-    return res.status(500).send({ msg: "Internal Server Error" });
+    return res.status(500).send({ message: "Internal Server Error" });
 })
 
 export default app;
