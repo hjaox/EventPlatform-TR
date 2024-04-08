@@ -21,7 +21,7 @@ export async function checkEmailIfExist(email: string) {
         const { data: {userDetails} } = await instance
         .get(`/user/${email}`)
 
-        return userDetails
+        return !!userDetails.length
     } catch(err) {
         return null;
     }

@@ -33,21 +33,24 @@ export default function Register() {
             const provider = new GoogleAuthProvider();
 
             const { user } = await signInWithPopup(auth, provider);
-            const userDetails = {
-                displayName: user.displayName,
-                email: user.email,
-                accessToken: await user.getIdToken()
-            };
+
 
             if (user.email && user.displayName) {
                 const registered = await checkEmailIfExist(user.email);
 
                 if (!registered) {
-                    await postUser(user.displayName, user.email)
-                } else {
-                    // dispatch(actions.login(userDetails))
-                    // navigate("/Home")
+                    const {_id} = await postUser(user.displayName, user.email);
+
+                    const userDetails = {
+                        uid: _id,
+                        displayName: user.displayName,
+                        email: user.email,
+                        accessToken: await user.getIdToken()
+                    };
+
+                    dispatch(actions.login(userDetails))
                 }
+                navigate("/Home")
             }
 
 
