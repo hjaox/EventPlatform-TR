@@ -61,11 +61,11 @@ describe("POST /user/login endpoint tests", () => {
             password: "anyPassword"
         };
 
-        const { body: { msg } } = await request(app)
+        const { body: { message } } = await request(app)
             .post("/user/login")
             .send(testUser)
             .expect(400);
 
-        expect(msg).toBe("Incorrect email or password");
+        expect(message).toBe("Incorrect email or password");
     });
 });

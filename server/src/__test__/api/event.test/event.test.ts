@@ -38,25 +38,25 @@ describe("/event endpoints tests", () => {
 
             expect(JSON.stringify(eventDetails)).toBe(JSON.stringify(expected));
         })
-        test("404: returns status code 404 and msg 'Not Found' if eventId does not exist", async () => {
+        test("404: returns status code 404 and message 'Not Found' if eventId does not exist", async () => {
             const testEventId = "6603478dfbe4196732000000";
 
-            const { body: { msg } } = await request(app)
+            const { body: { message } } = await request(app)
                 .get(`/event/${testEventId}`)
                 .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
                 .expect(404);
 
-            expect(msg).toBe("Not Found");
+            expect(message).toBe("Not Found");
         })
-        test("400: returns status code 400 and msg 'Bad Request' if send with an invalid eventId", async () => {
+        test("400: returns status code 400 and message 'Bad Request' if send with an invalid eventId", async () => {
             const testEventId = "notAValidObjectId";
 
-            const { body: { msg } } = await request(app)
+            const { body: { message } } = await request(app)
                 .get(`/event/${testEventId}`)
                 .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
                 .expect(400);
 
-            expect(msg).toBe("Bad Request");
+            expect(message).toBe("Bad Request");
         });
     });
 
@@ -149,29 +149,29 @@ describe("/event endpoints tests", () => {
 
             expect(JSON.stringify(updatedEventDetails)).toBe(JSON.stringify(expected));
         });
-        test("404: status code 404 and msg 'Not Found' if eventId does not exist", async () => {
+        test("404: status code 404 and message 'Not Found' if eventId does not exist", async () => {
             const testEventId = "6603478dfbe4196732000000";
             const testPatchBody = { title: "testPatch" };
 
-            const { body: { msg } } = await request(app)
+            const { body: { message } } = await request(app)
                 .patch(`/event/${testEventId}`)
                 .send(testPatchBody)
                 .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
                 .expect(404);
 
-            expect(msg).toBe("Not Found");
+            expect(message).toBe("Not Found");
         });
-        test("400: status code 400 and msg 'Bad Request' if eventId is not a valid ObjectId", async () => {
+        test("400: status code 400 and message 'Bad Request' if eventId is not a valid ObjectId", async () => {
             const testEventId = "notAValidObjectId";
             const testPatchBody = { title: "testPatch" };
 
-            const { body: { msg } } = await request(app)
+            const { body: { message } } = await request(app)
                 .patch(`/event/${testEventId}`)
                 .send(testPatchBody)
                 .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
                 .expect(400);
 
-            expect(msg).toBe("Bad Request");
+            expect(message).toBe("Bad Request");
         });
 
         describe("DELETE /event/:eventId", () => {
@@ -192,25 +192,25 @@ describe("/event endpoints tests", () => {
 
                 expect(Object.entries(body).length).toBeFalsy();
             });
-            test("404: returns status code 404 and msg 'Not Found' if eventId does not exist", async () => {
+            test("404: returns status code 404 and message 'Not Found' if eventId does not exist", async () => {
                 const testEventId = "6603478dfbe4196732000000";
 
-                const {body: {msg}} = await request(app)
+                const {body: {message}} = await request(app)
                     .delete(`/event/${testEventId}`)
                     .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
                     .expect(404);
 
-                expect(msg).toBe("Not Found");
+                expect(message).toBe("Not Found");
             });
-            test("400: returns status code 400 and msg 'Bad Request' if eventId is not a valid ObjectId", async () => {
+            test("400: returns status code 400 and message 'Bad Request' if eventId is not a valid ObjectId", async () => {
                 const testEventId = "notAValidObjectId";
 
-                const {body: {msg}} = await request(app)
+                const {body: {message}} = await request(app)
                     .delete(`/event/${testEventId}`)
                     .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
                     .expect(400);
 
-                expect(msg).toBe("Bad Request");
+                expect(message).toBe("Bad Request");
             });
         });
     });

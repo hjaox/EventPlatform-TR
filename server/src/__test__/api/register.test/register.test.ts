@@ -59,10 +59,10 @@ describe("POST /user/register endpoint tests", () => {
             .post("/user/register")
             .send(testUser);
 
-        const { body: { msg } } = await request(app)
+        const { body: { message } } = await request(app)
             .post("/user/register")
             .send(testUser)
 
-        expect(msg).toBe("Email already exist");
+        expect(message).toBe("Email already exist");
     });
 });

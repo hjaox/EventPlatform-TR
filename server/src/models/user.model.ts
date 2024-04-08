@@ -6,7 +6,7 @@ import { TMongoError } from "../common/types";
 
 export async function postUser(name: string, email: string, password: string) {
     try {
-        if (await checEmailIfExists(email)) return Promise.reject({ status: 400, msg: "Email already exist" })
+        if (await checEmailIfExists(email)) return Promise.reject({ status: 400, message: "Email already exist" })
 
         const userCredentials = await signUp(auth, email, password);
         const userToken = await userCredentials.user.getIdToken();
@@ -15,7 +15,7 @@ export async function postUser(name: string, email: string, password: string) {
 
         return { ...newUser.toObject(), accessToken: userToken };
     } catch (err) {
-        if (err === "Sign Up failed") return Promise.reject({ status: 400, msg: err })
+        if (err === "Sign Up failed") return Promise.reject({ status: 400, message: err })
         console.log("Model postUser error", err);
         return Promise.reject(err)
     }
@@ -39,7 +39,7 @@ export async function getUserWithCredentials(email: string, password: string) {
 
         return { ...userDetails, accessToken: userToken };
     } catch (err) {
-        return Promise.reject({ status: 400, msg: "Incorrect email or password" })
+        return Promise.reject({ status: 400, message: "Incorrect email or password" })
     }
 }
 

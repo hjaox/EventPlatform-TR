@@ -34,14 +34,14 @@ export async function signOutUser(req: express.Request, res: express.Response, n
         await signOut(auth);
         await onAuthStateChanged(auth, user => {
             if(user) {
-                return res.status(400).send({msg: "Sign out failed. Please try again."});
+                return res.status(400).send({message: "Sign out failed. Please try again."});
             }
 
-            return res.status(200).send({msg: "Signed out successfully"});
+            return res.status(200).send({message: "Signed out successfully"});
         })
 
     } catch(err) {
-        next({status: 400, msg: "Something went wrong"})
+        next({status: 400, message: "Something went wrong"})
     }
 
 }
