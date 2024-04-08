@@ -41,3 +41,7 @@ export type TEvent = {
   updatedAt?: string | Date,
   __v?: number
 };
+
+export type TMongoError = {
+  code?: number
+}

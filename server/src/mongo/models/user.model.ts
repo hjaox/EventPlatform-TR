@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const userSchema = new Schema(
     {
@@ -6,14 +6,10 @@ const userSchema = new Schema(
             type: String,
             required: true
         },
-        _id: {
-            type: String,
-            required: true,
-            default: new mongoose.Types.ObjectId()
-        },
         email: {
             type: String,
-            required: true
+            required: true,
+            unique: true,
         },
         eventsAttending: {
             type: []
@@ -23,7 +19,6 @@ const userSchema = new Schema(
         },
     },
     {
-        _id: false,
         timestamps: true
     },
 );

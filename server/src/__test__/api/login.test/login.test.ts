@@ -40,6 +40,11 @@ describe("POST /user/login endpoint tests", () => {
         Object.entries(result.toObject()).forEach(([key, val]) => {
             if (val instanceof Date) {
                 expect(userDetails).toHaveProperty(key, val.toISOString());
+
+            } else if(val instanceof mongoose.Types.ObjectId) {
+                expect(userDetails).toHaveProperty(key);
+                expect(userDetails[key].toString()).toStrictEqual(val.toString());
+
             } else {
                 expect(userDetails).toHaveProperty(key, val);
             }
@@ -61,11 +66,11 @@ describe("POST /user/login endpoint tests", () => {
             password: "anyPassword"
         };
 
-        const { body: { msg } } = await request(app)
+        const { body: { message } } = await request(app)
             .post("/user/login")
             .send(testUser)
             .expect(400);
 
-        expect(msg).toBe("Incorrect email or password");
+        expect(message).toBe("Incorrect email or password");
     });
 });

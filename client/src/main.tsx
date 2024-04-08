@@ -13,6 +13,7 @@ import Login from './components/Login/Login.tsx';
 import Register from './components/Register/Register.tsx';
 import Dashboard from './components/Dashboard/Dashboard.tsx';
 import Event from './components/EventPage/Event.tsx';
+import Error from './components/Error/Error.tsx';
 
 const router = createBrowserRouter(
   [
@@ -40,10 +41,10 @@ const router = createBrowserRouter(
       path: "/Event/:eventId",
       element: <Event />
     },
-    // {
-    //   path: "/Completion/:eventId",
-    //   element: <Completion />
-    // }
+    {
+      path: "/*",
+      element: <Error />
+    }
   ]
 );
 

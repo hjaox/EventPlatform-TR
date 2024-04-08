@@ -11,7 +11,7 @@ export async function createIdToken(req: express.Request, res: express.Response,
             const token = await idToken?.user.getIdToken();
             return res.status(201).send({token});
         }
-        return Promise.reject({status: 400, msg: "Bad Request"})
+        return Promise.reject({status: 400, message: "Bad Request"})
     } catch(err) {
         next(err)
     }

@@ -5,7 +5,6 @@ import seed from "../../../mongo/seed/seed";
 import { usersData, eventsData, tagsData } from "../../../mongo/seed/data/test-data";
 import db from "../../../mongo/connection";
 import mongoose from "mongoose";
-import { TEvent } from "../../../common/types";
 import * as dotenv from "dotenv";
 dotenv.config({
     path: `${__dirname}/../../../../.env${process.env.NODE_ENV}`

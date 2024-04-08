@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"
 import auth from "../../utils/firebase/fbAuth";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { useNavigate } from "react-router-dom";
@@ -34,6 +34,7 @@ export default function Login() {
                 const registered = await checkEmailIfExist(user.email);
 
                 if (!registered) {
+                    await signOut(auth)
                     setRedirect(true);
                 } else {
                     dispatch(actions.login(userDetails))
@@ -92,7 +93,7 @@ export default function Login() {
 
                     <div className="form-password">
                         <label htmlFor="passwordInput">Password: </label>
-                        <input type="text" id="passwordInput" onChange={handlePasswordInput} />
+                        <input type="password" id="passwordInput" onChange={handlePasswordInput} />
                     </div>
 
                     <button className="submit-button" type="submit" form="login-form" value="Submit">Continue</button>
@@ -117,7 +118,7 @@ export default function Login() {
 
                         </div>
 
-                        <IoMdClose className="close-redirect" onClick={() => setRedirect(false)}/>
+                        <IoMdClose className="close-redirect" onClick={() => setRedirect(false)} />
                     </div>
                 </div>
             }

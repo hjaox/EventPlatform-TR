@@ -21,6 +21,6 @@ export async function createPaymentIntent(price: number = 0) {
 
         return paymentIntent;
     } catch (err) {
-        return Promise.reject({status: 400, msg: "Error at creating payment intent"});
+        return Promise.reject({status: 400, message: "Error at creating payment intent"});
     }
 }

@@ -19,7 +19,7 @@ export default async function seed(usersData: TTestUser[], eventsData: TEvent[],
         await EventsModel.create(eventsData);
         await TagModel.create(tagsData);
     } catch (err) {
-        console.log("Seeding failed");
+        console.log("Seeding failed: ", err);
         return Promise.reject();
     }
 }
