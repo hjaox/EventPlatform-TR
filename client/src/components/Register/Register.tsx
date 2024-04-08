@@ -39,7 +39,7 @@ export default function Register() {
                 const registered = await checkEmailIfExist(user.email);
 
                 if (!registered) {
-                    const {_id} = await postUser(user.displayName, user.email);
+                    const { _id } = await postUser(user.displayName, user.email);
 
                     const userDetails = {
                         uid: _id,
