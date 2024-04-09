@@ -1,3 +1,4 @@
+import { TEvent } from "../../common/types";
 import instance from "./instance";
 
 export async function getEvent(eventId: string) {
@@ -5,4 +6,11 @@ export async function getEvent(eventId: string) {
     .get(`/event/${eventId}`);
 
     return eventDetails;
+}
+
+export async function createEvent(event: TEvent) {
+    const {data: {newEvent}} = await instance
+    .post("/event" ,event)
+
+    return newEvent
 }

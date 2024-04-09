@@ -6,6 +6,7 @@ import { Editor, EditorState } from "draft-js";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { createEvent } from "../../utils/axios/event";
 
 export default function OrganizeEvent() {
     const [image, setImage] = useState<any>("")
@@ -30,10 +31,10 @@ export default function OrganizeEvent() {
         setImage(e.target.files)
     }
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        const eventDetails = {
+        const event = {
             title: editorTitleState.getCurrentContent().getPlainText("\u000A"),
             dateStart: startDate,
             dateEnd: endDate,
@@ -41,11 +42,11 @@ export default function OrganizeEvent() {
             images: [],
             details: editorDetailsState.getCurrentContent().getPlainText("\u000A"),
             summary: editorDetailsState.getCurrentContent().getPlainText("\u000A"),
-            tag,
-            price
+            tag: [tag],
+            price: Number(price)
         }
-
-        console.log(eventDetails);
+        console.log("event from client")
+        console.log("event from server: ",await createEvent(event));
     }
 
     return (
