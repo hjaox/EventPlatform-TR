@@ -7,6 +7,7 @@ import { Editor, EditorState } from "draft-js";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { createEvent } from "../../utils/axios/event";
+import { uploadToFirebase } from "../../utils/firebase/functions";
 
 export default function OrganizeEvent() {
     const [image, setImage] = useState<any>("")
@@ -28,7 +29,9 @@ export default function OrganizeEvent() {
     function test(e: any) {
         const object = URL.createObjectURL(e.target.files[0])
         setTest(object)
-        setImage(e.target.files)
+        setImage(e.target.files[0])
+        console.log(e.target.files[0])
+        uploadToFirebase(e.target.files[0])
     }
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
