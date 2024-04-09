@@ -48,6 +48,7 @@ const eventSchema = new Schema(
         },
         organizer: {
             type: String,
+            default: ""
         }
     },
     {

@@ -14,6 +14,7 @@ import Register from './components/Register/Register.tsx';
 import Dashboard from './components/Dashboard/Dashboard.tsx';
 import Event from './components/EventPage/Event.tsx';
 import Error from './components/Error/Error.tsx';
+import OrganizeEvent from './components/OrganizeEvent/OrganizeEvent.tsx';
 
 const router = createBrowserRouter(
   [
@@ -40,6 +41,10 @@ const router = createBrowserRouter(
     {
       path: "/Event/:eventId",
       element: <Event />
+    },
+    {
+      path: "/Event/Create",
+      element: <OrganizeEvent />
     },
     {
       path: "/*",
