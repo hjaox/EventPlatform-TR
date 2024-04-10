@@ -14,3 +14,8 @@ export async function createEvent(event: TEvent) {
 
     return newEvent
 }
+
+export async function deleteEvent(eventId: string) {
+    await instance
+    .delete(`/event/${eventId}`)
+}
