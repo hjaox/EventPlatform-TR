@@ -30,6 +30,63 @@
                 }
             }
 
+            .image-container {
+                border: 1px solid gainsboro;
+                padding: 1rem;
+                border-radius: 1rem;
+
+                .padding-bottom {
+                    padding-bottom: 1.5rem;
+                }
+                .input-container {
+                    position: relative;
+                    margin-top: 1rem;
+                    position: relative;
+                    margin: auto;
+                    width: 60rem;
+                    height: 30rem;
+
+
+                    .icon-container {
+                        z-index: 1;
+                        padding: 1rem;
+                        border-radius: 1rem;
+                        cursor: pointer;
+                        position: absolute;
+                        background-color: white;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        color: purple;
+                        border: 1px solid purple;
+
+                        .upload-icon {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 1rem;
+
+                            .icon {
+                                font-size: 2rem;
+                                font-weight: lighter;
+                                stroke-width: 0;
+                                width: 50%;
+                                height: 50%;
+                                padding: 0.5rem;
+                                background-color: gainsboro;
+                                border-radius: 50%;
+                            }
+                        }
+                    }
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        opacity: 0.5;
+                    }
+                }
+            }
+
             .header-expanded,
             .about-expanded,
             .datelocation-expanded {
@@ -92,7 +149,6 @@
                                 outline: none;
                             }
                         }
-
                     }
                 }
 
@@ -166,6 +222,4 @@
             }
         }
     }
-
-
 }

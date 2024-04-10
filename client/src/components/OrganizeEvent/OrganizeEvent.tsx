@@ -1,17 +1,22 @@
 import Header from "../subcomponents/Header/Header";
 import Footer from "../subcomponents/Footer/Footer";
 import "../../styles/OrganizeEvent/organizeEvent.scss";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Editor, EditorState } from "draft-js";
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { createEvent } from "../../utils/axios/event";
 import { uploadToFirebase } from "../../utils/firebase/functions";
+import file from "../../assets/default.jpg"
+import { MdOutlineUploadFile } from "react-icons/md";
+import { useSelector } from "react-redux";
+import { TReduxUser } from "../../common/types";
 
 export default function OrganizeEvent() {
-    const [image, setImage] = useState<any>("")
-    const [testing, setTest] = useState<any>("")
+    const { uid } = useSelector((state: TReduxUser) => state.userDetails)
+
+    const [image, setImage] = useState(file);
+    const [imageFile, setImageFile] = useState<null | File>(null);
 
     const [expandHeader, setExpandHeader] = useState(false);
     const [expandAbout, setExpandAbout] = useState(false);
@@ -26,30 +31,41 @@ export default function OrganizeEvent() {
     const [price, setPrice] = useState("0.03");
     const [tag, setTag] = useState("Others");
 
-    function test(e: any) {
-        const object = URL.createObjectURL(e.target.files[0])
-        setTest(object)
-        setImage(e.target.files[0])
-        console.log(e.target.files[0])
-        uploadToFirebase(e.target.files[0])
+    const [redirect, setRedirect] = useState(false);
+
+    function handleCoverPhoto(e: React.FormEvent<HTMLLabelElement>) {
+        const event = e.target as HTMLInputElement
+
+        if (event.files) {
+            const uploadedImg = URL.createObjectURL(event.files[0]);
+            setImage(uploadedImg);
+            setImageFile(event.files[0])
+        }
     }
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        let url = "https://firebasestorage.googleapis.com/v0/b/eventplatform-tr.appspot.com/o/images%2Fdefault.jpg?alt=media&token=2106f36d-e843-4fea-b8b9-a5ab06ec3787";
+
+        if (image !== "/src/assets/default.jpg" && imageFile) {
+            const result = await uploadToFirebase(imageFile, uid);
+            console.log(result)
+            if (result) url = result;
+        }
 
         const event = {
             title: editorTitleState.getCurrentContent().getPlainText("\u000A"),
             dateStart: startDate,
             dateEnd: endDate,
             address: editorAddressState.getCurrentContent().getPlainText("\u000A"),
-            images: [],
+            images: [url],
             details: editorDetailsState.getCurrentContent().getPlainText("\u000A"),
             summary: editorDetailsState.getCurrentContent().getPlainText("\u000A"),
             tag: [tag],
             price: Number(price)
         }
-        console.log("event from client")
-        console.log("event from server: ",await createEvent(event));
+        console.log("event from client", image)
+        console.log("event from server: ", await createEvent(event));
     }
 
     return (
@@ -57,13 +73,22 @@ export default function OrganizeEvent() {
             <Header />
 
             <section className="form-container">
-                <h1 className="form-header">Create an event</h1>
+                <h1 className="form-header">Create an Event</h1>
 
                 <form id="create-form" onSubmit={handleSubmit}>
-                    <section className="form-item image-container">
-                        <label htmlFor="input-image">Upload a cover photo:</label>
-                        <input type="file" id="input-image" onChange={test} />
-                        <img src={testing} alt="" />
+                    <section className="image-container">
+                        <h3>Cover Photo</h3>
+                        <p className="padding-bottom">You may upload a cover photon that will be displayed at the top of your event page.You will be given a default picture if none is uploaded.</p>
+                        <div className="input-container">
+                            <label onChange={handleCoverPhoto} htmlFor="input-image" className="icon-container">
+                                <input type="file" id="input-image" hidden />
+                                <div className="upload-icon">
+                                    <MdOutlineUploadFile className="icon" />
+                                    <span className="text">Upload Photo</span>
+                                </div>
+                            </label>
+                            <img src={image} alt="default picture" />
+                        </div>
                     </section>
 
                     <section className="form-item header-container">
@@ -147,8 +172,8 @@ export default function OrganizeEvent() {
                                     <div className="datelocation-address">
                                         <h3>Address</h3>
                                         <div className="input-container">
-                                        <h4>Address</h4>
-                                        <Editor blockStyleFn={() => "input"} editorState={editorAddressState} onChange={setEditorAddressState} />
+                                            <h4>Address</h4>
+                                            <Editor blockStyleFn={() => "input"} editorState={editorAddressState} onChange={setEditorAddressState} />
                                         </div>
 
                                     </div>
