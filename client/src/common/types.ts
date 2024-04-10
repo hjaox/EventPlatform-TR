@@ -10,7 +10,7 @@ export type TUser = {
 };
 
 export type TEvent = {
-    _id?: string,
+    _id: string,
     title: string,
     dateStart: Date,
     dateEnd: Date,
