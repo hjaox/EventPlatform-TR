@@ -9,8 +9,7 @@ export type TUser = {
     __v?: number
 };
 
-export type TEvent = {
-    _id: string,
+export type TNewEvent = {
     title: string,
     dateStart: Date,
     dateEnd: Date,
@@ -26,6 +25,8 @@ export type TEvent = {
     updatedAt?: string | Date,
     __v?: number
 };
+
+export type TEvent = TNewEvent & {_id: string};
 
 export type TReduxUser = {
     userDetails: {

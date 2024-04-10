@@ -108,7 +108,6 @@ export default function Event() {
 
                                 <div className="organizer">
                                     <h2>Organized by</h2>
-                                    <div>{eventDetails.organizer}</div>
                                 </div>
                             </div>
                         </section>
