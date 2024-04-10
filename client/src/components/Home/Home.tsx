@@ -6,8 +6,8 @@ import { TEvent } from "../../common/types";
 import Header from "../subcomponents/Header/Header";
 import Footer from "../subcomponents/Footer/Footer";
 import { getAllTags } from "../../utils/axios/tags";
-import { getIcon } from "../../utils/utils";
 import EventCard from "./components/EventCard";
+import TagCard from "./components/TagCard";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -27,8 +27,7 @@ export default function Home() {
         return tagList.map((tag, i) => {
             return (
                 <li key={i} className="home-tags-list-item">
-                    <span className="icon-container">{getIcon(tag)}</span>
-                    <span className="text">{tag}</span>
+                    <TagCard tag={tag}/>
                 </li>
             )
         })
