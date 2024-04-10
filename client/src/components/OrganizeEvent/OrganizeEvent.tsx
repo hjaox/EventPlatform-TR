@@ -10,18 +10,22 @@ import { uploadToFirebase } from "../../utils/firebase/functions";
 import file from "../../assets/default.jpg"
 import { MdOutlineUploadFile } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { TReduxUser } from "../../common/types";
+import { TEvent, TReduxUser } from "../../common/types";
+import { useNavigate } from "react-router-dom";
 
 export default function OrganizeEvent() {
-    const { uid } = useSelector((state: TReduxUser) => state.userDetails)
+    const { uid } = useSelector((state: TReduxUser) => state.userDetails);
+    const navigate = useNavigate();
 
-    const [image, setImage] = useState(file);
-    const [imageFile, setImageFile] = useState<null | File>(null);
-
+    //style and functionality of display page
     const [expandHeader, setExpandHeader] = useState(false);
     const [expandAbout, setExpandAbout] = useState(false);
     const [expandDateLocation, setExpandDateLocation] = useState(false);
+    const [image, setImage] = useState(file);
+    const [redirect, setRedirect] = useState(false);
+    const [newEvent, setNewEvent] = useState<null | TEvent>(null);
 
+    //form data
     const [editorTitleState, setEditorTitleState] = useState(() => EditorState.createEmpty());
     const [editorSummaryState, setEditorSummaryState] = useState(() => EditorState.createEmpty());
     const [editorAddressState, setEditorAddressState] = useState(() => EditorState.createEmpty());
@@ -30,8 +34,7 @@ export default function OrganizeEvent() {
     const [endDate, setEndDate] = useState(new Date());
     const [price, setPrice] = useState("0.03");
     const [tag, setTag] = useState("Others");
-
-    const [redirect, setRedirect] = useState(false);
+    const [imageFile, setImageFile] = useState<null | File>(null);
 
     function handleCoverPhoto(e: React.FormEvent<HTMLLabelElement>) {
         const event = e.target as HTMLInputElement
@@ -49,7 +52,7 @@ export default function OrganizeEvent() {
 
         if (image !== "/src/assets/default.jpg" && imageFile) {
             const result = await uploadToFirebase(imageFile, uid);
-            console.log(result)
+
             if (result) url = result;
         }
 
@@ -64,21 +67,41 @@ export default function OrganizeEvent() {
             tag: [tag],
             price: Number(price)
         }
-        console.log("event from client", image)
-        console.log("event from server: ", await createEvent(event));
+        try {
+            const newEvent = await createEvent(event);
+            setNewEvent(newEvent);
+            setRedirect(true);
+        } catch (err) {
+
+        }
     }
 
     return (
         <section className="organize-page">
             <Header />
+            {
+                redirect && (
+                    <section className="redirect-container">
+                        <div className="redirect">
+                            <p>You have successfully created an event. 🎉</p>
+                            <div className="redirect-options">
+                                <button onClick={() => navigate("/Home")}>Go Home</button>
+                                <button onClick={() => navigate(`/Event/${newEvent?._id}`)}>View Event</button>
+                            </div>
+                        </div>
+
+                    </section>
+                )
+            }
 
             <section className="form-container">
+
                 <h1 className="form-header">Create an Event</h1>
 
                 <form id="create-form" onSubmit={handleSubmit}>
                     <section className="image-container">
                         <h3>Cover Photo</h3>
-                        <p className="padding-bottom">You may upload a cover photon that will be displayed at the top of your event page.You will be given a default picture if none is uploaded.</p>
+                        <p className="padding-bottom">You may upload a cover photo that will be displayed at the top of your event page.You will be given a default picture if none is uploaded.</p>
                         <div className="input-container">
                             <label onChange={handleCoverPhoto} htmlFor="input-image" className="icon-container">
                                 <input type="file" id="input-image" hidden />
@@ -117,6 +140,7 @@ export default function OrganizeEvent() {
 
                                         <div className="header-price">
                                             <h3>Price</h3>
+                                            <p>Set a price for your event. The minimum price allowed is £0.03. You can also make the event free. The open price option gives the attendees the freedom of how much they would want to pay for the event.</p>
                                             <div className="input-container">
                                                 <h4>Price</h4>
                                                 <span>£ </span>

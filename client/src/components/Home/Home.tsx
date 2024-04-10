@@ -6,49 +6,42 @@ import { TEvent } from "../../common/types";
 import Header from "../subcomponents/Header/Header";
 import Footer from "../subcomponents/Footer/Footer";
 import { getAllTags } from "../../utils/axios/tags";
-import { getIcon, handleDate } from "../../utils/utils";
+import EventCard from "./components/EventCard";
+import TagCard from "./components/TagCard";
 
 export default function Home() {
-    const navigation = useNavigate();
+    const navigate = useNavigate();
     const [eventList, setEventList] = useState<null | TEvent[]>(null);
     const [tagList, setTagList] = useState<null | string[]>(null);
 
     useEffect(() => {
         (async () => {
             const results = await Promise.all([getAllEvents(), getAllTags()]);
-            setEventList(() => [...results[0], ...results[0], ...results[0]]);
+            setEventList(() => [...results[0]]);
             setTagList(() => [...results[1]]);
         })()
-
     }, []);
+
+    useEffect(() => {
+    }, [eventList])
 
     function handleTags(tagList: string[]) {
         return tagList.map((tag, i) => {
             return (
                 <li key={i} className="home-tags-list-item">
-                    <span className="icon-container">{getIcon(tag)}</span>
-                    <span className="text">{tag}</span>
+                    <TagCard tag={tag}/>
                 </li>
             )
         })
     }
 
-    function navigateToEvent(eventId: string) {
-        navigation(`/Event/${eventId}`);
-    }
-
     function handleEventsToDisplay(eventList: TEvent[]) {
         return eventList.map((event, i) => {
             return (
-                <li  onClick={() => navigateToEvent(event._id)} key={i} className="home-events-list-item">
-                    <img className="home-events-list-item-image" src={event.images[0]} alt="pic" />
-                    <div className="home-events-list-item-text">
-                        <h1 className="title">{event.title}</h1>
-                        <span className="dateStart">{handleDate(event.dateStart)}</span>
-                        <span className="address">{event.address}</span>
-                        <span className="tag">{event.tag}</span>
-                        <span className="organizer">{event.organizer}</span>
-                    </div>
+                <li onClick={() => navigate(`/Event/${event._id}`)} key={i} className="home-events-list-item">
+                    <EventCard event={event}
+                    eventList={eventList}
+                    setEventList={setEventList}/>
 
                 </li>
             )
@@ -58,6 +51,7 @@ export default function Home() {
     return (
         <section className="home-page">
             <Header />
+
             <section className="home-display">
                 {
                     !tagList

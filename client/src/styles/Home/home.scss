@@ -44,47 +44,9 @@
                     @include index.center-elements-column;
                     gap: 0.5rem;
                     flex: 1;
-
-                    .icon-container {
-                        @include index.center-elements;
-                        border: 1px solid gainsboro;
-                        border-radius: 50%;
-                        transition: all 0.3s ease;
-
-                        @media only screen and (min-width: 1360px) {
-                            padding: 2rem;
-
-                            .icon {
-                                font-size: 2rem;
-                            }
-                        }
-
-                        @media only screen and (min-width: 641px) and (max-width: 1359px) {
-                            padding: 1.5rem;
-                            .icon {
-                                font-size: 1.5rem;
-                            }
-                        }
-
-                        @media only screen and (max-width: 640px) {
-                            padding: 1rem;
-                            .icon {
-                                font-size: 1rem;
-                            }
-                        }
-                    }
-
-                    .text {
-                        transition: all 0.3s ease;
-
-                        @media only screen and (max-width: 640px) {
-                            font-size: small;
-                        }
-                    }
                 }
 
                 .home-tags-list-item:hover {
-
                     .icon-container {
                         background-color: gainsboro;
                         color: purple;
@@ -112,31 +74,13 @@
                     border-radius: 1rem;
                     transition: all 0.3s ease;
                     cursor: pointer;
+                    position: relative;
+
                     @media screen and (min-width: 721px) {
                         width: 19rem;
                     }
                     @media screen and (max-width: 720px) {
                         width: 75vw;
-                    }
-
-                    .home-events-list-item-image {
-                        border: 0px;
-                        border-radius: 1rem;
-                        object-fit: fill;
-                        width: 100%;
-                        @media screen and (min-width: 721px) {
-                            height: 12rem;
-                        }
-                        @media screen and (max-width: 720px) {
-                            height: 30vh;
-                        }
-                    }
-
-                    .home-events-list-item-text {
-                        display: flex;
-                        flex-direction: column;
-                        padding: 1em;
-
                     }
                 }
             }

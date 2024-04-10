@@ -1,0 +1,56 @@
+@use "../index.scss";
+
+.eventCard-image {
+    border: 0px;
+    border-radius: 1rem;
+    object-fit: fill;
+    width: 100%;
+    @media screen and (min-width: 721px) {
+        height: 12rem;
+    }
+    @media screen and (max-width: 720px) {
+        height: 30vh;
+    }
+}
+
+.eventCard-texts {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+.eventCard-option-container {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: flex;
+    gap: 5px;
+    padding: 0 5px;
+    transition: all 0.1s ease;
+    border-radius: 0.5rem;
+    background-color: gainsboro;
+
+    .eventCard-icon-container {
+        padding: 0.5rem;
+        border-radius: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
+        @include index.center-elements;
+
+        .eventCard-option {
+            font-size: 1.5rem;
+            transition: color 0.1s ease;
+        }
+    }
+}
+
+.eventCard-option-container:hover {
+    background-color: white;
+    border-radius: 0.5rem;
+    transition: all 0.1s ease;
+
+    .eventCard-option:hover {
+        color: purple;
+        transition: color 0.1s ease;
+    }
+}
