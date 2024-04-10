@@ -1,0 +1,18 @@
+.eventCard-image {
+    border: 0px;
+    border-radius: 1rem;
+    object-fit: fill;
+    width: 100%;
+    @media screen and (min-width: 721px) {
+        height: 12rem;
+    }
+    @media screen and (max-width: 720px) {
+        height: 30vh;
+    }
+}
+
+.eventCard-texts {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}

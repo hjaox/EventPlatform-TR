@@ -6,10 +6,11 @@ import { TEvent } from "../../common/types";
 import Header from "../subcomponents/Header/Header";
 import Footer from "../subcomponents/Footer/Footer";
 import { getAllTags } from "../../utils/axios/tags";
-import { getIcon, handleDate } from "../../utils/utils";
+import { getIcon } from "../../utils/utils";
+import EventCard from "./components/EventCard";
 
 export default function Home() {
-    const navigation = useNavigate();
+    const navigate = useNavigate();
     const [eventList, setEventList] = useState<null | TEvent[]>(null);
     const [tagList, setTagList] = useState<null | string[]>(null);
 
@@ -33,23 +34,11 @@ export default function Home() {
         })
     }
 
-    function navigateToEvent(eventId: string) {
-        navigation(`/Event/${eventId}`);
-    }
-
     function handleEventsToDisplay(eventList: TEvent[]) {
         return eventList.map((event, i) => {
             return (
-                <li  onClick={() => navigateToEvent(event._id)} key={i} className="home-events-list-item">
-                    <img className="home-events-list-item-image" src={event.images[0]} alt="pic" />
-                    <div className="home-events-list-item-text">
-                        <h1 className="title">{event.title}</h1>
-                        <span className="dateStart">{handleDate(event.dateStart)}</span>
-                        <span className="address">{event.address}</span>
-                        <span className="tag">{event.tag}</span>
-                        <span className="organizer">{event.organizer}</span>
-                    </div>
-
+                <li onClick={() => navigate(`/Event/${event._id}`)} key={i} className="home-events-list-item">
+                    <EventCard event={event} />
                 </li>
             )
         })
@@ -58,6 +47,7 @@ export default function Home() {
     return (
         <section className="home-page">
             <Header />
+
             <section className="home-display">
                 {
                     !tagList

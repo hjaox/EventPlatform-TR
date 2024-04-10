@@ -118,26 +118,6 @@
                     @media screen and (max-width: 720px) {
                         width: 75vw;
                     }
-
-                    .home-events-list-item-image {
-                        border: 0px;
-                        border-radius: 1rem;
-                        object-fit: fill;
-                        width: 100%;
-                        @media screen and (min-width: 721px) {
-                            height: 12rem;
-                        }
-                        @media screen and (max-width: 720px) {
-                            height: 30vh;
-                        }
-                    }
-
-                    .home-events-list-item-text {
-                        display: flex;
-                        flex-direction: column;
-                        padding: 1em;
-
-                    }
                 }
             }
 
