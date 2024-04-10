@@ -1,0 +1,225 @@
+@use "../index.scss";
+
+.organize-page {
+    @include index.page-layout;
+
+    .form-container {
+        @include index.page-display;
+        width: 70vw;
+        padding: 1rem 0 5rem 0;
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        #create-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            .form-item {
+                border: 1px solid gainsboro;
+                padding: 1rem;
+                border-radius: 1rem;
+                cursor: pointer;
+            }
+
+            .about-container {
+                .padding-bottom {
+                    padding-bottom: 1.5rem;
+                }
+            }
+
+            .image-container {
+                border: 1px solid gainsboro;
+                padding: 1rem;
+                border-radius: 1rem;
+
+                .padding-bottom {
+                    padding-bottom: 1.5rem;
+                }
+                .input-container {
+                    position: relative;
+                    margin-top: 1rem;
+                    position: relative;
+                    margin: auto;
+                    width: 60rem;
+                    height: 30rem;
+
+
+                    .icon-container {
+                        z-index: 1;
+                        padding: 1rem;
+                        border-radius: 1rem;
+                        cursor: pointer;
+                        position: absolute;
+                        background-color: white;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        color: purple;
+                        border: 1px solid purple;
+
+                        .upload-icon {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 1rem;
+
+                            .icon {
+                                font-size: 2rem;
+                                font-weight: lighter;
+                                stroke-width: 0;
+                                width: 50%;
+                                height: 50%;
+                                padding: 0.5rem;
+                                background-color: gainsboro;
+                                border-radius: 50%;
+                            }
+                        }
+                    }
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        opacity: 0.5;
+                    }
+                }
+            }
+
+            .header-expanded,
+            .about-expanded,
+            .datelocation-expanded {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+
+                .header-title,
+                .header-summary,
+                .about-details,
+                .about-tag,
+                .datelocation-dateStart,
+                .datelocation-dateEnd,
+                .datelocation-address {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+
+                    h3 {
+                        font-size: 1.5rem;
+                    }
+
+                    .input-container {
+                        border: 1px solid purple;
+                        padding: 0.5rem;
+                        position: relative;
+                        border-radius: 0.5rem;
+                        margin-top: 1rem;
+
+                        h4 {
+                            position: absolute;
+                            top: -0.5rem;
+                            background-color: white;
+                            padding: 0 1rem;
+                            font-size: small;
+                            font-weight: lighter;
+                        }
+
+                        .input {
+                            min-height: 4rem;
+                            cursor: text;
+                        }
+
+                        select {
+                            border: 1px solid transparent;
+                            cursor: pointer;
+                        }
+
+                        select:focus {
+                            outline: none;
+                        }
+
+                        .date-picker {
+                            input {
+                                border: 1px solid transparent;
+                                font-size: 1rem;
+                            }
+
+                            input:focus {
+                                outline: none;
+                            }
+                        }
+                    }
+                }
+
+                .header-price {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+
+                    h3 {
+                        font-size: 1.5rem;
+                    }
+
+                    .input-container {
+                        border: 1px solid purple;
+                        padding: 0.5rem;
+                        position: relative;
+                        border-radius: 0.5rem;
+                        margin-top: 1rem;
+                        width: fit-content;
+
+                        h4 {
+                            position: absolute;
+                            top: -1rem;
+                            background-color: white;
+                            padding: 0 1rem;
+                            font-size: small;
+                            font-weight: lighter;
+                        }
+
+                        input {
+                            border: 1px solid transparent;
+                            outline: none;
+                        }
+
+                        input::-webkit-outer-spin-button,
+                        input::-webkit-inner-spin-button {
+                            -webkit-appearance: none;
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+
+            button {
+                width: 30%;
+                height: 3rem;
+                border: 1px solid gainsboro;
+                margin: auto;
+                border-radius: 1rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            button:hover {
+                background-color: purple;
+                color: white;
+                transition: all 0.3s ease;
+            }
+        }
+
+        #create-form:hover {
+            .form-item {
+                opacity: 0.7;
+                transition: all 0.3s ease;
+            }
+
+            .form-item:hover {
+                opacity: 1;
+                transition: all 0.3s ease;
+                border: 1px solid purple;
+            }
+        }
+    }
+}

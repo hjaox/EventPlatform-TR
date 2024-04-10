@@ -10,20 +10,18 @@ export type TUser = {
 };
 
 export type TEvent = {
-    _id: string,
+    _id?: string,
     title: string,
     dateStart: Date,
     dateEnd: Date,
     address: string,
     images: string[],
-    coordinates: [number, number],
     details: string,
     summary: string,
     tag: string[],
-    attendees: string[] | [],
+    attendees?: string[] | [],
     price: number,
-    openPrice: boolean,
-    organizer: string,
+    openPrice?: boolean,
     createdAt?: string | Date,
     updatedAt?: string | Date,
     __v?: number
