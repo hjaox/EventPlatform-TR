@@ -3,9 +3,29 @@ import { handleDate } from "../../../utils/utils";
 import "../../../styles/Home/eventCard.scss"
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
+import { deleteEvent } from "../../../utils/axios/event";
 
-export default function EventCard({ event }: { event: TEvent }) {
-    console.log(event)
+export default function EventCard({ event, setEventList }: {
+    event: TEvent,
+    eventList: TEvent[],
+    setEventList: React.Dispatch<React.SetStateAction<TEvent[] | null>>
+}) {
+
+    async function handleDeleteEvent(e: React.MouseEvent<HTMLDivElement, MouseEvent>, eventId: string) {
+        e.stopPropagation();
+
+        await deleteEvent(eventId);
+
+        setEventList(eventList => {
+            if(!eventList) return null;
+
+            const index = eventList.findIndex(event => event._id === eventId);
+            const newList = eventList.filter((_, i) => i !== index);
+
+            return newList;
+        })
+    }
+
     return (
         <>
             <img className="eventCard-image" src={event.images[0]} alt="pic" />
@@ -20,7 +40,7 @@ export default function EventCard({ event }: { event: TEvent }) {
                     <FaRegEdit className="eventCard-option" />
                 </div>
 
-                <div className="eventCard-icon-container">
+                <div className="eventCard-icon-container" onClick={e => handleDeleteEvent(e, event._id)}>
                     <MdDeleteForever className="eventCard-option" />
                 </div>
             </div>

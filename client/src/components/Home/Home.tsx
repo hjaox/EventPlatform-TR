@@ -17,11 +17,13 @@ export default function Home() {
     useEffect(() => {
         (async () => {
             const results = await Promise.all([getAllEvents(), getAllTags()]);
-            setEventList(() => [...results[0], ...results[0], ...results[0]]);
+            setEventList(() => [...results[0]]);
             setTagList(() => [...results[1]]);
         })()
-
     }, []);
+
+    useEffect(() => {
+    }, [eventList])
 
     function handleTags(tagList: string[]) {
         return tagList.map((tag, i) => {
@@ -37,7 +39,10 @@ export default function Home() {
         return eventList.map((event, i) => {
             return (
                 <li onClick={() => navigate(`/Event/${event._id}`)} key={i} className="home-events-list-item">
-                    <EventCard event={event} />
+                    <EventCard event={event}
+                    eventList={eventList}
+                    setEventList={setEventList}/>
+
                 </li>
             )
         })
