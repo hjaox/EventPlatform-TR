@@ -81,7 +81,8 @@
                     img {
                         width: 100%;
                         height: 100%;
-                        object-fit: fill;
+                        object-fit: cover;
+                        opacity: 0.5;
                     }
                 }
             }
@@ -218,6 +219,44 @@
                 opacity: 1;
                 transition: all 0.3s ease;
                 border: 1px solid purple;
+            }
+        }
+    }
+
+    .redirect-container {
+        position: fixed;
+        z-index: 3;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(10px) brightness(80%);
+        @include index.center-elements;
+
+        .redirect {
+            background-color: white;
+            @include index.center-elements-column;
+            padding: 2rem;
+            gap: 4rem;
+            font-size: 2rem;
+            border-radius: 1rem;
+
+            .redirect-options {
+                @include index.center-elements;
+                gap: 2rem;
+
+                button {
+                    width: 6rem;
+                    height: 3rem;
+                    border: 1px solid gainsboro;
+                    border-radius: 0.5rem;
+                    cursor: pointer;
+                    transition: all 0.1s ease;
+                }
+
+                button:hover {
+                    background-color: purple;
+                    color: white;
+                    transition: all 0.1s ease;
+                }
             }
         }
     }
