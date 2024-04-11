@@ -15,6 +15,7 @@ import Dashboard from './components/Dashboard/Dashboard.tsx';
 import Event from './components/EventPage/Event.tsx';
 import Error from './components/Error/Error.tsx';
 import OrganizeEvent from './components/OrganizeEvent/OrganizeEvent.tsx';
+import EditEvent from './components/EditEvent/EditEvent.tsx';
 
 const router = createBrowserRouter(
   [
@@ -39,17 +40,21 @@ const router = createBrowserRouter(
       element: <Dashboard />
     },
     {
-      path: "/Event/:eventId",
-      element: <Event />
-    },
-    {
       path: "/Event/Create",
       element: <OrganizeEvent />
     },
     {
+      path: "/Event/Edit/:eventId",
+      element: <EditEvent />
+    },
+    {
+      path: "/Event/:eventId",
+      element: <Event />
+    },
+    {
       path: "/*",
       element: <Error />
-    }
+    },
   ]
 );
 
