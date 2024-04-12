@@ -7,13 +7,8 @@ type TEventUpdate = {
     dateEnd?: Date,
     address?: string,
     images?: string[],
-    coordinates?: [number, number],
     description?: string,
     tag?: string[],
-    organizer?: string,
-    createdAt?: string | Date,
-    updatedAt?: string | Date,
-    __v?: number
 };
 
 export async function createEvent(eventDetails: TEvent) {

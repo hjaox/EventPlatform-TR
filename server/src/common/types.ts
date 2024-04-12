@@ -4,10 +4,6 @@ export type TUser = {
   _id: string,
   name: string,
   email: string,
-  eventsAttending?: any[],
-  eventsOrganized?: any[],
-  createdAt?: string | Date,
-  updatedAt?: string | Date,
   __v?: number
 };
 
@@ -18,8 +14,6 @@ export type TTestUser = {
   email: string,
   eventsAttending?: any[],
   eventsOrganized?: any[],
-  createdAt?: string | Date,
-  updatedAt?: string | Date,
   __v?: number
 };
 
@@ -29,19 +23,19 @@ export type TEvent = {
   dateEnd: Date,
   address: string,
   images: string[],
-  coordinates: [number, number],
   details: string,
   summary: string,
   tag: string[],
-  attendees: mongoose.Schema.Types.ObjectId[]|[],
+  attendees: mongoose.Schema.Types.ObjectId[] | [],
   price: number,
   openPrice: boolean,
-  organizer: string,
   createdAt?: string | Date,
   updatedAt?: string | Date,
   __v?: number
 };
 
-export type TMongoError = {
-  code?: number
+export type TError = {
+  code?: number | string,
+  message?: string,
+  status?: number,
 }

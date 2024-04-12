@@ -6,8 +6,7 @@ export async function signUp(auth: Auth, email: string, password: string) {
 
         return userCredentials;
     } catch (err) {
-        console.log(err)
-        return Promise.reject("Email already exist")
+        return Promise.reject(err)
     }
 
 }
@@ -18,8 +17,7 @@ export async function singIn(auth: Auth, email: string, password: string) {
 
         return userCredentials;
     } catch (err) {
-        console.log(err)
-        return Promise.reject("Sign in failed")
+        return Promise.reject(err)
     }
 }
 
