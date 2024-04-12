@@ -8,6 +8,10 @@ export function customErrorHandler(err: express.ErrorRequestHandler,
     next: express.NextFunction): any {
     const error = err as TError;
 
+    if(error.message && error.status) {
+        return res.status(error.status).send({message: error.message});
+    }
+
     switch (error.code) {
         case "auth/invalid-credential":
             return res.status(400).send({ message: "Incorrect email or password" });

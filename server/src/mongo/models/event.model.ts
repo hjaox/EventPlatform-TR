@@ -4,27 +4,27 @@ const eventSchema = new Schema(
     {
         title: {
             type: String,
+            required: true,
         },
         dateStart: {
             type: Date,
+            required: true,
         },
         dateEnd: {
             type: Date,
+            required: true,
         },
         address: {
             type: String,
+            required: true,
         },
         images: {
             type: [String],
-            default: []
-        },
-        coordinates: {
-            type: [Number, Number],
-            default: []
+            required: true,
         },
         summary: {
             type: String,
-            default: ""
+            default: "",
         },
         details: {
             type: String,
@@ -42,14 +42,14 @@ const eventSchema = new Schema(
             type: Boolean,
             default: false
         },
+        isFree: {
+            type: Boolean,
+            default: true
+        },
         tag: {
             type: [String],
             default: ["Others"]
         },
-        organizer: {
-            type: String,
-            default: ""
-        }
     },
     {
         timestamps: true,
