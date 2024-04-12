@@ -21,6 +21,7 @@ export type TNewEvent = {
     attendees?: string[] | [],
     price: number,
     openPrice?: boolean,
+    isFree: boolean,
     createdAt?: string | Date,
     updatedAt?: string | Date,
     __v?: number

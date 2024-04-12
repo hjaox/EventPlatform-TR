@@ -8,7 +8,7 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid gainsboro;
-    padding-left: 1rem;
+    padding: 0 1rem;
     display: flex;
     align-items: center;
     background-color: whitesmoke;
@@ -60,7 +60,6 @@
                 background-color: purple;
                 font-weight: bold;
                 transition: all 0.3s ease;
-
             }
 
             .options {
@@ -102,30 +101,14 @@
             }
         }
 
-
         .loggedOut {
             display: flex;
             gap: 0.5rem;
 
-            .login,
-            .register {
-                color: purple;
-                border: 1px solid transparent;
-                border-radius: 1rem;
-                background-color: whitesmoke;
-                cursor: pointer;
-                min-width: 6rem;
-                height: 2rem;
+            p {
+                font-family: Satisfy;
                 font-weight: bold;
-                transition: all 0.3s ease;
-            }
-
-            .login:hover,
-            .register:hover {
-                color: white;
-                background-color: purple;
-                font-weight: bold;
-                transition: all 0.3s ease;
+                font-size: xx-large;
             }
         }
     }
