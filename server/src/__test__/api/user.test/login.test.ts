@@ -41,7 +41,7 @@ describe("POST /user/login endpoint tests", () => {
             if (val instanceof Date) {
                 expect(userDetails).toHaveProperty(key, val.toISOString());
 
-            } else if(val instanceof mongoose.Types.ObjectId) {
+            } else if (val instanceof mongoose.Types.ObjectId) {
                 expect(userDetails).toHaveProperty(key);
                 expect(userDetails[key].toString()).toStrictEqual(val.toString());
 

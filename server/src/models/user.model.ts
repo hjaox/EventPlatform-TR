@@ -3,11 +3,10 @@ import UserModel from "../mongo/models/user.model";
 import auth from "../utils/firebase/fbAuth";
 import { signUp, singIn } from "../utils/firebase/fbFunctions";
 import { TMongoError } from "../common/types";
+import { MongooseError } from "mongoose";
 
 export async function postUser(name: string, email: string, password: string) {
     try {
-        if (await checEmailIfExists(email)) return Promise.reject({ status: 400, message: "Email already exist" })
-
         const userCredentials = await signUp(auth, email, password);
         const userToken = await userCredentials.user.getIdToken();
 
@@ -15,19 +14,9 @@ export async function postUser(name: string, email: string, password: string) {
 
         return { ...newUser.toObject(), accessToken: userToken };
     } catch (err) {
-        if (err === "Sign Up failed") return Promise.reject({ status: 400, message: err })
-        console.log("Model postUser error", err);
-        return Promise.reject(err)
-    }
-}
+        if (err instanceof MongooseError) Promise.reject({ status: 400, message: "Something went wrong." });
 
-async function checEmailIfExists(email: string) {
-    try {
-        const check = await UserModel.find({ email });
-
-        return !!check.length
-    } catch (err) {
-        return false;
+        return Promise.reject({ status: 400, message: err })
     }
 }
 

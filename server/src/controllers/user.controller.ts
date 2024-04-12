@@ -19,6 +19,10 @@ export async function loginUser(req: express.Request, res: express.Response, nex
 export const registerUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { name, email, password } = req.body;
 
+    if (!name || !email || !password) {
+        return res.status(400).send({ message: "Please provide name, email, and password" });
+    }
+
     try {
         const newUser = await postUser(name, email, password);
 
