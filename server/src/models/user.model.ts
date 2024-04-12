@@ -2,8 +2,7 @@ import { handleMongoDBError } from "../utils/utils";
 import UserModel from "../mongo/models/user.model";
 import auth from "../utils/firebase/fbAuth";
 import { signUp, singIn } from "../utils/firebase/fbFunctions";
-import { TMongoError } from "../common/types";
-import { MongooseError } from "mongoose";
+import { TError } from "../common/types";
 
 export async function postUser(name: string, email: string, password: string) {
     try {
@@ -14,9 +13,7 @@ export async function postUser(name: string, email: string, password: string) {
 
         return { ...newUser.toObject(), accessToken: userToken };
     } catch (err) {
-        if (err instanceof MongooseError) Promise.reject({ status: 400, message: "Something went wrong." });
-
-        return Promise.reject({ status: 400, message: err })
+        return Promise.reject(err)
     }
 }
 
@@ -39,7 +36,7 @@ export async function createUser(name: string, email: string) {
         return newUser;
     } catch (err) {
 
-        return Promise.reject(handleMongoDBError(err as TMongoError));
+        return Promise.reject(handleMongoDBError(err as TError));
     }
 }
 
@@ -49,6 +46,6 @@ export async function findUser(email: string) {
 
         return userDetails;
     } catch (err) {
-        return Promise.reject(handleMongoDBError(err as TMongoError));
+        return Promise.reject(handleMongoDBError(err as TError));
     }
 }

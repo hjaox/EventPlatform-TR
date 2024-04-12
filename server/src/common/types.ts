@@ -36,6 +36,6 @@ export type TEvent = {
   __v?: number
 };
 
-export type TMongoError = {
-  code?: number
+export type TError = {
+  code?: number | string
 }

@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import apiRouter from "./routers/api.router";
 import {verifyIdToken} from "./utils/firebase-admin/fbAdminFunctions";
+import { TError } from "common/types";
 
 const app = express();
 
@@ -28,8 +29,10 @@ app.use((err: express.ErrorRequestHandler | { status: number, message: string },
     _: express.Request,
     res: express.Response,
     next: express.NextFunction) => { //custom error handler
-    if (typeof err === "object" && err.message && err.status) {
-        return res.status(err.status).send({ message: err.message });
+        const error = err as TError;
+
+    if (error.code === "auth/email-already-in-use") {
+        return res.status(400).send({ message: "Email already exist" });
     }
     next(err);
 })

@@ -1,7 +1,7 @@
-import { TMongoError } from "../common/types";
+import { TError } from "../common/types";
 
-export function handleMongoDBError(err: TMongoError) {
-    if(err.code === 11000) {
+export function handleMongoDBError(err: TError) {
+    if(err.code === "auth/email-already-in-use") {
         return {status: 400, message: "Email already exist"};
     }
 
