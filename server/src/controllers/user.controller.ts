@@ -7,7 +7,7 @@ export async function loginUser(req: express.Request, res: express.Response, nex
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.status(400).send({ message: "Please provide name, email, and password" });
+        return res.status(400).send({ message: "Please provide email, and password" });
     }
 
     try {

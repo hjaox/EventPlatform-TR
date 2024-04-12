@@ -56,14 +56,15 @@ describe("POST /user/login endpoint tests", () => {
             password: "anyPassword"
         };
 
-        await request(app)
+        const { body: { message } } = await request(app)
             .post("/user/login")
             .send(testUser);
+
+            expect(message).toBe("Incorrect email or password");
     });
-    test("400: returns status code 400 when sent with incorrect email or password", async () => {
+    test("400: returns status code 400 when email or password is not provided", async () => {
         const testUser = {
             email: "emailDoesNotExist@gmail.com",
-            password: "anyPassword"
         };
 
         const { body: { message } } = await request(app)
@@ -71,6 +72,6 @@ describe("POST /user/login endpoint tests", () => {
             .send(testUser)
             .expect(400);
 
-        expect(message).toBe("Incorrect email or password");
+        expect(message).toBe("Please provide email, and password");
     });
 });
