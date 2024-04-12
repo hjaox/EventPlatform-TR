@@ -16,6 +16,7 @@ import Event from './components/EventPage/Event.tsx';
 import Error from './components/Error/Error.tsx';
 import OrganizeEvent from './components/OrganizeEvent/OrganizeEvent.tsx';
 import EditEvent from './components/EditEvent/EditEvent.tsx';
+import Completion from './components/EventPage/components/Completion.tsx';
 
 const router = createBrowserRouter(
   [
@@ -50,6 +51,10 @@ const router = createBrowserRouter(
     {
       path: "/Event/:eventId",
       element: <Event />
+    },
+    {
+      path: "/Completion",
+      element: <Completion />,
     },
     {
       path: "/*",

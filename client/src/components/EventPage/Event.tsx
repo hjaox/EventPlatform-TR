@@ -9,6 +9,8 @@ import { FaRegCalendarCheck } from "react-icons/fa6";
 import { MagnifyingGlass } from "react-loader-spinner";
 import Basket from "./components/Basket";
 import { IoMdClose } from "react-icons/io";
+import { GoogleLoginButton } from "react-social-login-buttons";
+import instance from "../../utils/axios/instance";
 
 export default function Event() {
     const { eventId } = useParams();
@@ -53,7 +55,10 @@ export default function Event() {
         return `${day}, ${month} ${date} • ${startTime} - ${endTime}`;
     }
 
-    if (showError) return <>Incorrect Event Id</>
+    async function addToCalendar() {
+        const {data} = await instance.get("/google/oauth2cb");
+        window.open(data, "_blank", "popup")
+    }
 
     return (
         <section className="event-page">
@@ -73,42 +78,30 @@ export default function Event() {
                             <div className="image-container">
                                 <img className="image" src={eventDetails.images[0]} alt="pic-center" />
                             </div>
-
                             <div className="info">
                                 <div className="event-header">
                                     <h1 className="title">{eventDetails.title}</h1>
-
                                     <div className="ticket">
                                         <span className="price">{`£${eventDetails.price}`}</span>
                                         <button onClick={() => setShowPayment(showPayment => !showPayment)}>Buy ticket</button>
                                     </div>
-
                                 </div>
-
                                 <div className="summary">{eventDetails.summary}</div>
-
                                 <div className="time">
                                     <h2 className="time-title">Date and Time</h2>
                                     <div className="time-content">
                                         <FaRegCalendarCheck /> {handleDateAndTime(eventDetails.dateStart, eventDetails.dateEnd)}
                                     </div>
                                 </div>
-
                                 <div className="location">
                                     <h2>Location</h2>
                                     <div>eventDetails.address</div>
                                 </div>
-
                                 <div className="details">
                                     <h2>About</h2>
                                     <p>{eventDetails.details}</p>
                                 </div>
-
-                                <div className="tag">{eventDetails.tag}</div>
-
-                                <div className="organizer">
-                                    <h2>Organized by</h2>
-                                </div>
+                                <div className="tag">#{eventDetails.tag}</div>
                             </div>
                         </section>
                     )
@@ -128,30 +121,26 @@ export default function Event() {
             {
                 eventDetails && purchaseDetails && (
                     <div className={`purchaseDetails-container ${purchaseDetails ? "show" : "hide"}-purchase`}>
-
-
                         <div className="purchase-details">
                             <h1 className="title">{eventDetails.title}</h1>
-
                             <p className="purchase-message">🎉 You have secured your ticket/s. Thank you for your order 🎉</p>
-
                             <div className="ticket">
                                 <div className="quantity">
                                     <h2 className="label">Qty</h2>
                                     1 x {purchaseDetails.quantity}
                                 </div>
-
                                 <div className="totalPrice">
                                     <h2 className="label"> Total</h2>
                                     £ {purchaseDetails.price * purchaseDetails.quantity}
                                 </div>
                             </div>
-
+                            <div className="addToCalendar">
+                                <p>You can add this event to your google calendar.</p>
+                                <GoogleLoginButton className="google-login" onClick={() => addToCalendar()} size="2.5rem" style={{ width: "fit-content" }} />
+                            </div>
                             <IoMdClose className="close-purchase" onClick={() => setPurchaseDetails(null)} />
-
                             <div className="navigation">
                                 <button className="back" onClick={() => setPurchaseDetails(null)}>Go back</button>
-
                                 <button className="home" onClick={() => navigate("/Home")}>Go Home</button>
                             </div>
                         </div>
