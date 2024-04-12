@@ -8,7 +8,7 @@ import { deleteEvent } from "../../../utils/axios/event";
 export default function EventCard({ event, setEventList }: {
     event: TEvent,
     eventList: TEvent[],
-    setEventList: React.Dispatch<React.SetStateAction<TEvent[] | null>>
+    setEventList: React.Dispatch<React.SetStateAction<TEvent[]>>
 }) {
 
     async function handleDeleteEvent(e: React.MouseEvent<HTMLDivElement, MouseEvent>, eventId: string) {
@@ -17,8 +17,6 @@ export default function EventCard({ event, setEventList }: {
         await deleteEvent(eventId);
 
         setEventList(eventList => {
-            if(!eventList) return null;
-
             const index = eventList.findIndex(event => event._id === eventId);
             const newList = eventList.filter((_, i) => i !== index);
 
