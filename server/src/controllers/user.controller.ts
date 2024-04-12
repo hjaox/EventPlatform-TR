@@ -6,11 +6,14 @@ import auth from "../utils/firebase/fbAuth";
 export async function loginUser(req: express.Request, res: express.Response, next: express.NextFunction) {
     const { email, password } = req.body;
 
+    if (!email || !password) {
+        return res.status(400).send({ message: "Please provide name, email, and password" });
+    }
+
     try {
         const userDetails = await getUserWithCredentials(email, password);
 
-        return res.status(200)
-            .send({ userDetails });
+        return res.status(200).send({ userDetails });
     } catch (err) {
         next(err);
     }
@@ -26,8 +29,7 @@ export const registerUser = async (req: express.Request, res: express.Response, 
     try {
         const newUser = await postUser(name, email, password);
 
-        return res.status(201)
-            .send({ newUser });
+        return res.status(201).send({ newUser });
     } catch (err) {
         next(err)
     }

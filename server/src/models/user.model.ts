@@ -25,7 +25,7 @@ export async function getUserWithCredentials(email: string, password: string) {
 
         return { ...userDetails, accessToken: userToken };
     } catch (err) {
-        return Promise.reject({ status: 400, message: "Incorrect email or password" })
+        return Promise.reject(err)
     }
 }
 
