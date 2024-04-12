@@ -10,7 +10,6 @@ beforeAll(async () => {
     await db();
     await seed(usersData, eventsData, tagsData);
 });
-beforeEach(() => jest.clearAllMocks());
 afterAll(async () => await mongoose.connection.close());
 
 describe("POST /user/register endpoint tests", () => {
@@ -41,6 +40,19 @@ describe("POST /user/register endpoint tests", () => {
             }
         });
     });
+    test("400: returns status code 400 when name or email or password is not provided", async () => {
+        const testUser = {
+            name: "testPost User1",
+            email: "testPostEmail1@gmail.com",
+        };
+
+        const {body: {message}} = await request(app)
+            .post("/user/register")
+            .send(testUser)
+            .expect(400);
+
+        expect(message).toBe("Please provide name, email, and password");
+    });
     test("400: returns status code 400 when email already exist", async () => {
         const testUser = {
             name: "testPost User1",
@@ -48,25 +60,10 @@ describe("POST /user/register endpoint tests", () => {
             password: "testPostPass1"
         };
 
-        await request(app)
-            .post("/user/register")
-            .send(testUser)
-            .expect(400);
-    });
-    test("400: returns message 'Email already exist' when email already exist", async () => {
-        const testUser = {
-            name: "testPost User1",
-            email: "testPostEmail1@gmail.com",
-            password: "testPostPass1"
-        };
-
-        await request(app)
-            .post("/user/register")
-            .send(testUser);
-
         const { body: { message } } = await request(app)
             .post("/user/register")
             .send(testUser)
+            .expect(400);
 
         expect(message).toBe("Email already exist");
     });
