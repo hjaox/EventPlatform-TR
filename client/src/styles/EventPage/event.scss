@@ -138,51 +138,61 @@
             .purchase-message {
                 margin: auto;
             }
-        }
 
-        .ticket {
-            display: flex;
-            gap: 20%;
-            justify-content: center;
-        }
-
-        .close-purchase {
-            cursor: pointer;
-            position: absolute;
-            right: 0.3rem;
-            top: 0.3rem;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            border-radius: 50%;
-            border: 1px solid transparent;
-        }
-
-        .close-purchase:hover {
-            background-color: purple;
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .navigation {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-
-            .back,
-            .home {
-                width: 20%;
-                border: 1px solid gainsboro;
-                border-radius: 0.5rem;
-                height: 2rem;
-                cursor: pointer;
-                transition: all 0.3s ease;
+            .ticket {
+                display: flex;
+                gap: 20%;
+                justify-content: center;
             }
 
-            .back:hover,
-            .home:hover {
+            .addToCalendar {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+
+                .google-login {
+                    align-self: center;
+                }
+            }
+
+            .close-purchase {
+                cursor: pointer;
+                position: absolute;
+                right: 0.3rem;
+                top: 0.3rem;
+                font-size: 1.5rem;
+                transition: all 0.3s ease;
+                border-radius: 50%;
+                border: 1px solid transparent;
+            }
+
+            .close-purchase:hover {
                 background-color: purple;
                 color: white;
                 transition: all 0.3s ease;
+            }
+
+            .navigation {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+
+                .back,
+                .home {
+                    width: 20%;
+                    border: 1px solid gainsboro;
+                    border-radius: 0.5rem;
+                    height: 2rem;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                }
+
+                .back:hover,
+                .home:hover {
+                    background-color: purple;
+                    color: white;
+                    transition: all 0.3s ease;
+                }
             }
         }
     }

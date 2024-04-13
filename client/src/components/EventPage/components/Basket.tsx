@@ -32,45 +32,41 @@ export default function Basket({ eventDetails }: { eventDetails: TEvent }) {
                     ? (
                         <div className="basket-payment">
                             <Payment
-                            quantity={quantity}
-                            eventDetails={eventDetails}/>
+                                quantity={quantity}
+                                eventDetails={eventDetails} />
 
                             <button className="back" onClick={() => setShowPayment(false)}>
                                 <IoReturnUpBack className="back-icon" />
                                 <span className="back-text">Go back</span>
-                                </button>
+                            </button>
                         </div>
 
                     )
                     : (
                         <div className="basket-ticket">
                             <h1 className="title">{eventDetails.title}</h1>
-
                             <div className="ticket-form">
-                                <div className="price">£ {eventDetails.price}</div>
-
+                                <div className="price">
+                                    <div className="label">Price</div>
+                                    <div>£ {eventDetails.price}</div>
+                                </div>
                                 <div className="quantity-select">
-
                                     <div className="label">Qty</div>
-                                    <div className={`subtract-container ${quantity ? "enabled" : "disabled"}`} onClick={() => subtractTicket()}>
-                                        <LuMinus className="subtract"  />
-                                    </div>
-
-                                    <span className="quantity">{quantity}</span>
-
-
-                                    <div className="add-container enabled" onClick={() => addTicket()}>
-                                        <LuPlus className="add"  />
+                                    <div className="form">
+                                        <div className={`subtract-container ${quantity ? "enabled" : "disabled"}`} onClick={() => subtractTicket()}>
+                                            <LuMinus className="subtract" />
+                                        </div>
+                                        <span className="quantity">{quantity}</span>
+                                        <div className="add-container enabled" onClick={() => addTicket()}>
+                                            <LuPlus className="add" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
                             <div className="price-total-container">
                                 <div className="label">Total</div>
-
                                 <div className="price-total">£ {eventDetails.price * quantity}</div>
                             </div>
-
                             <button onClick={() => handlePayment()} className="checkout">Checkout</button>
                         </div>
                     )

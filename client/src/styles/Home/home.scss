@@ -29,6 +29,16 @@
             list-style-type: none;
         }
 
+        .loading {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+        }
+
+        .no-events {
+            margin: auto;
+        }
+
         .home-tags {
             border-bottom: 1px solid gainsboro;
             padding-bottom: 1rem;
@@ -94,7 +104,6 @@
                 .home-events-list-item:hover {
                     opacity: 1;
                     transition: all 0.3s ease;
-                    color: red;
                     box-shadow: 10px 10px 10px gainsboro;
                 }
             }

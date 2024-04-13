@@ -7,7 +7,6 @@ import { MagnifyingGlass } from "react-loader-spinner";
 
 export default function CheckoutForm({eventDetails, quantity}: {eventDetails: TEvent, quantity: number}) {
   const stripe = useStripe();
-  // const stripe = null;
   const elements = useElements();
 
   const [errorMsg, setErrorMsg] = useState<string|null>(null);

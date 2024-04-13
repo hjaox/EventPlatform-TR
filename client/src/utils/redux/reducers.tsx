@@ -7,6 +7,7 @@ const initialState = {
         email: "",
         accessToken: "",
     },
+    eventId: "",
     isLoggedIn: false,
 }
 
@@ -21,7 +22,10 @@ const profileSlice = createSlice({
         logout: (state) => {
             state.isLoggedIn = false;
             state.userDetails = { ...initialState.userDetails };
-        }
+        },
+        storeEventId: (state, { payload }) => {
+            state.eventId = payload;
+        },
     }
 });
 

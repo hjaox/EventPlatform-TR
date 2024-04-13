@@ -8,18 +8,24 @@ import Footer from "../subcomponents/Footer/Footer";
 import { getAllTags } from "../../utils/axios/tags";
 import EventCard from "./components/EventCard";
 import TagCard from "./components/TagCard";
+import { MagnifyingGlass } from "react-loader-spinner";
 
 export default function Home() {
     const navigate = useNavigate();
-    const [eventList, setEventList] = useState<null | TEvent[]>(null);
-    const [tagList, setTagList] = useState<null | string[]>(null);
+    const [eventList, setEventList] = useState<TEvent[]>([]);
+    const [tagList, setTagList] = useState<string[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        setIsLoading(true);
+
         (async () => {
             const results = await Promise.all([getAllEvents(), getAllTags()]);
-            setEventList(() => [...results[0]]);
+            setEventList(() => [...results[0], ...results[0], ...results[0]]);
             setTagList(() => [...results[1]]);
+            setIsLoading(false);
         })()
+
     }, []);
 
     useEffect(() => {
@@ -29,7 +35,7 @@ export default function Home() {
         return tagList.map((tag, i) => {
             return (
                 <li key={i} className="home-tags-list-item">
-                    <TagCard tag={tag}/>
+                    <TagCard tag={tag} />
                 </li>
             )
         })
@@ -40,8 +46,8 @@ export default function Home() {
             return (
                 <li onClick={() => navigate(`/Event/${event._id}`)} key={i} className="home-events-list-item">
                     <EventCard event={event}
-                    eventList={eventList}
-                    setEventList={setEventList}/>
+                        eventList={eventList}
+                        setEventList={setEventList} />
 
                 </li>
             )
@@ -51,12 +57,13 @@ export default function Home() {
     return (
         <section className="home-page">
             <Header />
-
             <section className="home-display">
                 {
-                    !tagList
+                    isLoading
                         ? (
-                            <div>loading</div>
+                            <div className="loading">
+                                <MagnifyingGlass color="purple" />
+                            </div>
                         )
                         : (
                             <>
@@ -67,12 +74,10 @@ export default function Home() {
                                         }
                                     </ul>
                                 </div>
+
                                 {
-                                    !eventList
+                                    eventList.length
                                         ? (
-                                            <>loading</>
-                                        )
-                                        : (
                                             <div className="home-events">
                                                 <ul className="home-events-list">
                                                     {
@@ -82,12 +87,17 @@ export default function Home() {
 
                                             </div>
                                         )
+                                        : (
+                                            <div className="no-events">
+                                                <p>No events available</p>
+                                            </div>
+                                        )
                                 }
                             </>
+
                         )
                 }
             </section>
-
             <Footer />
         </section>
     )

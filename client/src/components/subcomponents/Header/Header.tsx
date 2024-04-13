@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import "../../../styles/subcomponents/Header/header.scss";
+import "../../../styles/subcomponents/header.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { TReduxUser } from "../../../common/types";
 import { useState } from "react";
@@ -57,9 +57,7 @@ export default function Header() {
                         )
                         : (
                             <div className="loggedOut">
-                                <button className="login" onClick={() => navigate("/Login")}>Login</button>
-
-                                <button className="register" onClick={() => navigate("/Register")}>Sign Up</button>
+                                <p>Welcome</p>
                             </div>
                         )
                 }
