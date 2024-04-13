@@ -24,7 +24,7 @@ export default function Header() {
 
     return (
         <header className="header-component">
-            <section className="platform-name">
+            <section className="platform-name" onClick={() => navigate("/Home")}>
                 <span className="text">Our Community</span>
             </section>
             <section className="state">
