@@ -3,6 +3,7 @@ import { storage } from "./fbAuth";
 
 export async function uploadToFirebase(file: File, userId: string) {
     try {
+        console.log(file)
         const imageRef = ref(storage, `images/${userId}`);
 
         const snapshot = await uploadBytes(imageRef, file)
@@ -10,7 +11,6 @@ export async function uploadToFirebase(file: File, userId: string) {
 
         return url;
     } catch (err) {
-        console.log(err)
         return null;
     }
 }

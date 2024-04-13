@@ -11,12 +11,11 @@ import App from './App.tsx'
 import Home from './components/Home/Home.tsx';
 import Login from './components/Login/Login.tsx';
 import Register from './components/Register/Register.tsx';
-import Dashboard from './components/Dashboard/Dashboard.tsx';
 import Event from './components/EventPage/Event.tsx';
 import Error from './components/Error/Error.tsx';
-import OrganizeEvent from './components/OrganizeEvent/OrganizeEvent.tsx';
 import EditEvent from './components/EditEvent/EditEvent.tsx';
 import Popup from './components/Popup/Popup.tsx';
+import CreateEvent from './components/CreateEvent/CreateEvent.tsx';
 
 const router = createBrowserRouter(
   [
@@ -37,12 +36,8 @@ const router = createBrowserRouter(
       element: <Register />
     },
     {
-      path: "/Dashboard",
-      element: <Dashboard />
-    },
-    {
       path: "/Event/Create",
-      element: <OrganizeEvent />
+      element: <CreateEvent />
     },
     {
       path: "/Event/Edit/:eventId",
