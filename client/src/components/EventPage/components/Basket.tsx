@@ -5,11 +5,26 @@ import { LuPlus } from "react-icons/lu";
 import { LuMinus } from "react-icons/lu";
 import Payment from "./Payment";
 import { IoReturnUpBack } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import { actions } from "../../../utils/redux/reducers";
 
+type TBasket = {
+    eventDetails: TEvent,
+    setPurchaseDetails: React.Dispatch<React.SetStateAction<{
+        quantity: number;
+        price: number;
+    } | null>>,
+    setShowBasket:  React.Dispatch<React.SetStateAction<boolean>>
+};
 
-export default function Basket({ eventDetails }: { eventDetails: TEvent }) {
+export default function Basket({ eventDetails, setPurchaseDetails, setShowBasket }: TBasket ) {
+    const dispatch = useDispatch();
     const [quantity, setQuantity] = useState(1);
     const [showPayment, setShowPayment] = useState(false);
+    const [buyerName, setBuyerName] = useState("");
+    const [buyerEmail, setBuyerEmail] = useState("");
+    const [nameError, setNameError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
 
     function addTicket() {
         setQuantity(quantity => quantity + 1);
@@ -22,7 +37,19 @@ export default function Basket({ eventDetails }: { eventDetails: TEvent }) {
     }
 
     function handlePayment() {
-        setShowPayment(true);
+        if (!buyerName) setNameError(true);
+        if (!buyerEmail) setEmailError(true);
+
+        if (buyerName && buyerEmail) {
+            dispatch(actions.storeBuyerDetails({ name: buyerName, email: buyerEmail }));
+
+            if (eventDetails.price) {
+                setShowPayment(true);
+            } else {
+                setPurchaseDetails(() => ({ quantity, price: 0 }));
+                setShowBasket(false);
+            }
+        }
     }
 
     return (
@@ -45,6 +72,25 @@ export default function Basket({ eventDetails }: { eventDetails: TEvent }) {
                     : (
                         <div className="basket-ticket">
                             <h1 className="title">{eventDetails.title}</h1>
+                            <form className="buyer-form">
+                                <p>Kindly fill up the following details.</p>
+                                <div className="buyer-details">
+                                    <label htmlFor="buyer-name">Name: </label>
+                                    {
+                                        nameError && (
+                                            <div className="error">Please enter your name.</div>
+                                        )
+                                    }
+                                    <input id="buyer-name" type="text" onChange={e => setBuyerName(e.target.value)} />
+                                    <label htmlFor="">Email: </label>
+                                    {
+                                        emailError && (
+                                            <div className="error">Please enter your email.</div>
+                                        )
+                                    }
+                                    <input id="buyer-email" type="text" onChange={e => setBuyerEmail(e.target.value)} />
+                                </div>
+                            </form>
                             <div className="ticket-form">
                                 <div className="price">
                                     <div className="label">Price</div>

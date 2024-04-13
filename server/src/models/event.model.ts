@@ -1,15 +1,7 @@
 import EventModel from "../mongo/models/event.model";
-import { TEvent } from "../common/types";
+import { TEvent, TEventUpdate } from "../common/types";
 
-type TEventUpdate = {
-    title?: string,
-    dateStart?: Date,
-    dateEnd?: Date,
-    address?: string,
-    images?: string[],
-    description?: string,
-    tag?: string[],
-};
+
 
 export async function createEvent(eventDetails: TEvent) {
     try {

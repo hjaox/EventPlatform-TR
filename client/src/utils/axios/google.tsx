@@ -21,12 +21,17 @@ export async function getOauthConsent() {
 }
 
 export async function scheduleEvent(eventSchedule: TEventSchedule, code: string) {
-    const { status } = await instance.post("/google/schedule-event", {
-        code,
-        eventSchedule
-    })
+    try {
+        const { status } = await instance.post("/google/schedule-event", {
+            code,
+            eventSchedule
+        })
 
-    if (status === 201) return true;
+        if (status === 201) return true;
 
-    return false;
+        return false;
+    } catch (err) {
+        return false;
+    }
+
 }

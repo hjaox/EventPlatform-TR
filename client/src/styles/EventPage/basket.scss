@@ -35,6 +35,29 @@
             padding-bottom: 1rem;
         }
 
+        .buyer-form {
+            padding-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            .error {
+                color: red;
+            }
+
+            .buyer-details {
+                display: flex;
+                flex-direction: column;
+
+                label {
+                    font-weight: bold;
+                }
+
+                input {
+                    width: 20rem;
+                }
+            }
+        }
         .ticket-form {
             display: flex;
             justify-content: space-between;
@@ -63,7 +86,7 @@
                 .form {
                     display: flex;
                     gap: 1rem;
-                align-items: center;
+                    align-items: center;
 
                     .quantity {
                         width: 2rem;

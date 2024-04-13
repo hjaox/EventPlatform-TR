@@ -39,6 +39,7 @@ export default function Popup() {
                     const result = await scheduleEvent(eventSchedule, code);
 
                     if (!result) {
+
                         setError(true);
                     }
                 }
@@ -46,6 +47,7 @@ export default function Popup() {
                 setLoading(false);
 
             } catch (err) {
+
                 setLoading(false);
                 setError(true);
             }
@@ -66,7 +68,7 @@ export default function Popup() {
                     {
                         error
                         ? (
-                            <p>Something went wrong</p>
+                            <p>Something went wrong{error}</p>
                         )
                         : (
                             <p>Event is now in your calendar</p>
