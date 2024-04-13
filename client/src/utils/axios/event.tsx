@@ -1,7 +1,7 @@
-import { TNewEvent } from "../../common/types";
+import { TEvent, TNewEvent } from "../../common/types";
 import instance from "./instance";
 
-export async function getEvent(eventId: string) {
+export async function getEvent(eventId: string):Promise<TEvent> {
     const {data: {eventDetails}} = await instance
     .get(`/event/${eventId}`);
 

@@ -36,5 +36,6 @@ export type TReduxUser = {
         email: string,
         accessToken: string,
     },
-    isLoggedIn: boolean
+    isLoggedIn: boolean,
+    eventId: string
 }

@@ -10,14 +10,16 @@ import { MagnifyingGlass } from "react-loader-spinner";
 import Basket from "./components/Basket";
 import { IoMdClose } from "react-icons/io";
 import { GoogleLoginButton } from "react-social-login-buttons";
-import instance from "../../utils/axios/instance";
+import { useDispatch } from "react-redux";
+import { actions } from "../../utils/redux/reducers";
+import { getOauthConsent } from "../../utils/axios/google";
 
 export default function Event() {
     const { eventId } = useParams();
+    const dispatch = useDispatch();
     const [searchParams, setSearchParams] = useSearchParams();
     const [eventDetails, setEventDetails] = useState<null | TEvent>(null);
     const [showPayment, setShowPayment] = useState(false);
-    const [showError, setShowError] = useState(false);
     const [purchaseDetails, setPurchaseDetails] = useState<null | { quantity: number, price: number }>(null);
     const navigate = useNavigate();
 
@@ -28,7 +30,7 @@ export default function Event() {
                 setEventDetails(() => ({ ...result }));
             })();
         } else {
-            setShowError(true);
+            navigate("/Error")
         }
 
         const quantity = Number(searchParams.get("quantity"));
@@ -55,15 +57,17 @@ export default function Event() {
         return `${day}, ${month} ${date} • ${startTime} - ${endTime}`;
     }
 
-    async function addToCalendar() {
-        const {data} = await instance.get("/google/oauth2cb");
-        window.open(data, "_blank", "popup")
+    async function handleAddToCalendar(eventId: string) {
+        dispatch(actions.storeEventId(eventId));
+
+        const url = await getOauthConsent();
+
+        window.open(url, "_blank", "popup,width=100");
     }
 
     return (
         <section className="event-page">
             <Header />
-
             {
                 !eventDetails
                     ? (
@@ -74,7 +78,6 @@ export default function Event() {
                     )
                     : (
                         <section className="event-display">
-
                             <div className="image-container">
                                 <img className="image" src={eventDetails.images[0]} alt="pic-center" />
                             </div>
@@ -136,7 +139,7 @@ export default function Event() {
                             </div>
                             <div className="addToCalendar">
                                 <p>You can add this event to your google calendar.</p>
-                                <GoogleLoginButton className="google-login" onClick={() => addToCalendar()} size="2.5rem" style={{ width: "fit-content" }} />
+                                <GoogleLoginButton className="google-login" onClick={() => handleAddToCalendar(eventDetails._id)} size="2.5rem" style={{ width: "fit-content" }} />
                             </div>
                             <IoMdClose className="close-purchase" onClick={() => setPurchaseDetails(null)} />
                             <div className="navigation">
