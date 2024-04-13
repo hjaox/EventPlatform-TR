@@ -13,20 +13,28 @@ import { GoogleLoginButton } from "react-social-login-buttons";
 import { useDispatch } from "react-redux";
 import { actions } from "../../utils/redux/reducers";
 import { getOauthConsent } from "../../utils/axios/google";
+import { downloadImage } from "../../utils/firebase/functions";
+import defaultImage from "../../assets/default.jpg";
 
 export default function Event() {
     const { eventId } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const [eventDetails, setEventDetails] = useState<null | TEvent>(null);
-    const [showPayment, setShowPayment] = useState(false);
+    const [showBasket, setShowBasket] = useState(false);
     const [purchaseDetails, setPurchaseDetails] = useState<null | { quantity: number, price: number }>(null);
-    const navigate = useNavigate();
+    const [coverPhoto, setCoverPhoto] = useState<string>(defaultImage);
 
     useEffect(() => {
         if (eventId) {
             (async () => {
                 const result = await getEvent(eventId);
+                const url = await downloadImage(result._id);
+
+                if(url) {
+                    setCoverPhoto(url);
+                }
                 setEventDetails(() => ({ ...result }));
             })();
         } else {
@@ -79,14 +87,14 @@ export default function Event() {
                     : (
                         <section className="event-display">
                             <div className="image-container">
-                                <img className="image" src={eventDetails.images[0]} alt="pic-center" />
+                                <img className="image" src={coverPhoto} alt="pic-center" />
                             </div>
                             <div className="info">
                                 <div className="event-header">
                                     <h1 className="title">{eventDetails.title}</h1>
                                     <div className="ticket">
-                                        <span className="price">{`£${eventDetails.price}`}</span>
-                                        <button onClick={() => setShowPayment(showPayment => !showPayment)}>Buy ticket</button>
+                                        <span className="price">{eventDetails.price ? `£${eventDetails.price}`: "Free event"}</span>
+                                        <button onClick={() => setShowBasket(showBasket => !showBasket)}>{eventDetails.price ? "Buy ticket": "Secure ticket"}</button>
                                     </div>
                                 </div>
                                 <div className="summary">{eventDetails.summary}</div>
@@ -112,10 +120,10 @@ export default function Event() {
 
             {
                 eventDetails && (
-                    <div className={`payment-page ${showPayment ? "show" : "hide"}-payment`}>
+                    <div className={`payment-page ${showBasket ? "show" : "hide"}-payment`}>
                         <div className="payment-container">
-                            <IoMdClose className="close-payment" onClick={() => setShowPayment(() => false)} />
-                            <Basket eventDetails={eventDetails} />
+                            <IoMdClose className="close-payment" onClick={() => setShowBasket(() => false)} />
+                            <Basket eventDetails={eventDetails} setPurchaseDetails={setPurchaseDetails} setShowBasket={setShowBasket}/>
                         </div>
                     </div>
                 )

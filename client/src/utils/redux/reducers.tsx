@@ -9,6 +9,10 @@ const initialState = {
     },
     eventId: "",
     isLoggedIn: false,
+    buyerDetails: {
+        name: "",
+        email: ""
+    }
 }
 
 const profileSlice = createSlice({
@@ -26,6 +30,15 @@ const profileSlice = createSlice({
         storeEventId: (state, { payload }) => {
             state.eventId = payload;
         },
+        storeBuyerDetails: (state, { payload }) => {
+            state.buyerDetails = { ...payload };
+        },
+        clearEventId: (state) => {
+            state.eventId = "";
+        },
+        clearBuyerDetails: (state) => {
+            state.buyerDetails = { ...initialState.buyerDetails }
+        }
     }
 });
 

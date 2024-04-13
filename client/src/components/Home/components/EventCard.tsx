@@ -7,7 +7,7 @@ import { deleteEvent } from "../../../utils/axios/event";
 import defaultImage from "../../../assets/default.jpg";
 import { downloadImage } from "../../../utils/firebase/functions";
 import { useEffect, useState } from "react";
-import { MagnifyingGlass } from "react-loader-spinner";
+import { ThreeCircles } from "react-loader-spinner";
 
 export default function EventCard({ event, setEventList }: {
     event: TEvent,
@@ -69,7 +69,7 @@ export default function EventCard({ event, setEventList }: {
                     )
                     : (
                         <div className="loading">
-                            <MagnifyingGlass color="purple"/>
+                            <ThreeCircles color="purple"/>
                         </div>
 
                     )
