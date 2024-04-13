@@ -20,7 +20,7 @@ const eventSchema = new Schema(
         },
         images: {
             type: [String],
-            required: true,
+            default: ["https://firebasestorage.googleapis.com/v0/b/eventplatform-tr.appspot.com/o/images%2Fdefault.jpg?alt=media&token=2106f36d-e843-4fea-b8b9-a5ab06ec3787"],
         },
         summary: {
             type: String,
@@ -44,7 +44,7 @@ const eventSchema = new Schema(
         },
         isFree: {
             type: Boolean,
-            default: true
+            default: false
         },
         tag: {
             type: [String],

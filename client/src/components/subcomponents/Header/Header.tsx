@@ -24,7 +24,7 @@ export default function Header() {
 
     return (
         <header className="header-component">
-            <section className="platform-name">
+            <section className="platform-name" onClick={() => navigate("/Home")}>
                 <span className="text">Our Community</span>
             </section>
             <section className="state">
@@ -49,7 +49,7 @@ export default function Header() {
 
                                 </button>
                                 <ul id="header-options" className={`options options--${settingsExpand ? "show" : "hide"}`}>
-                                    <li className="options-item">Dashboard</li>
+                                    <li className="options-item" onClick={() => navigate("/Event/Create")}>Create Event</li>
                                     <li className="options-item" onClick={() => signOut()} >Logout</li>
 
                                 </ul>
