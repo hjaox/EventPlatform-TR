@@ -18,10 +18,6 @@ const eventSchema = new Schema(
             type: String,
             required: true,
         },
-        images: {
-            type: [String],
-            default: ["https://firebasestorage.googleapis.com/v0/b/eventplatform-tr.appspot.com/o/images%2Fdefault.jpg?alt=media&token=2106f36d-e843-4fea-b8b9-a5ab06ec3787"],
-        },
         summary: {
             type: String,
             default: "",
@@ -31,7 +27,7 @@ const eventSchema = new Schema(
             default: "",
         },
         attendees: {
-            type: [mongoose.Schema.Types.ObjectId],
+            type: [],
             default: []
         },
         price: {
@@ -42,20 +38,15 @@ const eventSchema = new Schema(
             type: Boolean,
             default: false
         },
-        isFree: {
-            type: Boolean,
-            default: false
-        },
         tag: {
-            type: [String],
-            default: ["Others"]
+            type: String,
+            default: "Others"
         },
     },
     {
         timestamps: true,
     }
 );
-
 
 
 const EventModel = model("Event", eventSchema);

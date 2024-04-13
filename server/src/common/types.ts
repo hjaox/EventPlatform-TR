@@ -22,17 +22,28 @@ export type TEvent = {
   dateStart: Date,
   dateEnd: Date,
   address: string,
-  images: string[],
   details: string,
   summary: string,
-  tag: string[],
-  attendees: string[] | [],
+  tag: string,
   price: number,
   openPrice: boolean,
   isFree?: boolean,
   createdAt?: string | Date,
   updatedAt?: string | Date,
   __v?: number
+};
+
+export type TEventUpdate = {
+  title?: string,
+  dateStart?: Date,
+  dateEnd?: Date,
+  address?: string,
+  details?: string,
+  summary?: string,
+  tag?: string,
+  price?: number,
+  openPrice?: boolean,
+  isFree?: boolean,
 };
 
 export type TError = {
