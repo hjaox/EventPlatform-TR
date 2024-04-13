@@ -49,7 +49,7 @@ export default function Header() {
 
                                 </button>
                                 <ul id="header-options" className={`options options--${settingsExpand ? "show" : "hide"}`}>
-                                    <li className="options-item">Dashboard</li>
+                                    <li className="options-item" onClick={() => navigate("/Event/Create")}>Create Event</li>
                                     <li className="options-item" onClick={() => signOut()} >Logout</li>
 
                                 </ul>
