@@ -10,46 +10,70 @@ import { actions } from "../../../utils/redux/reducers";
 
 type TBasket = {
     eventDetails: TEvent,
-    setPurchaseDetails: React.Dispatch<React.SetStateAction<{
-        quantity: number;
-        price: number;
-    } | null>>,
-    setShowBasket:  React.Dispatch<React.SetStateAction<boolean>>
+    setShowPurchase: React.Dispatch<React.SetStateAction<boolean>>,
+    setShowBasket: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-export default function Basket({ eventDetails, setPurchaseDetails, setShowBasket }: TBasket ) {
+export default function Basket({ eventDetails, setShowPurchase, setShowBasket }: TBasket) {
     const dispatch = useDispatch();
-    const [quantity, setQuantity] = useState(1);
     const [showPayment, setShowPayment] = useState(false);
-    const [buyerName, setBuyerName] = useState("");
-    const [buyerEmail, setBuyerEmail] = useState("");
     const [nameError, setNameError] = useState(false);
     const [emailError, setEmailError] = useState(false);
+    const [openPriceError, setOpenPriceError] = useState(false);
+    const [buyerDetails, setBuyerDetails] = useState({
+        name: "",
+        email: "",
+        eventId: eventDetails._id,
+        price: eventDetails.price,
+        quantity: 1
+    })
 
     function addTicket() {
-        setQuantity(quantity => quantity + 1);
+        setBuyerDetails(buyerDetails => ({ ...buyerDetails, quantity: buyerDetails.quantity + 1 }));
     }
 
     function subtractTicket() {
-        if (quantity) {
-            setQuantity(quantity => quantity - 1);
+        if (buyerDetails.quantity) {
+            setBuyerDetails(buyerDetails => ({ ...buyerDetails, quantity: buyerDetails.quantity - 1 }));
         }
     }
 
+    function handleBuyerName(e: React.ChangeEvent<HTMLInputElement>) {
+        setBuyerDetails(buyerDetails => ({ ...buyerDetails, name: e.target.value }));
+    }
+
+    function handleBuyerEmail(e: React.ChangeEvent<HTMLInputElement>) {
+        setBuyerDetails(buyerDetails => ({ ...buyerDetails, email: e.target.value }));
+    }
+
     function handlePayment() {
-        if (!buyerName) setNameError(true);
-        if (!buyerEmail) setEmailError(true);
+        if (!buyerDetails.name || !buyerDetails.email || checkOpenPrice()) {
+            setNameError(() => !buyerDetails.name ? true : false);
+            setEmailError(() => !buyerDetails.email ? true : false);
+            setOpenPriceError(() => checkOpenPrice());
 
-        if (buyerName && buyerEmail) {
-            dispatch(actions.storeBuyerDetails({ name: buyerName, email: buyerEmail }));
-
-            if (eventDetails.price) {
-                setShowPayment(true);
-            } else {
-                setPurchaseDetails(() => ({ quantity, price: 0 }));
-                setShowBasket(false);
-            }
+            return;
         }
+
+        dispatch(actions.storeBuyerDetails({ ...buyerDetails }));
+        setNameError(false);
+        setEmailError(false);
+        setOpenPriceError(false);
+
+        if (buyerDetails.price) {
+            setShowPayment(true);
+        } else {
+            setShowBasket(false);
+            setShowPurchase(true);
+        }
+    }
+
+    function checkOpenPrice() {
+        return buyerDetails.price > 0 && buyerDetails.price < 0.3 ? true : false;
+    }
+
+    function handleOpenPrice(e: React.ChangeEvent<HTMLInputElement>) {
+        setBuyerDetails(buyerDetails => ({ ...buyerDetails, price: Number(e.target.value) }));
     }
 
     return (
@@ -58,9 +82,7 @@ export default function Basket({ eventDetails, setPurchaseDetails, setShowBasket
                 showPayment
                     ? (
                         <div className="basket-payment">
-                            <Payment
-                                quantity={quantity}
-                                eventDetails={eventDetails} />
+                            <Payment />
 
                             <button className="back" onClick={() => setShowPayment(false)}>
                                 <IoReturnUpBack className="back-icon" />
@@ -81,28 +103,46 @@ export default function Basket({ eventDetails, setPurchaseDetails, setShowBasket
                                             <div className="error">Please enter your name.</div>
                                         )
                                     }
-                                    <input id="buyer-name" type="text" onChange={e => setBuyerName(e.target.value)} />
+                                    <input id="buyer-name" type="text" onChange={handleBuyerName} value={buyerDetails.name} />
                                     <label htmlFor="">Email: </label>
                                     {
                                         emailError && (
                                             <div className="error">Please enter your email.</div>
                                         )
                                     }
-                                    <input id="buyer-email" type="text" onChange={e => setBuyerEmail(e.target.value)} />
+                                    <input id="buyer-email" type="text" onChange={handleBuyerEmail} value={buyerDetails.email} />
                                 </div>
                             </form>
+                            {
+                                eventDetails.openPrice && (
+                                    <div className="open-price">
+                                        <p className="set-price">You are free to pay however much you feel the event is worth! (Min. ₤ {eventDetails.price})</p>
+
+                                        <div className="input-container">
+                                            ₤<input type="number" onChange={handleOpenPrice} value={buyerDetails.price} min={buyerDetails.price} />
+                                            {
+                                                openPriceError && (
+                                                    <p className="error">Minimum set price is ₤0.30</p>
+                                                )
+                                            }
+                                        </div>
+
+                                    </div>
+
+                                )
+                            }
                             <div className="ticket-form">
                                 <div className="price">
                                     <div className="label">Price</div>
-                                    <div>£ {eventDetails.price}</div>
+                                    <div>£ {buyerDetails.price}</div>
                                 </div>
                                 <div className="quantity-select">
                                     <div className="label">Qty</div>
                                     <div className="form">
-                                        <div className={`subtract-container ${quantity ? "enabled" : "disabled"}`} onClick={() => subtractTicket()}>
+                                        <div className={`subtract-container ${buyerDetails.quantity ? "enabled" : "disabled"}`} onClick={() => subtractTicket()}>
                                             <LuMinus className="subtract" />
                                         </div>
-                                        <span className="quantity">{quantity}</span>
+                                        <span className="quantity">{buyerDetails.quantity}</span>
                                         <div className="add-container enabled" onClick={() => addTicket()}>
                                             <LuPlus className="add" />
                                         </div>
@@ -111,7 +151,7 @@ export default function Basket({ eventDetails, setPurchaseDetails, setShowBasket
                             </div>
                             <div className="price-total-container">
                                 <div className="label">Total</div>
-                                <div className="price-total">£ {eventDetails.price * quantity}</div>
+                                <div className="price-total">£ {buyerDetails.price * buyerDetails.quantity}</div>
                             </div>
                             <button onClick={() => handlePayment()} className="checkout">Checkout</button>
                         </div>

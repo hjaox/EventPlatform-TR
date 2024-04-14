@@ -9,7 +9,7 @@ import "../../styles/Popup/popup.scss";
 
 export default function Popup() {
     const [searchParams] = useSearchParams();
-    const eventId = useSelector((state: TReduxUser) => state.eventId);
+    const eventId = useSelector((state: TReduxUser) => state.buyerDetails.eventId);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
@@ -37,17 +37,16 @@ export default function Popup() {
 
                 if (eventDetails && code) {
                     const result = await scheduleEvent(eventSchedule, code);
-
+                    console.log(result)
                     if (!result) {
 
                         setError(true);
                     }
                 }
-
                 setLoading(false);
 
             } catch (err) {
-
+                console.log(err)
                 setLoading(false);
                 setError(true);
             }

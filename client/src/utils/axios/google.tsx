@@ -27,7 +27,9 @@ export async function scheduleEvent(eventSchedule: TEventSchedule, code: string)
             eventSchedule
         })
 
-        if (status === 201) return true;
+        if (status === 201) {
+            return true;
+        }
 
         return false;
     } catch (err) {

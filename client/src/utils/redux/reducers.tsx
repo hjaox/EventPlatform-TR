@@ -7,11 +7,13 @@ const initialState = {
         email: "",
         accessToken: "",
     },
-    eventId: "",
     isLoggedIn: false,
     buyerDetails: {
         name: "",
-        email: ""
+        email: "",
+        eventId: "",
+        price: 0,
+        quantity: 1
     }
 }
 
@@ -27,14 +29,9 @@ const profileSlice = createSlice({
             state.isLoggedIn = false;
             state.userDetails = { ...initialState.userDetails };
         },
-        storeEventId: (state, { payload }) => {
-            state.eventId = payload;
-        },
+
         storeBuyerDetails: (state, { payload }) => {
             state.buyerDetails = { ...payload };
-        },
-        clearEventId: (state) => {
-            state.eventId = "";
         },
         clearBuyerDetails: (state) => {
             state.buyerDetails = { ...initialState.buyerDetails }

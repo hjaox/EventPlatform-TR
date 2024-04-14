@@ -5,15 +5,17 @@ import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import { getPaymentIntent } from "../../../utils/axios/stripe";
 import "../../../styles/EventPage/payment.scss";
-import { TEvent } from "../../../common/types";
+import { TReduxUser } from "../../../common/types";
+import { useSelector } from "react-redux";
 
-function Payment({ quantity, eventDetails }: {quantity : number, eventDetails: TEvent}) {
+function Payment() {
   const [stripePromise, setStripePromise] = useState<any | null>(null);
   const [clientSecret, setClientSecret] = useState("");
+  const buyerDetails = useSelector((state: TReduxUser) => state.buyerDetails);
 
   useEffect(() => {
     setStripePromise(loadStripe(import.meta.env.VITE_PUBLISHABLE_KEY))
-    getPaymentIntent(quantity * eventDetails.price)
+    getPaymentIntent(buyerDetails.quantity * buyerDetails.price)
       .then(({ client_secret }) => {
         setClientSecret(client_secret)
       })
@@ -23,12 +25,12 @@ function Payment({ quantity, eventDetails }: {quantity : number, eventDetails: T
     <div className="payment">
       <div className="payment-header">
       <h1>Check out</h1>
-      <h1>Total Price: £{quantity * eventDetails.price}</h1>
+      <h1>Total Price: £{buyerDetails.quantity * buyerDetails.price}</h1>
       </div>
 
       {clientSecret && stripePromise && (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm eventDetails={eventDetails} quantity={quantity}/>
+          <CheckoutForm />
         </Elements>
       )}
     </div>

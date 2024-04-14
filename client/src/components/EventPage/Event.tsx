@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getEvent } from "../../utils/axios/event";
-import { TEvent } from "../../common/types";
+import { TEvent, TReduxUser } from "../../common/types";
 import Header from "../subcomponents/Header/Header";
 import Footer from "../subcomponents/Footer/Footer";
 import "../../styles/EventPage/event.scss";
@@ -10,20 +10,19 @@ import { MagnifyingGlass } from "react-loader-spinner";
 import Basket from "./components/Basket";
 import { IoMdClose } from "react-icons/io";
 import { GoogleLoginButton } from "react-social-login-buttons";
-import { useDispatch } from "react-redux";
-import { actions } from "../../utils/redux/reducers";
+import { useSelector } from "react-redux";
 import { getOauthConsent } from "../../utils/axios/google";
 import { downloadImage } from "../../utils/firebase/functions";
 import defaultImage from "../../assets/default.jpg";
 
 export default function Event() {
     const { eventId } = useParams();
-    const dispatch = useDispatch();
+    const buyerDetails = useSelector((state: TReduxUser) => state.buyerDetails);
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const [eventDetails, setEventDetails] = useState<null | TEvent>(null);
     const [showBasket, setShowBasket] = useState(false);
-    const [purchaseDetails, setPurchaseDetails] = useState<null | { quantity: number, price: number }>(null);
+    const [showPurchase, setShowPurchase] = useState(false);
     const [coverPhoto, setCoverPhoto] = useState<string>(defaultImage);
 
     useEffect(() => {
@@ -32,7 +31,7 @@ export default function Event() {
                 const result = await getEvent(eventId);
                 const url = await downloadImage(result._id);
 
-                if(url) {
+                if (url) {
                     setCoverPhoto(url);
                 }
                 setEventDetails(() => ({ ...result }));
@@ -45,7 +44,7 @@ export default function Event() {
         const price = Number(searchParams.get("price"));
 
         if (quantity && price) {
-            setPurchaseDetails(() => ({ quantity, price }));
+            setShowPurchase(true);
             setSearchParams({});
         }
 
@@ -65,9 +64,7 @@ export default function Event() {
         return `${day}, ${month} ${date} • ${startTime} - ${endTime}`;
     }
 
-    async function handleAddToCalendar(eventId: string) {
-        dispatch(actions.storeEventId(eventId));
-
+    async function handleAddToCalendar() {
         const url = await getOauthConsent();
 
         window.open(url, "_blank", "popup,width=100");
@@ -93,8 +90,8 @@ export default function Event() {
                                 <div className="event-header">
                                     <h1 className="title">{eventDetails.title}</h1>
                                     <div className="ticket">
-                                        <span className="price">{eventDetails.price ? `£${eventDetails.price}`: "Free event"}</span>
-                                        <button onClick={() => setShowBasket(showBasket => !showBasket)}>{eventDetails.price ? "Buy ticket": "Secure ticket"}</button>
+                                        <span className="price">{eventDetails.price ? `£${eventDetails.price}` : "Free event"}</span>
+                                        <button onClick={() => setShowBasket(showBasket => !showBasket)}>{eventDetails.price ? "Buy ticket" : "Secure ticket"}</button>
                                     </div>
                                 </div>
                                 <div className="summary">{eventDetails.summary}</div>
@@ -123,35 +120,35 @@ export default function Event() {
                     <div className={`payment-page ${showBasket ? "show" : "hide"}-payment`}>
                         <div className="payment-container">
                             <IoMdClose className="close-payment" onClick={() => setShowBasket(() => false)} />
-                            <Basket eventDetails={eventDetails} setPurchaseDetails={setPurchaseDetails} setShowBasket={setShowBasket}/>
+                            <Basket eventDetails={eventDetails} setShowPurchase={setShowPurchase} setShowBasket={setShowBasket} />
                         </div>
                     </div>
                 )
             }
 
             {
-                eventDetails && purchaseDetails && (
-                    <div className={`purchaseDetails-container ${purchaseDetails ? "show" : "hide"}-purchase`}>
+                eventDetails && showPurchase && (
+                    <div className={`purchaseDetails-container ${showPurchase ? "show" : "hide"}-purchase`}>
                         <div className="purchase-details">
                             <h1 className="title">{eventDetails.title}</h1>
                             <p className="purchase-message">🎉 You have secured your ticket/s. Thank you for your order 🎉</p>
                             <div className="ticket">
                                 <div className="quantity">
                                     <h2 className="label">Qty</h2>
-                                    1 x {purchaseDetails.quantity}
+                                    1 x {buyerDetails.quantity}
                                 </div>
                                 <div className="totalPrice">
                                     <h2 className="label"> Total</h2>
-                                    £ {purchaseDetails.price * purchaseDetails.quantity}
+                                    £ {buyerDetails.price * buyerDetails.quantity}
                                 </div>
                             </div>
                             <div className="addToCalendar">
                                 <p>You can add this event to your google calendar.</p>
-                                <GoogleLoginButton className="google-login" onClick={() => handleAddToCalendar(eventDetails._id)} size="2.5rem" style={{ width: "fit-content" }} />
+                                <GoogleLoginButton className="google-login" onClick={() => handleAddToCalendar()} size="2.5rem" style={{ width: "fit-content" }} />
                             </div>
-                            <IoMdClose className="close-purchase" onClick={() => setPurchaseDetails(null)} />
+                            <IoMdClose className="close-purchase" onClick={() => setShowPurchase(false)} />
                             <div className="navigation">
-                                <button className="back" onClick={() => setPurchaseDetails(null)}>Go back</button>
+                                <button className="back" onClick={() => setShowPurchase(false)}>Go back</button>
                                 <button className="home" onClick={() => navigate("/Home")}>Go Home</button>
                             </div>
                         </div>

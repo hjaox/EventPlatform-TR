@@ -1,4 +1,4 @@
-import { TEvent } from "../../../common/types";
+import { TEvent, TReduxUser } from "../../../common/types";
 import { handleDate } from "../../../utils/utils";
 import "../../../styles/Home/eventCard.scss"
 import { FaRegEdit } from "react-icons/fa";
@@ -8,6 +8,7 @@ import defaultImage from "../../../assets/default.jpg";
 import { downloadImage } from "../../../utils/firebase/functions";
 import { useEffect, useState } from "react";
 import { ThreeCircles } from "react-loader-spinner";
+import { useSelector } from "react-redux";
 
 export default function EventCard({ event, setEventList }: {
     event: TEvent,
@@ -16,6 +17,7 @@ export default function EventCard({ event, setEventList }: {
 }) {
     const [coverPhoto, setCoverPhoto] = useState<string>(defaultImage)
     const [isLoading, setIsLoading] = useState(false);
+    const isLoggedIn = useSelector((state: TReduxUser) => state.isLoggedIn);
 
     useEffect(() => {
         (async () => {
@@ -55,21 +57,25 @@ export default function EventCard({ event, setEventList }: {
                                 <span className="eventCard-address">{event.address}</span>
                                 <span className="eventCard-tag">{event.summary}</span>
                             </div>
-                            <div className="eventCard-option-container">
-                                <div className="eventCard-icon-container">
-                                    <FaRegEdit className="eventCard-option" />
-                                </div>
+                            {
+                                isLoggedIn && (
+                                    <div className="eventCard-option-container">
+                                        <div className="eventCard-icon-container">
+                                            <FaRegEdit className="eventCard-option" />
+                                        </div>
 
-                                <div className="eventCard-icon-container" onClick={e => handleDeleteEvent(e, event._id)}>
-                                    <MdDeleteForever className="eventCard-option" />
-                                </div>
-                            </div>
+                                        <div className="eventCard-icon-container" onClick={e => handleDeleteEvent(e, event._id)}>
+                                            <MdDeleteForever className="eventCard-option" />
+                                        </div>
+                                    </div>
+                                )
+                            }
                         </>
 
                     )
                     : (
                         <div className="loading">
-                            <ThreeCircles color="purple"/>
+                            <ThreeCircles color="purple" />
                         </div>
 
                     )

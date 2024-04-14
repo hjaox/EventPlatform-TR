@@ -58,6 +58,33 @@
                 }
             }
         }
+
+        .open-price {
+            margin-top: 1rem;
+
+
+
+            .input-container {
+                display: flex;
+                gap: 0.5rem;
+
+                input {
+                    padding-left: 5px;
+                    width: 4rem;
+                }
+
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+
+                .error {
+                    color: red;
+                }
+            }
+        }
+
         .ticket-form {
             display: flex;
             justify-content: space-between;
