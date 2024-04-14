@@ -37,7 +37,6 @@ export default function Popup() {
 
                 if (eventDetails && code) {
                     const result = await scheduleEvent(eventSchedule, code);
-                    console.log(result)
                     if (!result) {
 
                         setError(true);
@@ -46,7 +45,6 @@ export default function Popup() {
                 setLoading(false);
 
             } catch (err) {
-                console.log(err)
                 setLoading(false);
                 setError(true);
             }
