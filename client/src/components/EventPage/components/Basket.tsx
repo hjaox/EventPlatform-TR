@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TEvent } from "../../../common/types"
 import "../../../styles/EventPage/basket.scss";
 import { LuPlus } from "react-icons/lu";
