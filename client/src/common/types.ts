@@ -25,7 +25,7 @@ export type TNewEvent = {
     __v?: number
 };
 
-export type TEvent = TNewEvent & {_id: string};
+export type TEvent = TNewEvent & { _id: string };
 
 export type TReduxUser = {
     userDetails: {
@@ -35,5 +35,11 @@ export type TReduxUser = {
         accessToken: string,
     },
     isLoggedIn: boolean,
-    eventId: string
+    buyerDetails: {
+        name: string,
+        email: string,
+        eventId: string,
+        price: number,
+        quantity: number
+    }
 }

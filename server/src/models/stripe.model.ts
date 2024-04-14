@@ -9,7 +9,7 @@ if(!process.env.SECRET_KEY) throw new Error("missing Stripe Secret Key");
 
 const stripe = new Stripe(process.env.SECRET_KEY);
 
-export async function createPaymentIntent(price: number = 0) {
+export async function createPaymentIntent(price: number) {
     try {
         const paymentIntent = await stripe.paymentIntents.create({
             currency: "GBP",

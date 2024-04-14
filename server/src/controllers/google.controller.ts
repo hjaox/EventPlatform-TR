@@ -38,8 +38,12 @@ export async function scheduleEvent(req: express.Request, res: express.Response,
     })
 
     try {
-        const { tokens } = await oauth2Client.getToken(code);
-        oauth2Client.setCredentials(tokens)
+        console.log(oauth2Client.credentials)
+        if(!Object.entries(oauth2Client.credentials).length) {
+            console.log("test")
+            const { tokens } = await oauth2Client.getToken(code);
+            oauth2Client.setCredentials(tokens);
+        }
 
         await calendar.events.insert({
             calendarId: 'primary',
@@ -49,6 +53,7 @@ export async function scheduleEvent(req: express.Request, res: express.Response,
 
         return res.status(201).send({ message: "Successfully added event to calendar" });
     } catch (err) {
+        console.log(err)
         return res.status(400).send({ message: "Something went wrong" });
     }
 }

@@ -2,12 +2,14 @@ import { PaymentElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import "../../../styles/EventPage/checkoutForm.scss";
-import { TEvent } from "../../../common/types";
+import { TReduxUser } from "../../../common/types";
 import { MagnifyingGlass } from "react-loader-spinner";
+import { useSelector } from "react-redux";
 
-export default function CheckoutForm({eventDetails, quantity}: {eventDetails: TEvent, quantity: number}) {
+export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
+  const buyerDetails = useSelector((state: TReduxUser) => state.buyerDetails);
 
   const [errorMsg, setErrorMsg] = useState<string|null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -24,7 +26,7 @@ export default function CheckoutForm({eventDetails, quantity}: {eventDetails: TE
     const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${window.location.origin}/Event/${eventDetails._id}?quantity=${quantity}&price=${eventDetails.price}`,
+          return_url: `${window.location.origin}/Event/${buyerDetails.eventId}?quantity=${buyerDetails.quantity}&price=${buyerDetails.price}`,
         },
       });
 
