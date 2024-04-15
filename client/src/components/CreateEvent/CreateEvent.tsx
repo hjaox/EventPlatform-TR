@@ -13,6 +13,7 @@ import EventHeaderForm from "./components/EventHeaderForm";
 import DateAndLocationForm from "./components/DateAndLocationForm";
 import AboutForm from "./components/AboutForm";
 import { createEvent } from "../../utils/axios/event";
+import { LiaExclamationCircleSolid } from "react-icons/lia";
 
 export default function CreateEvent() {
     const navigate = useNavigate();
@@ -66,7 +67,7 @@ export default function CreateEvent() {
             price
         }
 
-        if(!checkForm(event)) return;
+        if (!checkForm(event)) return;
 
         try {
             const newEvent = await createEvent(event);
@@ -98,30 +99,30 @@ export default function CreateEvent() {
     function checkForm(event: TNewEvent) {
         let status = true;
 
-        for(const [key, val] of Object.entries(event)) {
-            if(["openPrice", "tag"].includes(key)) continue;
+        for (const [key, val] of Object.entries(event)) {
+            if (["openPrice", "tag"].includes(key)) continue;
 
-            if(val instanceof Date) {
-                if(val.valueOf() < Date.now().valueOf()) {
-                    setFormError(formError => ({...formError, [key]: true}));
+            if (val instanceof Date) {
+                if (val.valueOf() < Date.now().valueOf()) {
+                    setFormError(formError => ({ ...formError, [key]: true }));
                     status = false;
                 } else {
-                    setFormError(formError =>({...formError, [key]: false}));
+                    setFormError(formError => ({ ...formError, [key]: false }));
                 }
             }
 
-            if(typeof val === "string") {
-                if(!val) {
-                    setFormError(formError => ({...formError, [key]: true}));
+            if (typeof val === "string") {
+                if (!val) {
+                    setFormError(formError => ({ ...formError, [key]: true }));
                     status = false;
                 } else {
-                    setFormError(formError =>({...formError, [key]: false}));
+                    setFormError(formError => ({ ...formError, [key]: false }));
                 }
             }
 
-            if(key === "price" && typeof val === "number") {
+            if (key === "price" && typeof val === "number") {
                 const allowed = (val > 0 && val < 0.3);
-                setFormError(formError => ({...formError, price: allowed}));
+                setFormError(formError => ({ ...formError, price: allowed }));
             }
         }
         return status;
@@ -213,7 +214,13 @@ export default function CreateEvent() {
                     </section>
 
                     <section className="form-item about-container" onClick={() => setExpandAbout(true)}>
-                        <h2>About this event</h2>
+                        <h2>About this event
+                            {
+                                formError.details && (
+                                    <LiaExclamationCircleSolid className="error-icon" color="red" />
+                                )
+                            }
+                        </h2>
                         <p className="padding-bottom">Use this section to tell members of the community more details about this event.</p>
                         {
 
@@ -223,8 +230,10 @@ export default function CreateEvent() {
                                         <AboutForm
                                             editorDetailsState={editorDetailsState}
                                             setEditorDetailsState={setEditorDetailsState}
-                                            setTag={setTag} />
-                                    }</>
+                                            setTag={setTag}
+                                            formError={formError} />
+                                    }
+                                </>
                             )
                         }
                     </section>

@@ -1,17 +1,34 @@
 import { EditorState, Editor } from "draft-js";
 
+
 type TAboutForm = {
     editorDetailsState: EditorState,
     setEditorDetailsState: React.Dispatch<React.SetStateAction<EditorState>>,
-    setTag: React.Dispatch<React.SetStateAction<string>>
+    setTag: React.Dispatch<React.SetStateAction<string>>,
+    formError: {
+        title: boolean;
+        dateStart: boolean;
+        dateEnd: boolean;
+        address: boolean;
+        price: boolean,
+        details: boolean;
+        summary: boolean;
+    },
 };
 
-export default function AboutForm({editorDetailsState, setEditorDetailsState, setTag}: TAboutForm) {
+export default function AboutForm({ editorDetailsState, setEditorDetailsState, setTag, formError }: TAboutForm) {
     return (
+
+
         <div className="about-expanded">
             <div className="about-details">
                 <h3>Details</h3>
                 <p>Add more details about your event and inlude what people can expect if they attend. You can inlude an event itinerary, venue information, parking, accessibility options, etc. </p>
+                {
+                    formError.details && (
+                        <div className="error">Please share some details about your event. *</div>
+                    )
+                }
                 <div className="input-container">
                     <h4>Details</h4>
                     <Editor blockStyleFn={() => "input"} editorState={editorDetailsState} onChange={setEditorDetailsState} />
