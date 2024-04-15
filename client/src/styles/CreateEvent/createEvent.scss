@@ -109,6 +109,12 @@
                         font-size: 1.5rem;
                     }
 
+                    .error {
+                        color: red;
+                        font-weight: bold;
+                        font-size: small;
+                    }
+
                     .input-container {
                         border: 1px solid purple;
                         padding: 0.5rem;
@@ -161,32 +167,51 @@
                         font-size: 1.5rem;
                     }
 
+                    .error {
+                        color: red;
+                        font-weight: bold;
+                        font-size: small;
+                    }
+
                     .input-container {
-                        border: 1px solid purple;
-                        padding: 0.5rem;
-                        position: relative;
-                        border-radius: 0.5rem;
-                        margin-top: 1rem;
-                        width: fit-content;
+                        display: flex;
+                        gap: 2rem;
+                        align-items: center;
 
-                        h4 {
-                            position: absolute;
-                            top: -1rem;
-                            background-color: white;
-                            padding: 0 1rem;
-                            font-size: small;
-                            font-weight: lighter;
+                        .price-input {
+                            border: 1px solid purple;
+                            padding: 0.5rem;
+                            position: relative;
+                            border-radius: 0.5rem;
+                            margin-top: 1rem;
+                            width: fit-content;
+                            display: flex;
+
+                            h4 {
+                                position: absolute;
+                                top: -1rem;
+                                background-color: white;
+                                padding: 0 1rem;
+                                font-size: small;
+                                font-weight: lighter;
+                            }
+
+                            input {
+                                border: 1px solid transparent;
+                                outline: none;
+                            }
+
+                            input::-webkit-outer-spin-button,
+                            input::-webkit-inner-spin-button {
+                                -webkit-appearance: none;
+                                margin: 0;
+                            }
                         }
 
-                        input {
-                            border: 1px solid transparent;
-                            outline: none;
-                        }
-
-                        input::-webkit-outer-spin-button,
-                        input::-webkit-inner-spin-button {
-                            -webkit-appearance: none;
-                            margin: 0;
+                        .openPrice-input {
+                            label, input {
+                                cursor: pointer;
+                            }
                         }
                     }
                 }
