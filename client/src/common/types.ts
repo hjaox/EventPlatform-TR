@@ -1,3 +1,5 @@
+import { EditorState } from "draft-js";
+
 export type TUser = {
     _id: string,
     name: string,
@@ -19,7 +21,6 @@ export type TNewEvent = {
     tag: string,
     price: number,
     openPrice: boolean,
-    isFree: boolean,
     createdAt?: string | Date,
     updatedAt?: string | Date,
     __v?: number
@@ -42,4 +43,24 @@ export type TReduxUser = {
         price: number,
         quantity: number
     }
-}
+};
+
+export type TEventHeaderForm = {
+    setEditorTitleState: React.Dispatch<React.SetStateAction<EditorState>>,
+    editorTitleState: EditorState,
+    setEditorSummaryState: React.Dispatch<React.SetStateAction<EditorState>>,
+    editorSummaryState: EditorState,
+    price: number
+    setPrice: React.Dispatch<React.SetStateAction<number>>,
+    formError: {
+        title: boolean;
+        dateStart: boolean;
+        dateEnd: boolean;
+        address: boolean;
+        price: boolean,
+        details: boolean;
+        summary: boolean;
+    },
+    setOpenPrice: React.Dispatch<React.SetStateAction<boolean>>,
+    openPrice: boolean
+};

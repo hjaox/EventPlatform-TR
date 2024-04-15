@@ -6,7 +6,7 @@ export default [
     address: "address",
     summary: "Tick off your to-dos! Intro to the ultimate practice for focus.",
     attendees: [],
-    price: 100,
+    price: 0,
     openPrice: false,
     details: `Get the ultimate 'cheat code' for focus…
     Experience the power of virtual body doubling to level up your focus and tick off those tasks once and for all.

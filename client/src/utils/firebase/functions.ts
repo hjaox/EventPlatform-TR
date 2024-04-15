@@ -1,7 +1,7 @@
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "./fbAuth";
 
-export async function uploadToFirebase(file: File, userId: string) {
+export async function uploadToFirebase(file: File | Blob, userId: string) {
     try {
         const imageRef = ref(storage, `images/${userId}`);
 
@@ -16,7 +16,7 @@ export async function uploadToFirebase(file: File, userId: string) {
 
 export async function downloadImage(eventId: string) {
     try {
-        const path = `images/${eventId}.jpg`;
+        const path = `images/${eventId}`;
         const imageRef = ref(storage, path);
         const url = await getDownloadURL(imageRef);
 

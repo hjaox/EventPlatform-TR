@@ -103,7 +103,7 @@ export default function Event() {
                                 </div>
                                 <div className="location">
                                     <h2>Location</h2>
-                                    <div>eventDetails.address</div>
+                                    <div>{eventDetails.address}</div>
                                 </div>
                                 <div className="details">
                                     <h2>About</h2>

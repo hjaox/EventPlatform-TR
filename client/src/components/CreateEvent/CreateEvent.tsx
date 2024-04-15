@@ -6,7 +6,7 @@ import { EditorState } from "draft-js";
 import "react-datepicker/dist/react-datepicker.css";
 import { uploadToFirebase } from "../../utils/firebase/functions";
 import file from "../../assets/default.jpg";
-import { TEvent } from "../../common/types";
+import { TEvent, TNewEvent } from "../../common/types";
 import { useNavigate } from "react-router-dom";
 import ImageForm from "./components/ImageForm";
 import EventHeaderForm from "./components/EventHeaderForm";
@@ -24,7 +24,18 @@ export default function CreateEvent() {
     const [imageDisplay, setImageDisplay] = useState(file);
     const [redirect, setRedirect] = useState(false);
     const [newEvent, setNewEvent] = useState<null | TEvent>(null);
-    const [error, setError] = useState(false);
+
+    //errors
+    const [createEventError, setCreateEventError] = useState(false);
+    const [formError, setFormError] = useState({
+        title: false,
+        dateStart: false,
+        dateEnd: false,
+        address: false,
+        price: false,
+        details: false,
+        summary: false,
+    });
 
     //form data
     const [editorTitleState, setEditorTitleState] = useState(() => EditorState.createEmpty());
@@ -33,43 +44,87 @@ export default function CreateEvent() {
     const [editorDetailsState, setEditorDetailsState] = useState(() => EditorState.createEmpty());
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [price, setPrice] = useState(0.3);
+    const [price, setPrice] = useState(0);
+    const [openPrice, setOpenPrice] = useState(false);
     const [tag, setTag] = useState("Others");
+
+    //cover photo value to upload
     const [imageFile, setImageFile] = useState<null | File>(null);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        let url = "https://firebasestorage.googleapis.com/v0/b/eventplatform-tr.appspot.com/o/images%2Fdefault.jpg?alt=media&token=2106f36d-e843-4fea-b8b9-a5ab06ec3787";
-
 
         const event = {
             title: editorTitleState.getCurrentContent().getPlainText("\u000A"),
             dateStart: startDate,
             dateEnd: endDate,
             address: editorAddressState.getCurrentContent().getPlainText("\u000A"),
-            images: [url],
-            isFree: false,
-            openPrice: false,
+            openPrice,
             details: editorDetailsState.getCurrentContent().getPlainText("\u000A"),
-            summary: editorDetailsState.getCurrentContent().getPlainText("\u000A"),
-            tag: [tag],
+            summary: editorSummaryState.getCurrentContent().getPlainText("\u000A"),
+            tag: tag,
             price
         }
 
+        if(!checkForm(event)) return;
+
         try {
             const newEvent = await createEvent(event);
+            const coverPhoto = imageFile ? imageFile : await fetchDefaultImage();
 
-            if (imageDisplay !== "/src/assets/default.jpg" && imageFile) {
-                const result = await uploadToFirebase(imageFile, newEvent._id);
-
-                if (result) url = result;
+            if (coverPhoto) {
+                await uploadToFirebase(coverPhoto, newEvent._id);
             }
 
             setNewEvent(newEvent);
             setRedirect(true);
-        } catch (err) {
-            setError(true);
+        } catch {
+            setCreateEventError(true);
         }
+    }
+
+    async function fetchDefaultImage() {
+        try {
+            const defaultImage = await fetch(file);
+            const imageBlob = await defaultImage.blob();
+            const imageFile = new File([imageBlob], "defaultImage", { type: "image/jpeg" });
+
+            return imageFile;
+        } catch {
+            return null
+        }
+    }
+
+    function checkForm(event: TNewEvent) {
+        let status = true;
+
+        for(const [key, val] of Object.entries(event)) {
+            if(["openPrice", "tag"].includes(key)) continue;
+
+            if(val instanceof Date) {
+                if(val.valueOf() < Date.now().valueOf()) {
+                    setFormError(formError => ({...formError, [key]: true}));
+                    status = false;
+                } else {
+                    setFormError(formError =>({...formError, [key]: false}));
+                }
+            }
+
+            if(typeof val === "string") {
+                if(!val) {
+                    setFormError(formError => ({...formError, [key]: true}));
+                    status = false;
+                } else {
+                    setFormError(formError =>({...formError, [key]: false}));
+                }
+            }
+
+            if(key === "price" && typeof val === "number") {
+                const allowed = (val > 0 && val < 0.3);
+                setFormError(formError => ({...formError, price: allowed}));
+            }
+        }
+        return status;
     }
 
     return (
@@ -89,13 +144,11 @@ export default function CreateEvent() {
                     </section>
                 )
             }
-
             {
-                error && (
+                createEventError && (
                     <>error</>
                 )
             }
-
             <section className="form-container">
 
                 <h1 className="form-header">Create an Event</h1>
@@ -120,6 +173,9 @@ export default function CreateEvent() {
                                                 editorSummaryState={editorSummaryState}
                                                 price={price}
                                                 setPrice={setPrice}
+                                                formError={formError}
+                                                setOpenPrice={setOpenPrice}
+                                                openPrice={openPrice}
                                             />
                                         }
                                     </>

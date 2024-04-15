@@ -21,7 +21,7 @@ export default function Home() {
 
         (async () => {
             const results = await Promise.all([getAllEvents(), getAllTags()]);
-            setEventList(() => [...results[0], ...results[0], ...results[0]]);
+            setEventList(() => [...results[0]]);
             setTagList(() => [...results[1]]);
             setIsLoading(false);
         })()
