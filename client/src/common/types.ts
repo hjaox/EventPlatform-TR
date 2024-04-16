@@ -50,8 +50,8 @@ export type TEventHeaderForm = {
     editorTitleState: EditorState,
     setEditorSummaryState: React.Dispatch<React.SetStateAction<EditorState>>,
     editorSummaryState: EditorState,
-    price: number
-    setPrice: React.Dispatch<React.SetStateAction<number>>,
+    price: number | null
+    setPrice: React.Dispatch<React.SetStateAction<number|null>>,
     formError: {
         title: boolean;
         dateStart: boolean;
@@ -99,8 +99,22 @@ export type TDateAndLocation = {
 };
 
 export type TEventForm = {
-    setIsLoading:React.Dispatch<React.SetStateAction<boolean>>,
-    setNewEvent:React.Dispatch<React.SetStateAction<TEvent | null>>,
-    setRedirect:React.Dispatch<React.SetStateAction<boolean>>,
-    setCreateEventError: React.Dispatch<React.SetStateAction<boolean>>
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    setNewEvent: React.Dispatch<React.SetStateAction<TEvent | null>>,
+    setRedirect: React.Dispatch<React.SetStateAction<boolean>>,
+    setCreateEventError: React.Dispatch<React.SetStateAction<boolean>>,
+    eventToEdit?: TEvent | null,
+    setEventToEdit?: React.Dispatch<React.SetStateAction<TEvent | null>>
+};
+
+export type TPatchEvent = {
+    title?: string,
+    dateStart?: Date,
+    dateEnd?: Date,
+    address?: string,
+    details?: string,
+    summary?: string,
+    tag?: string,
+    price?: number,
+    openPrice?: boolean
 };

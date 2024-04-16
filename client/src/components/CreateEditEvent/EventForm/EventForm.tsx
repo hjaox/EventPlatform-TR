@@ -1,18 +1,16 @@
-import { EditorState } from "draft-js";
-import { useState } from "react";
+import { ContentState, EditorState } from "draft-js";
+import { useEffect, useState } from "react";
 import { TEventForm, TNewEvent } from "../../../common/types";
 import file from "../../../assets/default.jpg";
 import { uploadToFirebase } from "../../../utils/firebase/functions";
-import { createEvent } from "../../../utils/axios/event";
+import { createEvent, editEvent } from "../../../utils/axios/event";
 import ImageForm from "./components/ImageForm";
 import EventHeaderForm from "./components/EventHeaderForm";
 import { LiaExclamationCircleSolid } from "react-icons/lia";
 import DateAndLocationForm from "./components/DateAndLocationForm";
 import AboutForm from "./components/AboutForm";
 
-
-
-export default function EventForm({setIsLoading, setNewEvent, setRedirect, setCreateEventError}: TEventForm) {
+export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setRedirect, setCreateEventError }: TEventForm) {
     const [expandHeader, setExpandHeader] = useState(false);
     const [expandAbout, setExpandAbout] = useState(false);
     const [expandDateLocation, setExpandDateLocation] = useState(false);
@@ -34,11 +32,25 @@ export default function EventForm({setIsLoading, setNewEvent, setRedirect, setCr
     const [editorDetailsState, setEditorDetailsState] = useState(() => EditorState.createEmpty());
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState<number | null>(0);
     const [openPrice, setOpenPrice] = useState(false);
     const [tag, setTag] = useState("Others");
 
     const [imageFile, setImageFile] = useState<null | File>(null);
+
+    useEffect(() => {
+        if (eventToEdit) {
+            setEditorTitleState(EditorState.createWithContent(ContentState.createFromText(eventToEdit.title)));
+            setEditorSummaryState(EditorState.createWithContent(ContentState.createFromText(eventToEdit.summary)));
+            setEditorAddressState(EditorState.createWithContent(ContentState.createFromText(eventToEdit.address)));
+            setEditorDetailsState(EditorState.createWithContent(ContentState.createFromText(eventToEdit.details)));
+            setPrice(Number(eventToEdit.price));
+            setOpenPrice(eventToEdit.openPrice)
+            setStartDate(eventToEdit.dateStart);
+            setEndDate(eventToEdit.dateEnd);
+            setTag(eventToEdit.tag);
+        }
+    }, [eventToEdit]);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -52,21 +64,29 @@ export default function EventForm({setIsLoading, setNewEvent, setRedirect, setCr
             details: editorDetailsState.getCurrentContent().getPlainText("\u000A"),
             summary: editorSummaryState.getCurrentContent().getPlainText("\u000A"),
             tag: tag,
-            price
+            price: price || 0,
         }
 
         if (!checkForm(event)) return;
 
         try {
+            let eventDetails;
             setIsLoading(true);
-            const newEvent = await createEvent(event);
+
+            if(eventToEdit) {
+                eventDetails = await editEvent(eventToEdit?._id, event);
+            } else {
+                eventDetails = await createEvent(event);
+            }
+
+
             const coverPhoto = imageFile ? imageFile : await fetchDefaultImage();
 
             if (coverPhoto) {
-                await uploadToFirebase(coverPhoto, newEvent._id);
+                await uploadToFirebase(coverPhoto, eventDetails._id);
             }
 
-            setNewEvent(newEvent);
+            setNewEvent(eventDetails);
             setRedirect(true);
             setIsLoading(false);
         } catch {
@@ -94,17 +114,8 @@ export default function EventForm({setIsLoading, setNewEvent, setRedirect, setCr
             if (["openPrice", "tag"].includes(key)) continue;
 
             if (val instanceof Date) {
-                if (key === "dateStart") {
-                    if (val.valueOf() < Date.now().valueOf()) {
-                        setFormError(formError => ({ ...formError, dateStart: true }));
-                        status = false;
-                    } else {
-                        setFormError(formError => ({ ...formError, dateStart: false }));
-                    }
-                }
-
                 if (key === "dateEnd") {
-                    if (val.valueOf() < Date.now().valueOf() || val.valueOf() <= event.dateStart.valueOf()) {
+                    if (val.valueOf() <= event.dateStart.valueOf()) {
                         setFormError(formError => ({ ...formError, dateEnd: true }));
                         status = false;
                     } else {

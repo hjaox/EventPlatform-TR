@@ -12,7 +12,7 @@ import Login from './components/Login/Login.tsx';
 import Register from './components/Register/Register.tsx';
 import Event from './components/EventPage/Event.tsx';
 import Error from './components/Error/Error.tsx';
-import EditEvent from './components/EditEvent/EditEvent.tsx';
+import EditEvent from './components/CreateEditEvent/EditEvent.tsx';
 import Popup from './components/Popup/Popup.tsx';
 import CreateEvent from './components/CreateEditEvent/CreateEvent.tsx';
 
