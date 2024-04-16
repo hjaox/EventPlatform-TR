@@ -42,12 +42,14 @@ export async function removeEvent(req: express.Request, res: express.Response, n
     }
 }
 
-export async function addAttendee(req: express.Request, res: express.Response, next: express.NextFunction)  {
+export async function addAttendee(req: express.Request, res: express.Response, next: express.NextFunction) {
+    const { name, email, quantity } = req.body
+    const { eventId } = req.params;
     try {
-        const updatedAttendees = await insertAttendee(req.params.eventId, req.body.name);
+        const updatedAttendees = await insertAttendee(eventId, name, email, Number(quantity));
 
-        return res.status(200).send({updatedAttendees});
-    } catch(err) {
+        return res.status(200).send({ updatedAttendees });
+    } catch (err) {
         next(err)
     }
 }
