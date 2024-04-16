@@ -9,6 +9,7 @@ import { downloadImage } from "../../../utils/firebase/functions";
 import { useEffect, useState } from "react";
 import { ThreeCircles } from "react-loader-spinner";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function EventCard({ event, setEventList }: {
     event: TEvent,
@@ -18,6 +19,7 @@ export default function EventCard({ event, setEventList }: {
     const [coverPhoto, setCoverPhoto] = useState<string>(defaultImage)
     const [isLoading, setIsLoading] = useState(false);
     const isLoggedIn = useSelector((state: TReduxUser) => state.isLoggedIn);
+    const navigate = useNavigate();
 
     useEffect(() => {
         (async () => {
@@ -44,6 +46,11 @@ export default function EventCard({ event, setEventList }: {
         })
     }
 
+    function handleEditEvent(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        e.stopPropagation();
+        navigate(`/Event/Edit/${event._id}`)
+    }
+
     return (
         <>
             {
@@ -60,7 +67,7 @@ export default function EventCard({ event, setEventList }: {
                             {
                                 isLoggedIn && (
                                     <div className="eventCard-option-container">
-                                        <div className="eventCard-icon-container">
+                                        <div className="eventCard-icon-container" onClick={handleEditEvent}>
                                             <FaRegEdit className="eventCard-option" />
                                         </div>
 

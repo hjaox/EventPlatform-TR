@@ -97,3 +97,10 @@ export type TDateAndLocation = {
         summary: boolean;
     }
 };
+
+export type TEventForm = {
+    setIsLoading:React.Dispatch<React.SetStateAction<boolean>>,
+    setNewEvent:React.Dispatch<React.SetStateAction<TEvent | null>>,
+    setRedirect:React.Dispatch<React.SetStateAction<boolean>>,
+    setCreateEventError: React.Dispatch<React.SetStateAction<boolean>>
+};

@@ -26,6 +26,8 @@ export default function EditEvent() {
     const [redirect, setRedirect] = useState(false);
     const [newEvent, setNewEvent] = useState<null | TEvent>(null);
 
+    //errors
+
     //form data
     const [editorTitleState, setEditorTitleState] = useState(() => EditorState.createEmpty());
     const [editorSummaryState, setEditorSummaryState] = useState(() => EditorState.createEmpty());
@@ -33,8 +35,11 @@ export default function EditEvent() {
     const [editorDetailsState, setEditorDetailsState] = useState(() => EditorState.createEmpty());
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [price, setPrice] = useState("");
+    const [price, setPrice] = useState(0);
+    const [openPrice, setOpenPrice] = useState(false);
     const [tag, setTag] = useState("Others");
+
+    //cover photo value to upload
     const [imageFile, setImageFile] = useState<null | File>(null);
 
     useEffect(() => {
@@ -44,17 +49,18 @@ export default function EditEvent() {
                 try {
                     const eventDetails = await getEvent(eventId);
 
-                    setEditorTitleState(EditorState.createWithContent(ContentState.createFromText(eventDetails.title, "")));
+                    setEditorTitleState(EditorState.createWithContent(ContentState.createFromText(eventDetails.title)));
                     setEditorSummaryState(EditorState.createWithContent(ContentState.createFromText(eventDetails.summary)));
                     setEditorAddressState(EditorState.createWithContent(ContentState.createFromText(eventDetails.address)));
                     setEditorDetailsState(EditorState.createWithContent(ContentState.createFromText(eventDetails.details)));
-                    setPrice(eventDetails.price);
+                    setPrice(Number(eventDetails.price));
+                    setOpenPrice(eventDetails.openPrice)
                     setStartDate(eventDetails.dateStart);
                     setEndDate(eventDetails.dateEnd);
                     setTag(eventDetails.tag[0]);
 
 
-                } catch(err) {
+                } catch {
                     navigate("/Error")
                 }
 
@@ -92,11 +98,12 @@ export default function EditEvent() {
             dateStart: startDate,
             dateEnd: endDate,
             address: editorAddressState.getCurrentContent().getPlainText("\u000A"),
-            images: [url],
+            images: url,
             details: editorDetailsState.getCurrentContent().getPlainText("\u000A"),
             summary: editorDetailsState.getCurrentContent().getPlainText("\u000A"),
-            tag: [tag],
-            price: Number(price)
+            tag: tag,
+            price,
+            openPrice
         }
         try {
             const newEvent = await createEvent(event);
@@ -127,7 +134,7 @@ export default function EditEvent() {
 
             <section className="form-container">
 
-                <h1 className="form-header">Create an Event</h1>
+                <h1 className="form-header">Edit your Event</h1>
 
                 <form id="create-form" onSubmit={handleSubmit}>
                     <section className="image-container">
@@ -175,7 +182,7 @@ export default function EditEvent() {
                                             <div className="input-container">
                                                 <h4>Price</h4>
                                                 <span>£ </span>
-                                                <input type="number" id="input-price" min={1} step={0.01} onChange={e => setPrice(e.target.value)} />
+                                                <input type="number" id="input-price" min={1} step={0.01} onChange={e => setPrice(Number(e.target.value))} />
                                             </div>
 
                                         </div>

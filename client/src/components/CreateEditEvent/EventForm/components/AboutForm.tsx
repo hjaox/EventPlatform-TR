@@ -1,10 +1,9 @@
 import { Editor } from "draft-js";
-import { TAboutForm } from "../../../common/types";
+import { TAboutForm } from "../../../../common/types";
 
 export default function AboutForm({ editorDetailsState, setEditorDetailsState, setTag, formError }: TAboutForm) {
+
     return (
-
-
         <div className="about-expanded">
             <div className="about-details">
                 <h3>Details</h3>

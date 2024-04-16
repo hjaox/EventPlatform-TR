@@ -1,5 +1,5 @@
 import { Editor } from "draft-js";
-import { TEventHeaderForm } from "../../../common/types";
+import { TEventHeaderForm } from "../../../../common/types";
 import { LiaExclamationCircleSolid } from "react-icons/lia";
 
 export default function EventHeaderForm({ setEditorTitleState, editorTitleState, setEditorSummaryState, editorSummaryState, price, setPrice, formError, setOpenPrice, openPrice }: TEventHeaderForm) {

@@ -3,7 +3,7 @@ import DateTimePicker from "react-datetime-picker";
 import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
-import { TDateAndLocation } from "../../../common/types";
+import { TDateAndLocation } from "../../../../common/types";
 
 export default function DateAndLocationForm({ startDate, setStartDate, endDate, setEndDate, editorAddressState, setEditorAddressState, formError }: TDateAndLocation) {
 
