@@ -3,7 +3,6 @@ import DateTimePicker from "react-datetime-picker";
 import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
-import "react-datepicker/dist/react-datepicker.css";
 
 type TDateAndLocation = {
     startDate: Date,

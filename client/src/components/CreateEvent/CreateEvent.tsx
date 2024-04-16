@@ -13,6 +13,8 @@ import DateAndLocationForm from "./components/DateAndLocationForm";
 import AboutForm from "./components/AboutForm";
 import { createEvent } from "../../utils/axios/event";
 import { LiaExclamationCircleSolid } from "react-icons/lia";
+import { Rings } from "react-loader-spinner";
+import { IoMdClose } from "react-icons/io";
 
 
 export default function CreateEvent() {
@@ -25,6 +27,7 @@ export default function CreateEvent() {
     const [imageDisplay, setImageDisplay] = useState(file);
     const [redirect, setRedirect] = useState(false);
     const [newEvent, setNewEvent] = useState<null | TEvent>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     //errors
     const [createEventError, setCreateEventError] = useState(false);
@@ -70,6 +73,7 @@ export default function CreateEvent() {
         if (!checkForm(event)) return;
 
         try {
+            setIsLoading(true);
             const newEvent = await createEvent(event);
             const coverPhoto = imageFile ? imageFile : await fetchDefaultImage();
 
@@ -79,8 +83,10 @@ export default function CreateEvent() {
 
             setNewEvent(newEvent);
             setRedirect(true);
+            setIsLoading(false);
         } catch {
             setCreateEventError(true);
+            setIsLoading(false);
         }
     }
 
@@ -140,7 +146,7 @@ export default function CreateEvent() {
     }
 
     return (
-        <section className="organize-page">
+        <section className="create-page">
             <Header />
             {
                 redirect && (
@@ -158,7 +164,20 @@ export default function CreateEvent() {
             }
             {
                 createEventError && (
-                    <>error</>
+                    <div className="error">
+                        <div className="error-message">Something went wrong. Please try again.
+                        <IoMdClose onClick={() => setCreateEventError(false)} className="error-close"/>
+                        </div>
+                    </div>
+                )
+            }
+            {
+                isLoading && (
+                    <div className="loading">
+                        <div className="loading-message">
+                            <Rings color="purple"/>
+                        </div>
+                    </div>
                 )
             }
             <section className="form-container">
