@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { TEvent } from "../../../common/types"
+import { TEvent, TReduxUser } from "../../../common/types"
 import "../../../styles/EventPage/basket.scss";
 import { LuPlus } from "react-icons/lu";
 import { LuMinus } from "react-icons/lu";
 import Payment from "./Payment";
 import { IoReturnUpBack } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../../utils/redux/reducers";
+import { addAttendee } from "../../../utils/axios/event";
 
 type TBasket = {
     eventDetails: TEvent,
@@ -46,7 +47,7 @@ export default function Basket({ eventDetails, setShowPurchase, setShowBasket }:
         setBuyerDetails(buyerDetails => ({ ...buyerDetails, email: e.target.value }));
     }
 
-    function handlePayment() {
+    async function handlePayment() {
         if (!buyerDetails.name || !buyerDetails.email || checkOpenPrice()) {
             setNameError(() => !buyerDetails.name ? true : false);
             setEmailError(() => !buyerDetails.email ? true : false);
@@ -65,6 +66,7 @@ export default function Basket({ eventDetails, setShowPurchase, setShowBasket }:
         } else {
             setShowBasket(false);
             setShowPurchase(true);
+            await addAttendee(eventDetails._id, buyerDetails.name, buyerDetails.email, buyerDetails.quantity)
         }
     }
 

@@ -1,4 +1,4 @@
-import { createEvent, deleteEvent, findEvent, updateEvent } from "../models/event.model";
+import { createEvent, deleteEvent, findEvent, insertAttendee, updateEvent } from "../models/event.model";
 import express from "express";
 
 export async function postEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
@@ -37,6 +37,18 @@ export async function removeEvent(req: express.Request, res: express.Response, n
         await deleteEvent(req.params.eventId);
 
         return res.status(204).send();
+    } catch (err) {
+        next(err)
+    }
+}
+
+export async function addAttendee(req: express.Request, res: express.Response, next: express.NextFunction) {
+    const { name, email, quantity } = req.body
+    const { eventId } = req.params;
+    try {
+        const updatedAttendees = await insertAttendee(eventId, name, email, Number(quantity));
+
+        return res.status(200).send({ updatedAttendees });
     } catch (err) {
         next(err)
     }

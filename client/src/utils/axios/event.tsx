@@ -26,3 +26,14 @@ export async function editEvent(eventId: string, eventDetails: TPatchEvent) {
 
     return updatedEventDetails;
 }
+
+export async function addAttendee(eventId: string, name: string, email: string, quantity: number) {
+    const { data: { updatedAttendees } } = await instance
+        .patch(`/event/attendees/${eventId}`, { name, email, quantity });
+
+    if (updatedAttendees) {
+        return true;
+    }
+
+    return false;
+}
