@@ -1,5 +1,9 @@
 import { EditorState, Editor } from "draft-js";
-import DatePicker from "react-datepicker";
+import DateTimePicker from "react-datetime-picker";
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
+import "react-datepicker/dist/react-datepicker.css";
 
 type TDateAndLocation = {
     startDate: Date,
@@ -7,40 +11,67 @@ type TDateAndLocation = {
     endDate: Date,
     setEndDate: React.Dispatch<React.SetStateAction<Date>>,
     editorAddressState: EditorState,
-    setEditorAddressState: React.Dispatch<React.SetStateAction<EditorState>>
+    setEditorAddressState: React.Dispatch<React.SetStateAction<EditorState>>,
+    formError: {
+        title: boolean;
+        dateStart: boolean;
+        dateEnd: boolean;
+        address: boolean;
+        price: boolean;
+        details: boolean;
+        summary: boolean;
+    }
 };
 
-export default function DateAndLocationForm({ startDate, setStartDate, endDate, setEndDate, editorAddressState, setEditorAddressState }: TDateAndLocation) {
+export default function DateAndLocationForm({ startDate, setStartDate, endDate, setEndDate, editorAddressState, setEditorAddressState, formError }: TDateAndLocation) {
+
+    function handleStartDate(e: Date | null) {
+        setStartDate(e ? e : new Date());
+    }
+
+    function handleEndDate(e: Date | null) {
+        setEndDate(e ? e : new Date());
+    }
+
     return (
         <div className="datelocation-expanded">
             <div className="datelocation-dateStart">
                 <h3>Start Date</h3>
+                {
+                    formError.dateStart && (
+                        <div className="error">Start date and time should not be earlier than today's date and time. *</div>
+                    )
+                }
                 <div className="input-container">
                     <h4>Start Date</h4>
-                    <DatePicker selected={startDate} onChange={(date) => {
-                        if (date) {
-                            setStartDate(date)
-                        }
-                    }} wrapperClassName="date-picker" />
+                    <DateTimePicker value={startDate} className="datetime-picker" onChange={handleStartDate}
+                        format="y-MM-dd h:mm a"
+                        showLeadingZeros={true} />
                 </div>
-
             </div>
-
             <div className="datelocation-dateEnd">
                 <h3>End Date</h3>
+                {
+                    formError.dateEnd && (
+                        <div className="error">End date and time should not be earlier than today's or your start date and time. *</div>
+                    )
+                }
                 <div className="input-container">
                     <h4>End Date</h4>
-                    <DatePicker selected={endDate} onChange={(date) => {
-                        if (date) {
-                            setEndDate(date)
-                        }
-                    }} wrapperClassName="date-picker" />
+                    <DateTimePicker value={endDate} className="datetime-picker" onChange={handleEndDate}
+                        format="y-MM-dd h:mm a"
+                        showLeadingZeros={true} />
                 </div>
-
             </div>
-
             <div className="datelocation-address">
-                <h3>Address</h3>
+                <h3>
+                    Address
+                    {
+                    formError.address && (
+                        <div className="error">Please share the address of the event. *</div>
+                    )
+                }
+                    </h3>
                 <div className="input-container">
                     <h4>Address</h4>
                     <Editor blockStyleFn={() => "input"} editorState={editorAddressState} onChange={setEditorAddressState} />

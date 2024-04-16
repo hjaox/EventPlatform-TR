@@ -64,3 +64,18 @@ export type TEventHeaderForm = {
     setOpenPrice: React.Dispatch<React.SetStateAction<boolean>>,
     openPrice: boolean
 };
+
+export type TAboutForm = {
+    editorDetailsState: EditorState,
+    setEditorDetailsState: React.Dispatch<React.SetStateAction<EditorState>>,
+    setTag: React.Dispatch<React.SetStateAction<string>>,
+    formError: {
+        title: boolean;
+        dateStart: boolean;
+        dateEnd: boolean;
+        address: boolean;
+        price: boolean,
+        details: boolean;
+        summary: boolean;
+    },
+};

@@ -3,7 +3,6 @@ import Footer from "../subcomponents/Footer/Footer";
 import "../../styles/CreateEvent/createEvent.scss";
 import React, { useState } from "react";
 import { EditorState } from "draft-js";
-import "react-datepicker/dist/react-datepicker.css";
 import { uploadToFirebase } from "../../utils/firebase/functions";
 import file from "../../assets/default.jpg";
 import { TEvent, TNewEvent } from "../../common/types";
@@ -14,6 +13,7 @@ import DateAndLocationForm from "./components/DateAndLocationForm";
 import AboutForm from "./components/AboutForm";
 import { createEvent } from "../../utils/axios/event";
 import { LiaExclamationCircleSolid } from "react-icons/lia";
+
 
 export default function CreateEvent() {
     const navigate = useNavigate();
@@ -103,11 +103,22 @@ export default function CreateEvent() {
             if (["openPrice", "tag"].includes(key)) continue;
 
             if (val instanceof Date) {
-                if (val.valueOf() < Date.now().valueOf()) {
-                    setFormError(formError => ({ ...formError, [key]: true }));
-                    status = false;
-                } else {
-                    setFormError(formError => ({ ...formError, [key]: false }));
+                if (key === "dateStart") {
+                    if (val.valueOf() < Date.now().valueOf()) {
+                        setFormError(formError => ({ ...formError, dateStart: true }));
+                        status = false;
+                    } else {
+                        setFormError(formError => ({ ...formError, dateStart: false }));
+                    }
+                }
+
+                if (key === "dateEnd") {
+                    if (val.valueOf() < Date.now().valueOf() || val.valueOf() <= event.dateStart.valueOf()) {
+                        setFormError(formError => ({ ...formError, dateEnd: true }));
+                        status = false;
+                    } else {
+                        setFormError(formError => ({ ...formError, dateEnd: false }));
+                    }
                 }
             }
 
@@ -184,7 +195,14 @@ export default function CreateEvent() {
                                 )
                                 : (
                                     <div className="header-short" onClick={() => setExpandHeader(true)}>
-                                        <h2>Event Header</h2>
+                                        <h2>
+                                            Event Header
+                                            {
+                                                (formError.title || formError.summary || formError.price) && (
+                                                    <LiaExclamationCircleSolid className="error-icon" color="red" />
+                                                )
+                                            }
+                                        </h2>
                                         <p>Attendees will see these details at the top of your event page.</p>
                                     </div>
                                 )
@@ -193,7 +211,13 @@ export default function CreateEvent() {
 
                     <section className="form-item datelocation-container" onClick={() => setExpandDateLocation(true)}>
                         <div className="datelocation-short">
-                            <h2>Date and Location</h2>
+                            <h2>Date and Location
+                                {
+                                    (formError.dateStart || formError.dateEnd || formError.address) && (
+                                        <LiaExclamationCircleSolid className="error-icon" color="red" />
+                                    )
+                                }
+                            </h2>
                             <p>Set a date, time and location for your event.</p>
                         </div>
                         {
@@ -206,7 +230,8 @@ export default function CreateEvent() {
                                             endDate={endDate}
                                             setEndDate={setEndDate}
                                             editorAddressState={editorAddressState}
-                                            setEditorAddressState={setEditorAddressState} />
+                                            setEditorAddressState={setEditorAddressState}
+                                            formError={formError} />
                                     }
                                 </>
                             )

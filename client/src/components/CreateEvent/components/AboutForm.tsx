@@ -1,20 +1,5 @@
-import { EditorState, Editor } from "draft-js";
-
-
-type TAboutForm = {
-    editorDetailsState: EditorState,
-    setEditorDetailsState: React.Dispatch<React.SetStateAction<EditorState>>,
-    setTag: React.Dispatch<React.SetStateAction<string>>,
-    formError: {
-        title: boolean;
-        dateStart: boolean;
-        dateEnd: boolean;
-        address: boolean;
-        price: boolean,
-        details: boolean;
-        summary: boolean;
-    },
-};
+import { Editor } from "draft-js";
+import { TAboutForm } from "../../../common/types";
 
 export default function AboutForm({ editorDetailsState, setEditorDetailsState, setTag, formError }: TAboutForm) {
     return (
