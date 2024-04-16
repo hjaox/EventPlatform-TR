@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { TEvent, TReduxUser } from "../../../common/types"
+import { TEvent } from "../../../common/types"
 import "../../../styles/EventPage/basket.scss";
 import { LuPlus } from "react-icons/lu";
 import { LuMinus } from "react-icons/lu";
 import Payment from "./Payment";
 import { IoReturnUpBack } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actions } from "../../../utils/redux/reducers";
 import { addAttendee } from "../../../utils/axios/event";
 
@@ -71,7 +71,7 @@ export default function Basket({ eventDetails, setShowPurchase, setShowBasket }:
     }
 
     function checkOpenPrice() {
-        return buyerDetails.price > 0 && buyerDetails.price < 0.3 ? true : false;
+        return (buyerDetails.price > 0 && buyerDetails.price < 0.3) || buyerDetails.price < eventDetails.price;
     }
 
     function handleOpenPrice(e: React.ChangeEvent<HTMLInputElement>) {
@@ -121,10 +121,10 @@ export default function Basket({ eventDetails, setShowPurchase, setShowBasket }:
                                         <p className="set-price">You are free to pay however much you feel the event is worth! (Min. ₤ {eventDetails.price})</p>
 
                                         <div className="input-container">
-                                            ₤<input type="number" onChange={handleOpenPrice} value={buyerDetails.price} min={buyerDetails.price} />
+                                            ₤<input type="number" onChange={handleOpenPrice} value={buyerDetails.price} min={eventDetails.price} />
                                             {
                                                 openPriceError && (
-                                                    <p className="error">Minimum set price is ₤0.30</p>
+                                                    <p className="error">Minimum set price is ₤0.30 or higher than the price of the event.</p>
                                                 )
                                             }
                                         </div>

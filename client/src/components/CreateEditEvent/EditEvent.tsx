@@ -46,7 +46,7 @@ export default function CreateEvent() {
                 redirect && (
                     <section className="redirect-container">
                         <div className="redirect">
-                            <p>You have successfully created an event. 🎉</p>
+                            <p>Changes saved 🎉</p>
                             <div className="redirect-options">
                                 <button onClick={() => navigate("/Home")}>Go Home</button>
                                 <button onClick={() => navigate(`/Event/${newEvent?._id}`)}>View Event</button>
