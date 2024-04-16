@@ -1,26 +1,9 @@
-import { EditorState, Editor } from "draft-js";
+import { Editor } from "draft-js";
 import DateTimePicker from "react-datetime-picker";
 import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
-
-type TDateAndLocation = {
-    startDate: Date,
-    setStartDate: React.Dispatch<React.SetStateAction<Date>>,
-    endDate: Date,
-    setEndDate: React.Dispatch<React.SetStateAction<Date>>,
-    editorAddressState: EditorState,
-    setEditorAddressState: React.Dispatch<React.SetStateAction<EditorState>>,
-    formError: {
-        title: boolean;
-        dateStart: boolean;
-        dateEnd: boolean;
-        address: boolean;
-        price: boolean;
-        details: boolean;
-        summary: boolean;
-    }
-};
+import { TDateAndLocation } from "../../../common/types";
 
 export default function DateAndLocationForm({ startDate, setStartDate, endDate, setEndDate, editorAddressState, setEditorAddressState, formError }: TDateAndLocation) {
 

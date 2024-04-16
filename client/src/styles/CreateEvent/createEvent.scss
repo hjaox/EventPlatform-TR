@@ -3,7 +3,7 @@
 .create-page {
     @include index.page-layout;
 
-    .error {
+    .createEventError {
         position: fixed;
         width: 100vw;
         height: 100vh;
@@ -14,13 +14,13 @@
         z-index: 10;
         backdrop-filter: blur(10px) brightness(80%);
 
-        .error-message {
+        .createEventError-message {
             background-color: white;
             padding: 2rem;
             border-radius: 1rem;
             position: relative;
 
-            .error-close {
+            .createEventError-close {
                 cursor: pointer;
                 position: absolute;
                 right: 0.3rem;
@@ -31,7 +31,7 @@
                 border: 1px solid transparent;
             }
 
-            .error-close:hover {
+            .createEventError-close:hover {
                 background-color: purple;
                 color: white;
                 transition: all 0.3s ease;

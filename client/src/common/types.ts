@@ -79,3 +79,21 @@ export type TAboutForm = {
         summary: boolean;
     },
 };
+
+export type TDateAndLocation = {
+    startDate: Date,
+    setStartDate: React.Dispatch<React.SetStateAction<Date>>,
+    endDate: Date,
+    setEndDate: React.Dispatch<React.SetStateAction<Date>>,
+    editorAddressState: EditorState,
+    setEditorAddressState: React.Dispatch<React.SetStateAction<EditorState>>,
+    formError: {
+        title: boolean;
+        dateStart: boolean;
+        dateEnd: boolean;
+        address: boolean;
+        price: boolean;
+        details: boolean;
+        summary: boolean;
+    }
+};

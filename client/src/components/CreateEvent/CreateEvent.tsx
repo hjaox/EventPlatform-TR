@@ -164,9 +164,9 @@ export default function CreateEvent() {
             }
             {
                 createEventError && (
-                    <div className="error">
-                        <div className="error-message">Something went wrong. Please try again.
-                        <IoMdClose onClick={() => setCreateEventError(false)} className="error-close"/>
+                    <div className="createEventError">
+                        <div className="createEventError-message">Something went wrong. Please try again.
+                        <IoMdClose onClick={() => setCreateEventError(false)} className="createEventError-close"/>
                         </div>
                     </div>
                 )
