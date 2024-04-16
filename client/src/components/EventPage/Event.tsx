@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { getEvent } from "../../utils/axios/event";
+import { addAttendee, getEvent } from "../../utils/axios/event";
 import { TEvent, TReduxUser } from "../../common/types";
 import Header from "../subcomponents/Header/Header";
 import Footer from "../subcomponents/Footer/Footer";
@@ -46,8 +46,10 @@ export default function Event() {
         if (quantity && price) {
             setShowPurchase(true);
             setSearchParams({});
+            (async () => {
+                await addAttendee(buyerDetails.eventId, buyerDetails.name, buyerDetails.email, buyerDetails.quantity)
+            })();
         }
-
     }, []);
 
     function handleDateAndTime(dateStart: Date, dateEnd: Date) {
