@@ -54,3 +54,19 @@ export async function deleteEvent(eventId: string) {
         return Promise.reject({ status: 400, message: "Bad Request" });
     }
 }
+
+export async function insertAttendee(eventId: string, name: string) {
+    try {
+        const eventDoc = await EventModel.findById({_id : eventId}, "attendees");
+
+        if(eventDoc) {
+            eventDoc.attendees.push(name);
+            await eventDoc.save();
+            return eventDoc.toObject().attendees;
+        }
+
+        return Promise.reject({status: 401, message: "Event not found."})
+    } catch(err) {
+        return Promise.reject({ status: 400, message: "Bad Request" });
+    }
+}
