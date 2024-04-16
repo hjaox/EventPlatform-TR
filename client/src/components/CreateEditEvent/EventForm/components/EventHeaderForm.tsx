@@ -1,12 +1,20 @@
 import { Editor } from "draft-js";
-import { TEventHeaderForm } from "../../../common/types";
+import { TEventHeaderForm } from "../../../../common/types";
+import { LiaExclamationCircleSolid } from "react-icons/lia";
 
 export default function EventHeaderForm({ setEditorTitleState, editorTitleState, setEditorSummaryState, editorSummaryState, price, setPrice, formError, setOpenPrice, openPrice }: TEventHeaderForm) {
 
     return (
         <div className="header-expanded">
             <div className="header-title">
-                <h3>Event Title</h3>
+                <h3>
+                    Event Title
+                    {
+                        (formError.title || formError.summary || formError.price) && (
+                            <LiaExclamationCircleSolid className="error-icon" color="red" />
+                        )
+                    }
+                </h3>
                 <p>Make a title that is clear and concise to tell people what your event is about.</p>
                 {
                     formError.title && (
@@ -44,12 +52,12 @@ export default function EventHeaderForm({ setEditorTitleState, editorTitleState,
                         <h4>Price</h4>
                         <div className="price">
                             <span>£ </span>
-                            <input type="number" id="input-price" step={0.01} onChange={e => setPrice(() => Number(e.target.value))} value={price} />
+                            <input type="number" id="input-price" step={0.01} onChange={e => setPrice(() => Number(e.target.value))} value={price ? price : ""} />
                         </div>
                     </div>
                     <div className="openPrice-input">
                         <label htmlFor="openPrice-input">Open </label>
-                        <input checked={openPrice} id="openPrice-input" type="checkbox" onChange={e => setOpenPrice(e.target.checked)}/>
+                        <input checked={openPrice} id="openPrice-input" type="checkbox" onChange={e => setOpenPrice(e.target.checked)} />
                     </div>
                 </div>
             </div>

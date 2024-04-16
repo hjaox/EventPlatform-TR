@@ -1,7 +1,55 @@
 @use "../index.scss";
 
-.organize-page {
+.create-page {
     @include index.page-layout;
+
+    .createEventError {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: auto;
+        z-index: 10;
+        backdrop-filter: blur(10px) brightness(80%);
+
+        .createEventError-message {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            position: relative;
+
+            .createEventError-close {
+                cursor: pointer;
+                position: absolute;
+                right: 0.3rem;
+                top: 0.3rem;
+                font-size: 1.5rem;
+                transition: all 0.3s ease;
+                border-radius: 50%;
+                border: 1px solid transparent;
+            }
+
+            .createEventError-close:hover {
+                background-color: purple;
+                color: white;
+                transition: all 0.3s ease;
+            }
+        }
+    }
+
+    .loading {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+        z-index: 2;
+        backdrop-filter: blur(10px) brightness(80%);
+    }
 
     .form-container {
         @include index.page-display;
@@ -155,6 +203,25 @@
                                 outline: none;
                             }
                         }
+
+                        .datetime-picker {
+                            display: flex;
+                            width: fit-content;
+
+                            .react-datetime-picker__wrapper {
+                                border: 1px solid transparent;
+
+                                .react-datetime-picker__inputGroup {
+                                    display: inline-block;
+                                }
+
+                                .react-datetime-picker__button {
+                                    width: fit-content;
+                                    border: 1px solid transparent;
+                                    background-color: white;
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -209,7 +276,8 @@
                         }
 
                         .openPrice-input {
-                            label, input {
+                            label,
+                            input {
                                 cursor: pointer;
                             }
                         }

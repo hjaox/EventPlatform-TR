@@ -50,8 +50,8 @@ export type TEventHeaderForm = {
     editorTitleState: EditorState,
     setEditorSummaryState: React.Dispatch<React.SetStateAction<EditorState>>,
     editorSummaryState: EditorState,
-    price: number
-    setPrice: React.Dispatch<React.SetStateAction<number>>,
+    price: number | null
+    setPrice: React.Dispatch<React.SetStateAction<number|null>>,
     formError: {
         title: boolean;
         dateStart: boolean;
@@ -63,4 +63,58 @@ export type TEventHeaderForm = {
     },
     setOpenPrice: React.Dispatch<React.SetStateAction<boolean>>,
     openPrice: boolean
+};
+
+export type TAboutForm = {
+    editorDetailsState: EditorState,
+    setEditorDetailsState: React.Dispatch<React.SetStateAction<EditorState>>,
+    setTag: React.Dispatch<React.SetStateAction<string>>,
+    formError: {
+        title: boolean;
+        dateStart: boolean;
+        dateEnd: boolean;
+        address: boolean;
+        price: boolean,
+        details: boolean;
+        summary: boolean;
+    },
+};
+
+export type TDateAndLocation = {
+    startDate: Date,
+    setStartDate: React.Dispatch<React.SetStateAction<Date>>,
+    endDate: Date,
+    setEndDate: React.Dispatch<React.SetStateAction<Date>>,
+    editorAddressState: EditorState,
+    setEditorAddressState: React.Dispatch<React.SetStateAction<EditorState>>,
+    formError: {
+        title: boolean;
+        dateStart: boolean;
+        dateEnd: boolean;
+        address: boolean;
+        price: boolean;
+        details: boolean;
+        summary: boolean;
+    }
+};
+
+export type TEventForm = {
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    setNewEvent: React.Dispatch<React.SetStateAction<TEvent | null>>,
+    setRedirect: React.Dispatch<React.SetStateAction<boolean>>,
+    setCreateEventError: React.Dispatch<React.SetStateAction<boolean>>,
+    eventToEdit?: TEvent | null,
+    setEventToEdit?: React.Dispatch<React.SetStateAction<TEvent | null>>
+};
+
+export type TPatchEvent = {
+    title?: string,
+    dateStart?: Date,
+    dateEnd?: Date,
+    address?: string,
+    details?: string,
+    summary?: string,
+    tag?: string,
+    price?: number,
+    openPrice?: boolean
 };
