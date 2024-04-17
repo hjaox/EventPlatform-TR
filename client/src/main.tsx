@@ -9,7 +9,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import App from './App.tsx'
 import Home from './components/Home/Home.tsx';
 import Login from './components/Login/Login.tsx';
-import Register from './components/Register/Register.tsx';
 import Event from './components/EventPage/Event.tsx';
 import Error from './components/Error/Error.tsx';
 import EditEvent from './components/CreateEditEvent/EditEvent.tsx';
@@ -29,10 +28,6 @@ const router = createBrowserRouter(
     {
       path: "/Login",
       element: <Login />
-    },
-    {
-      path: "/Register",
-      element: <Register />
     },
     {
       path: "/Event/Create",

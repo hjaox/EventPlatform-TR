@@ -9,6 +9,7 @@ import EventHeaderForm from "./components/EventHeaderForm";
 import { LiaExclamationCircleSolid } from "react-icons/lia";
 import DateAndLocationForm from "./components/DateAndLocationForm";
 import AboutForm from "./components/AboutForm";
+import { fetchDefaultImage } from "../../../utils/utils";
 
 export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setRedirect, setCreateEventError }: TEventForm) {
     const [expandHeader, setExpandHeader] = useState(false);
@@ -52,6 +53,10 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
         }
     }, [eventToEdit]);
 
+    useEffect(() => {
+
+    });
+
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
@@ -73,7 +78,7 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
             let eventDetails;
             setIsLoading(true);
 
-            if(eventToEdit) {
+            if (eventToEdit) {
                 eventDetails = await editEvent(eventToEdit?._id, event);
             } else {
                 eventDetails = await createEvent(event);
@@ -92,18 +97,6 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
         } catch {
             setCreateEventError(true);
             setIsLoading(false);
-        }
-    }
-
-    async function fetchDefaultImage() {
-        try {
-            const defaultImage = await fetch(file);
-            const imageBlob = await defaultImage.blob();
-            const imageFile = new File([imageBlob], "defaultImage", { type: "image/jpeg" });
-
-            return imageFile;
-        } catch {
-            return null
         }
     }
 
@@ -239,7 +232,7 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
                     )
                 }
             </section>
-            <button form="create-form">Save and Create</button>
+            <button form="create-form">{eventToEdit ? "Save Changes" : "Save and Create"}</button>
         </form>
     )
 }

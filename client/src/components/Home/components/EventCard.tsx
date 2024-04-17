@@ -1,4 +1,4 @@
-import { TEvent, TReduxUser } from "../../../common/types";
+import { TEventCard, TReduxUser } from "../../../common/types";
 import { handleDate } from "../../../utils/utils";
 import "../../../styles/Home/eventCard.scss"
 import { FaRegEdit } from "react-icons/fa";
@@ -10,14 +10,13 @@ import { useEffect, useState } from "react";
 import { ThreeCircles } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { RiCheckLine } from "react-icons/ri";
+import { RiCloseLine } from "react-icons/ri";
 
-export default function EventCard({ event, setEventList }: {
-    event: TEvent,
-    eventList: TEvent[],
-    setEventList: React.Dispatch<React.SetStateAction<TEvent[]>>
-}) {
+export default function EventCard({ event, setEventList, key }: TEventCard) {
     const [coverPhoto, setCoverPhoto] = useState<string>(defaultImage)
     const [isLoading, setIsLoading] = useState(false);
+    const [showConfirmPrompt, setComfirmPrompt] = useState(false);
     const isLoggedIn = useSelector((state: TReduxUser) => state.isLoggedIn);
     const navigate = useNavigate();
 
@@ -33,17 +32,9 @@ export default function EventCard({ event, setEventList }: {
         })()
     }, []);
 
-    async function handleDeleteEvent(e: React.MouseEvent<HTMLDivElement, MouseEvent>, eventId: string) {
+    async function handleDeleteEvent(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         e.stopPropagation();
-
-        await deleteEvent(eventId);
-
-        setEventList(eventList => {
-            const index = eventList.findIndex(event => event._id === eventId);
-            const newList = eventList.filter((_, i) => i !== index);
-
-            return newList;
-        })
+        setComfirmPrompt(true);
     }
 
     function handleEditEvent(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
@@ -51,12 +42,44 @@ export default function EventCard({ event, setEventList }: {
         navigate(`/Event/Edit/${event._id}`)
     }
 
+    async function handleDeletePrompt(choice: boolean) {
+        if (choice) {
+            setIsLoading(true)
+            await deleteEvent(event._id);
+
+            setEventList(eventList => {
+                const newList = eventList.filter((item) => item._id !== event._id);
+
+                return newList;
+            })
+        }
+        setIsLoading(false);
+        setComfirmPrompt(false);
+    }
+
     return (
-        <>
+        <li key={key} className="home-events-list-item">
+            {
+                showConfirmPrompt && (
+                    <div className="confirmPrompt-container">
+                        <div className="confirmPrompt-display">
+                            <div className="confirmPrompt-message">Delete event?</div>
+                            <div className="confirmPrompt-options">
+                                <div className="confirmPropmt-option-container" onClick={() => handleDeletePrompt(false)}>
+                                    <RiCloseLine className="confirmPropmt-icon" />
+                                </div>
+                                <div className="confirmPropmt-option-container">
+                                    <RiCheckLine className="confirmPropmt-icon" onClick={() => handleDeletePrompt(true)}/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
             {
                 !isLoading
                     ? (
-                        <>
+                        <div className="event-container" onClick={() => navigate(`/Event/${event._id}`)}>
                             <img className="eventCard-image" src={coverPhoto} alt="pic" />
                             <div className="eventCard-texts">
                                 <h1 className="eventCard-title">{event.title}</h1>
@@ -71,22 +94,22 @@ export default function EventCard({ event, setEventList }: {
                                             <FaRegEdit className="eventCard-option" />
                                         </div>
 
-                                        <div className="eventCard-icon-container" onClick={e => handleDeleteEvent(e, event._id)}>
+                                        <div className="eventCard-icon-container" onClick={handleDeleteEvent}>
                                             <MdDeleteForever className="eventCard-option" />
                                         </div>
                                     </div>
                                 )
                             }
-                        </>
+                        </div>
 
                     )
                     : (
-                        <div className="loading">
+                        <div className="loading-eventCard">
                             <ThreeCircles color="purple" />
                         </div>
 
                     )
             }
-        </>
+        </li>
     )
 }

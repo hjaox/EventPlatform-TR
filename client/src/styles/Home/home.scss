@@ -3,36 +3,57 @@
 .home-page {
     @include index.page-layout;
 
+    .home-error {
+        width: 100vw;
+        position: fixed;
+        z-index: 2;
+        backdrop-filter: blur(10px) brightness(50%);
+        height: 100vh;
+        @include index.center-elements;
+
+        .home-error-message {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 1rem;
+            font-family: Satisfy;
+            color: purple;
+            font-size: x-large;
+            font-weight: bold;
+        }
+    }
+
     .home-display {
         @include index.page-display;
+        width: 100%;
+
         @media only screen and (min-width: 1800px) {
             padding: 2rem 15%;
-          }
+        }
 
-          @media only screen and (min-width: 1530px) and (max-width: 1799px) {
+        @media only screen and (min-width: 1530px) and (max-width: 1799px) {
             padding: 2rem 10%;
-          }
+        }
 
-          @media only screen and (min-width: 1025px) and (max-width: 1529px) {
+        @media only screen and (min-width: 1025px) and (max-width: 1529px) {
             padding: 2rem 8%;
-          }
+        }
 
-          @media only screen and (min-width: 641px) and (max-width: 1024px) {
+        @media only screen and (min-width: 641px) and (max-width: 1024px) {
             padding: 2rem 5%;
-          }
+        }
 
-          @media only screen and (max-width: 640px) {
+        @media only screen and (max-width: 640px) {
             padding: 2rem 1rem;
-          }
+        }
 
         ul {
             list-style-type: none;
         }
 
-        .loading {
+        .loading-page {
             width: 100%;
-            height: 100%;
-            margin: auto;
+            height: 70vh;
+            @include index.center-elements
         }
 
         .no-events {
@@ -54,18 +75,20 @@
                     @include index.center-elements-column;
                     gap: 0.5rem;
                     flex: 1;
+                    cursor: pointer;
+                    position: relative;
                 }
 
                 .home-tags-list-item:hover {
                     .icon-container {
                         background-color: gainsboro;
                         color: purple;
-                        transition: all 0.3s ease;
+                        transition: color 0.3s ease;
                     }
 
                     .text {
                         color: purple;
-                        transition: all 0.3s ease;
+                        transition: color 0.3s ease;
                     }
                 }
             }
@@ -77,34 +100,41 @@
                 flex-wrap: wrap;
                 justify-content: space-evenly;
                 gap: 1.5rem;
-                transition: all 0.3s ease;
+                transition: opacity 0.3s ease;
 
                 .home-events-list-item {
-                    border: 1px solid transparent;
-                    border-radius: 1rem;
-                    transition: all 0.3s ease;
-                    cursor: pointer;
                     position: relative;
 
-                    @media screen and (min-width: 721px) {
-                        width: 19rem;
-                    }
-                    @media screen and (max-width: 720px) {
-                        width: 75vw;
+                    .event-container {
+                        border: 1px solid transparent;
+                        border-radius: 1rem;
+                        transition: opacity 0.3s ease;
+                        cursor: pointer;
+
+                        @media screen and (min-width: 721px) {
+                            width: 19rem;
+                        }
+                        @media screen and (max-width: 720px) {
+                            width: 75vw;
+                        }
                     }
                 }
             }
 
             .home-events-list:hover {
                 .home-events-list-item {
-                    opacity: 0.8;
-                    transition: all 0.3s ease;
+                    .event-container {
+                        opacity: 0.8;
+                        transition: opacity 0.3s ease;
+                    }
                 }
 
                 .home-events-list-item:hover {
-                    opacity: 1;
-                    transition: all 0.3s ease;
-                    box-shadow: 10px 10px 10px gainsboro;
+                    .event-container {
+                        opacity: 1;
+                        transition: opacity 0.3s ease;
+                        box-shadow: 10px 10px 10px gainsboro;
+                    }
                 }
             }
         }
