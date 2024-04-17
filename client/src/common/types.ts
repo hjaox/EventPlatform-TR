@@ -51,7 +51,7 @@ export type TEventHeaderForm = {
     setEditorSummaryState: React.Dispatch<React.SetStateAction<EditorState>>,
     editorSummaryState: EditorState,
     price: number | null
-    setPrice: React.Dispatch<React.SetStateAction<number|null>>,
+    setPrice: React.Dispatch<React.SetStateAction<number | null>>,
     formError: {
         title: boolean;
         dateStart: boolean;
@@ -117,4 +117,17 @@ export type TPatchEvent = {
     tag?: string,
     price?: number,
     openPrice?: boolean
+};
+
+export type TEventCard = {
+    event: TEvent,
+    eventList: TEvent[],
+    setEventList: React.Dispatch<React.SetStateAction<TEvent[]>>
+};
+
+export type TTagCard = {
+    tag: string,
+    selectedTag: string,
+    setSelectedTag: React.Dispatch<React.SetStateAction<string>>,
+    key: number
 };

@@ -1,4 +1,4 @@
-import { TEvent, TReduxUser } from "../../../common/types";
+import { TEventCard, TReduxUser } from "../../../common/types";
 import { handleDate } from "../../../utils/utils";
 import "../../../styles/Home/eventCard.scss"
 import { FaRegEdit } from "react-icons/fa";
@@ -11,11 +11,7 @@ import { ThreeCircles } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export default function EventCard({ event, setEventList }: {
-    event: TEvent,
-    eventList: TEvent[],
-    setEventList: React.Dispatch<React.SetStateAction<TEvent[]>>
-}) {
+export default function EventCard({ event, setEventList }: TEventCard) {
     const [coverPhoto, setCoverPhoto] = useState<string>(defaultImage)
     const [isLoading, setIsLoading] = useState(false);
     const isLoggedIn = useSelector((state: TReduxUser) => state.isLoggedIn);

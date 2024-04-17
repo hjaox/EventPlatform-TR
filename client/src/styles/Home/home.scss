@@ -2,9 +2,31 @@
 
 .home-page {
     @include index.page-layout;
+    .home-error {
+        width: 100vw;
+        position: fixed;
+        z-index: 2;
+        backdrop-filter: blur(10px) brightness(50%);
+        height: 100vh;
+        @include index.center-elements;
+
+        .home-error-message {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 1rem;
+            font-family: Satisfy;
+            color: purple;
+            font-size: x-large;
+            font-weight: bold;
+        }
+    }
+
 
     .home-display {
         @include index.page-display;
+        width: 100%;
+
+
         @media only screen and (min-width: 1800px) {
             padding: 2rem 15%;
           }
@@ -28,6 +50,8 @@
         ul {
             list-style-type: none;
         }
+
+
 
         .loading {
             width: 100%;
@@ -54,6 +78,7 @@
                     @include index.center-elements-column;
                     gap: 0.5rem;
                     flex: 1;
+                    cursor: pointer;
                 }
 
                 .home-tags-list-item:hover {

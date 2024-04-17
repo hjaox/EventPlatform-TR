@@ -13,30 +13,44 @@ import { MagnifyingGlass } from "react-loader-spinner";
 export default function Home() {
     const navigate = useNavigate();
     const [eventList, setEventList] = useState<TEvent[]>([]);
-    const [tagList, setTagList] = useState<string[]>([]);
+    const [eventsToDisplay, setEventsToDisplay] = useState<TEvent[]>([]);
+    const [tagList, setTagList] = useState<string[]>(["All"]);
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedTag, setSelectedTag] = useState("All");
+    const [error, setError] = useState(false);
 
     useEffect(() => {
-        setIsLoading(true);
-
         (async () => {
-            const results = await Promise.all([getAllEvents(), getAllTags()]);
-            setEventList(() => [...results[0]]);
-            setTagList(() => [...results[1]]);
-            setIsLoading(false);
-        })()
-
+            setIsLoading(true);
+            try {
+                const results = await Promise.all([getAllEvents(), getAllTags()]);
+                setEventList(() => [...results[0]]);
+                setEventsToDisplay(() => [...results[0]]);
+                setTagList(tagList => [...tagList, ...results[1]]);
+                setIsLoading(false);
+            } catch {
+                setError(true);
+                setIsLoading(false)
+            }
+        })();
     }, []);
 
     useEffect(() => {
-    }, [eventList])
+        if (selectedTag === "All") {
+            setEventsToDisplay(() => [...eventList]);
+        } else {
+            setEventsToDisplay(() => [...eventList.filter(event => event.tag === selectedTag)]);
+        }
+    }, [eventList, selectedTag])
 
     function handleTags(tagList: string[]) {
         return tagList.map((tag, i) => {
             return (
-                <li key={i} className="home-tags-list-item">
-                    <TagCard tag={tag} />
-                </li>
+                <TagCard tag={tag}
+                    setSelectedTag={setSelectedTag}
+                    selectedTag={selectedTag}
+                    key={i}
+                />
             )
         })
     }
@@ -48,7 +62,6 @@ export default function Home() {
                     <EventCard event={event}
                         eventList={eventList}
                         setEventList={setEventList} />
-
                 </li>
             )
         })
@@ -57,7 +70,18 @@ export default function Home() {
     return (
         <section className="home-page">
             <Header />
+            {
+                    error && (
+                        <div className="home-error">
+                            <div className="home-error-message">
+                                Something went wrong. Please refresh the page.
+                            </div>
+                        </div>
+                    )
+                }
+
             <section className="home-display">
+
                 {
                     isLoading
                         ? (
@@ -74,14 +98,13 @@ export default function Home() {
                                         }
                                     </ul>
                                 </div>
-
                                 {
-                                    eventList.length
+                                    eventsToDisplay.length && !error
                                         ? (
                                             <div className="home-events">
                                                 <ul className="home-events-list">
                                                     {
-                                                        handleEventsToDisplay(eventList)
+                                                        handleEventsToDisplay(eventsToDisplay)
                                                     }
                                                 </ul>
 
@@ -94,7 +117,6 @@ export default function Home() {
                                         )
                                 }
                             </>
-
                         )
                 }
             </section>

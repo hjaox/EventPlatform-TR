@@ -42,7 +42,7 @@ export default function Login() {
 
             <div className="form">
                 <div className="form-header">
-                    <h1>Our Community</h1>
+                    <h1 onClick={() => navigate("/Home")}>Our Community</h1>
                     <span className="header-text">Login</span>
                     <div className={`error ${fbLoginError ? "show" : "hide"}`}>
                         <span>
