@@ -104,7 +104,7 @@ export default function EventCard({ event, setEventList, key }: TEventCard) {
 
                     )
                     : (
-                        <div className="loading">
+                        <div className="loading-eventCard">
                             <ThreeCircles color="purple" />
                         </div>
 

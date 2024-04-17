@@ -39,7 +39,7 @@ export default function Home() {
         } else {
             setEventsToDisplay(() => [...eventList.filter(event => event.tag === selectedTag)]);
         }
-    }, [eventList, selectedTag])
+    }, [eventList, selectedTag]);
 
     function handleTags(tagList: string[]) {
         return tagList.map((tag, i) => {
@@ -82,7 +82,7 @@ export default function Home() {
                 {
                     isLoading
                         ? (
-                            <div className="loading">
+                            <div className="loading-page">
                                 <MagnifyingGlass color="purple" />
                             </div>
                         )
@@ -95,8 +95,9 @@ export default function Home() {
                                         }
                                     </ul>
                                 </div>
+                                {}
                                 {
-                                    eventsToDisplay.length && !error
+                                    eventsToDisplay.length
                                         ? (
                                             <div className="home-events">
                                                 <ul className="home-events-list">
