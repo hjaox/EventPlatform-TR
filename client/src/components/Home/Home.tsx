@@ -1,5 +1,4 @@
 import "../../styles/Home/home.scss"
-import { useNavigate } from "react-router-dom"
 import { getAllEvents } from "../../utils/axios/events";
 import { useEffect, useState } from "react";
 import { TEvent } from "../../common/types";
@@ -11,7 +10,6 @@ import TagCard from "./components/TagCard";
 import { MagnifyingGlass } from "react-loader-spinner";
 
 export default function Home() {
-    const navigate = useNavigate();
     const [eventList, setEventList] = useState<TEvent[]>([]);
     const [eventsToDisplay, setEventsToDisplay] = useState<TEvent[]>([]);
     const [tagList, setTagList] = useState<string[]>(["All"]);
@@ -58,11 +56,10 @@ export default function Home() {
     function handleEventsToDisplay(eventList: TEvent[]) {
         return eventList.map((event, i) => {
             return (
-                <li onClick={() => navigate(`/Event/${event._id}`)} key={i} className="home-events-list-item">
                     <EventCard event={event}
                         eventList={eventList}
-                        setEventList={setEventList} />
-                </li>
+                        setEventList={setEventList}
+                        key={i} />
             )
         })
     }
@@ -107,7 +104,6 @@ export default function Home() {
                                                         handleEventsToDisplay(eventsToDisplay)
                                                     }
                                                 </ul>
-
                                             </div>
                                         )
                                         : (

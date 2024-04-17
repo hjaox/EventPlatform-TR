@@ -122,7 +122,8 @@ export type TPatchEvent = {
 export type TEventCard = {
     event: TEvent,
     eventList: TEvent[],
-    setEventList: React.Dispatch<React.SetStateAction<TEvent[]>>
+    setEventList: React.Dispatch<React.SetStateAction<TEvent[]>>,
+    key: number
 };
 
 export type TTagCard = {

@@ -73,7 +73,7 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
             let eventDetails;
             setIsLoading(true);
 
-            if(eventToEdit) {
+            if (eventToEdit) {
                 eventDetails = await editEvent(eventToEdit?._id, event);
             } else {
                 eventDetails = await createEvent(event);
@@ -239,7 +239,7 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
                     )
                 }
             </section>
-            <button form="create-form">Save and Create</button>
+            <button form="create-form">{eventToEdit ? "Save Changes" : "Save and Create"}</button>
         </form>
     )
 }
