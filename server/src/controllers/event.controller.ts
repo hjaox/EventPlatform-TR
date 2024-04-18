@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
 import { createEvent, deleteEvent, findEvent, insertAttendee, updateEvent } from "../models/event.model";
 import express from "express";
+import { checkPatchEvent, checkPostEvent } from "../utils/utils";
 
 export async function postEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
+    if(!checkPostEvent(req.body)) return res.status(400).send({message: "To post an event, it must have the following properties: title, dateStart, dateEnd, address"});
+
     try {
         const newEvent = await createEvent(req.body);
 

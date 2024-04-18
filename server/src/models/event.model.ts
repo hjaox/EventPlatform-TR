@@ -4,7 +4,7 @@ import { TEvent, TEventUpdate } from "../common/types";
 export async function createEvent(eventDetails: TEvent) {
     try {
         return await EventModel.create(eventDetails);
-    } catch (err) {
+    } catch {
         return Promise.reject({ status: 400, message: "Bad Request" });
     }
 }

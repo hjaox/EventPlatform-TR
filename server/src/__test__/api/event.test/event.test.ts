@@ -17,7 +17,7 @@ beforeAll(async () => {
 afterAll(async () => await mongoose.connection.close());
 
 describe("/event endpoints tests", () => {
-    describe.only("GET /event/:eventId", () => {
+    describe("GET /event/:eventId", () => {
         test("200: returns status code 200 upon successful request", async () => {
             const testEventId = await EventModel.findOne({}, "_id");
 
@@ -55,7 +55,7 @@ describe("/event endpoints tests", () => {
         });
     });
 
-    describe("POST /event endpoint tests", () => {
+    describe.only("POST /event endpoint tests", () => {
         const testEvent = {
             title: "testEvent",
             dateStart: new Date("2024-03-26T10:17:25.449Z"),

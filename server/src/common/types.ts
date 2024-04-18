@@ -21,6 +21,7 @@ export type TEvent = {
   address: string,
   details: string,
   summary: string,
+  attendees?: any[],
   tag: string,
   price: number,
   openPrice: boolean,
@@ -35,11 +36,11 @@ export type TEventUpdate = {
   dateEnd?: Date,
   address?: string,
   details?: string,
+  attendees?: any[],
   summary?: string,
   tag?: string,
   price?: number,
   openPrice?: boolean,
-  isFree?: boolean,
 };
 
 export type TError = {
