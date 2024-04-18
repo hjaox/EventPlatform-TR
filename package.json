@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "seed-server": "npm run seed --prefix ./server",
-    "lint-server": "npm run lint --prefix ./server",
-    "test-server": "npm run test-server --prefix ./server",
-    "test-server-utils": "npm run test-server-utils --prefix ./server",
+    "seed": "npm run seed --prefix ./server",
+    "lint": "npm run lint --prefix ./server",
+    "test-server-api": "npm run test-api --prefix ./server",
+    "test-server-utils": "npm run test-utils --prefix ./server",
     "server": "npm run server --prefix ./server",
     "client": "npm run --prefix ./client dev",
     "app": "concurrently \"npm run server\" \"npm run client\""
