@@ -9,7 +9,7 @@ dotenv.config({
 const oauth2Client = new google.auth.OAuth2(
     process.env.clientId,
     process.env.clientSecret,
-    "http://localhost:5173/Popup"
+    process.env.redirect_URI,
 );
 
 export function getConsent(_: express.Request, res: express.Response, next: express.NextFunction) {
