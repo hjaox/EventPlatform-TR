@@ -9,5 +9,4 @@ export async function getAllEvents(req: express.Request, res: express.Response, 
     } catch(err) {
         next(err)
     }
-
 }
