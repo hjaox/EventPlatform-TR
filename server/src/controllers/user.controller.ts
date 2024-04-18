@@ -1,5 +1,5 @@
 import express from "express";
-import { getUserWithCredentials, postUser, createUser, findUser } from "../models/user.model";
+import { getUserWithCredentials, postUser } from "../models/user.model";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import auth from "../utils/firebase/fbAuth";
 
@@ -38,7 +38,7 @@ export const registerUser = async (req: express.Request, res: express.Response, 
 export async function signOutUser(req: express.Request, res: express.Response, next: express.NextFunction) {
     try {
         await signOut(auth);
-        await onAuthStateChanged(auth, user => {
+        onAuthStateChanged(auth, user => {
             if (user) {
                 return res.status(400).send({ message: "Sign out failed. Please try again." });
             }
@@ -50,29 +50,4 @@ export async function signOutUser(req: express.Request, res: express.Response, n
         next({ status: 400, message: "Something went wrong" })
     }
 
-}
-
-export async function insertUser(req: express.Request, res: express.Response, next: express.NextFunction) {
-    try {
-        const { name, email } = req.body;
-
-        const newUser = await createUser(name, email);
-
-        return res.status(201).send({ newUser });
-    } catch (err) {
-
-        next(err)
-    }
-}
-
-export async function getUser(req: express.Request, res: express.Response, next: express.NextFunction) {
-    try {
-        const { email } = req.params;
-
-        const userDetails = await findUser(email);
-
-        return res.status(200).send({ userDetails });
-    } catch (err) {
-        next(err)
-    }
 }
