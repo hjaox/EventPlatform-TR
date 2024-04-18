@@ -64,7 +64,7 @@ export async function insertAttendee(eventId: string, name: string, email: strin
         }
 
         return Promise.reject({ status: 401, message: "Event not found." })
-    } catch (err) {
+    } catch {
         return Promise.reject({ status: 400, message: "Bad Request" });
     }
 }

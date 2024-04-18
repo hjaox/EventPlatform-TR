@@ -6,7 +6,7 @@ import { usersData, eventsData, tagsData } from "../../../mongo/seed/data/test-d
 import db from "../../../mongo/connection";
 import mongoose from "mongoose";
 
-beforeAll(async () => {
+beforeEach(async () => {
     await db();
     await seed(usersData, eventsData, tagsData);
 });

@@ -23,3 +23,15 @@ export function checkPostEvent(event: any) {
 
     return true;
 };
+
+export function checkAttendee(attendee: any) {
+    const attendeeProperty = ["name", "email", "quantity"];
+
+    if(typeof attendee !== "object" || Array.isArray(attendee)) return false;
+
+    for(const property of attendeeProperty) {
+        if(!Object.keys(attendee).includes(property)) return false;
+    }
+
+    return true;
+}
