@@ -36,7 +36,7 @@ export async function updateEvent(eventId: string, updateDetails: TEventUpdate) 
         if (!result) return Promise.reject({ status: 404, message: "Not Found" });
 
         return result;
-    } catch (err) {
+    } catch {
         return Promise.reject({ status: 400, message: "Bad Request" })
     }
 }

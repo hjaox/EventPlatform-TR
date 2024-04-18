@@ -47,6 +47,10 @@ export async function patchEvent(req: express.Request, res: express.Response, ne
 }
 
 export async function removeEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
+    if (!mongoose.isValidObjectId(req.params.eventId)) {
+        return res.status(400).send({ message: "Please provide a valid event id." });
+    }
+
     try {
         await deleteEvent(req.params.eventId);
 
