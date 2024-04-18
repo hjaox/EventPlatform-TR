@@ -9,7 +9,5 @@ const tagSchema = new Schema(
     }
 );
 
-
-
 const TagModel = model("Tag", tagSchema);
 export default TagModel;

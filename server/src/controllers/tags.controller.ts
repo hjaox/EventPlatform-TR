@@ -5,8 +5,8 @@ export async function getAllTags(req: express.Request, res: express.Response, ne
     try {
         const tags = await fetchAllTags();
 
-        return res.status(200).send({tags});
-    } catch(err) {
+        return res.status(200).send({ tags });
+    } catch (err) {
         next(err)
     }
 

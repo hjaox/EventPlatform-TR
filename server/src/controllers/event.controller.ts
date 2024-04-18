@@ -60,7 +60,7 @@ export async function removeEvent(req: express.Request, res: express.Response, n
 }
 
 export async function addAttendee(req: express.Request, res: express.Response, next: express.NextFunction) {
-    if(!checkAttendee(req.body)) return res.status(400).send({ message: "To log an attendee to an event, it must have the following properties: name, email, quantity" });
+    if (!checkAttendee(req.body)) return res.status(400).send({ message: "To log an attendee to an event, it must have the following properties: name, email, quantity" });
 
     if (!checkIfValidObjectId(req.params.eventId)) {
         return res.status(400).send({ message: "Please provide a valid event id." });

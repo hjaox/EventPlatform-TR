@@ -11,7 +11,7 @@ const db = async () => {
     if (process.env.MONGODBURL) {
         try {
             await mongoose.connect(process.env.MONGODBURL);
-            mongoose.set({sanitizeFilter: true});
+            mongoose.set({ sanitizeFilter: true });
             console.log("Connected to MongoDB");
         } catch (err) {
             console.log("Failed to connect to MongoDB");

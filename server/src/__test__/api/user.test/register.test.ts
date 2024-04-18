@@ -48,7 +48,7 @@ describe("POST /user/register endpoint tests", () => {
             email: "testPostEmail1@gmail.com",
         };
 
-        const {body: {message}} = await request(app)
+        const { body: { message } } = await request(app)
             .post("/user/register")
             .send(testUser)
             .expect(400);

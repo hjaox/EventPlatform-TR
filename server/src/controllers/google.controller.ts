@@ -3,8 +3,8 @@ import { google } from "googleapis";
 import express from "express";
 
 dotenv.config({
-    path: `${__dirname}/../..//env/${process.env.NODE_ENV || "development"}`
-})
+    path: `${__dirname}/../../env/${process.env.NODE_ENV || "development"}`
+});
 
 const oauth2Client = new google.auth.OAuth2(
     process.env.clientId,
