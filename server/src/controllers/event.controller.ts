@@ -31,6 +31,8 @@ export async function getEvent(req: express.Request, res: express.Response, next
 }
 
 export async function patchEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
+    if (!checkPatchEvent(req.body)) return res.status(400).send({ message: "To post an event, it must have any of the following properties: title, dateStart, dateEnd, address, details, attendees, summary, tag, price, openPrice" });
+
     try {
         const updatedEventDetails = await updateEvent(req.params.eventId, req.body);
 
