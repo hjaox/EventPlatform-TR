@@ -26,6 +26,7 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
         details: false,
         summary: false,
     });
+    const [createFormError, setCreateFormError] = useState(false);
 
     const [editorTitleState, setEditorTitleState] = useState(() => EditorState.createEmpty());
     const [editorSummaryState, setEditorSummaryState] = useState(() => EditorState.createEmpty());
@@ -131,6 +132,8 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
                 setFormError(formError => ({ ...formError, price: allowed }));
             }
         }
+
+        setCreateFormError(!status);
         return status;
     }
 
@@ -232,6 +235,13 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
                     )
                 }
             </section>
+            {
+                createFormError && (
+                    <div className="create-form-error">
+                        Something is not right. Please check your form.
+                    </div>
+                )
+            }
             <button form="create-form">{eventToEdit ? "Save Changes" : "Save and Create"}</button>
         </form>
     )

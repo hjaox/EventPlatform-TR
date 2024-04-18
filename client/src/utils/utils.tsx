@@ -21,7 +21,3 @@ export async function fetchDefaultImage() {
         return null
     }
 };
-
-// function scrollToError() {
-//     const formHeaderElement1 = document.getElementById()
-// }
