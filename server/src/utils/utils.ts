@@ -1,4 +1,4 @@
-const eventProperties = ["title", "dateStart", "dateEnd", "address", "details", "summary", "tag", "price", "openPrice"];
+import mongoose from "mongoose";
 
 export function checkPatchEvent(event: any) {
     const eventProperties = ["title", "dateStart", "dateEnd", "address", "details", "summary", "tag", "price", "openPrice"];
@@ -34,4 +34,8 @@ export function checkAttendee(attendee: any) {
     }
 
     return true;
+}
+
+export function checkIfValidObjectId(objectId: any) {
+    return mongoose.isValidObjectId(objectId);
 }

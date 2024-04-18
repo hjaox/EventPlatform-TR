@@ -1,7 +1,6 @@
-import mongoose from "mongoose";
 import { createEvent, deleteEvent, findEvent, insertAttendee, updateEvent } from "../models/event.model";
 import express from "express";
-import { checkAttendee, checkPatchEvent, checkPostEvent } from "../utils/utils";
+import { checkAttendee, checkIfValidObjectId, checkPatchEvent, checkPostEvent } from "../utils/utils";
 
 export async function postEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
     if (!checkPostEvent(req.body)) return res.status(400).send({ message: "To post an event, it must have the following properties: title, dateStart, dateEnd, address" });
@@ -17,7 +16,7 @@ export async function postEvent(req: express.Request, res: express.Response, nex
 }
 
 export async function getEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
-    if (!mongoose.isValidObjectId(req.params.eventId)) {
+    if (!checkIfValidObjectId(req.params.eventId)) {
         return res.status(400).send({ message: "Please provide a valid event id." });
     }
 
@@ -33,7 +32,7 @@ export async function getEvent(req: express.Request, res: express.Response, next
 export async function patchEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
     if (!checkPatchEvent(req.body)) return res.status(400).send({ message: "To post an event, it must have any of the following properties: title, dateStart, dateEnd, address, details, attendees, summary, tag, price, openPrice" });
 
-    if (!mongoose.isValidObjectId(req.params.eventId)) {
+    if (!checkIfValidObjectId(req.params.eventId)) {
         return res.status(400).send({ message: "Please provide a valid event id." });
     }
 
@@ -47,7 +46,7 @@ export async function patchEvent(req: express.Request, res: express.Response, ne
 }
 
 export async function removeEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
-    if (!mongoose.isValidObjectId(req.params.eventId)) {
+    if (!checkIfValidObjectId(req.params.eventId)) {
         return res.status(400).send({ message: "Please provide a valid event id." });
     }
 
@@ -63,7 +62,7 @@ export async function removeEvent(req: express.Request, res: express.Response, n
 export async function addAttendee(req: express.Request, res: express.Response, next: express.NextFunction) {
     if(!checkAttendee(req.body)) return res.status(400).send({ message: "To log an attendee to an event, it must have the following properties: name, email, quantity" });
 
-    if (!mongoose.isValidObjectId(req.params.eventId)) {
+    if (!checkIfValidObjectId(req.params.eventId)) {
         return res.status(400).send({ message: "Please provide a valid event id." });
     }
 
