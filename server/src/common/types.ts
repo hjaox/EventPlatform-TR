@@ -1,20 +1,16 @@
 import mongoose from "mongoose";
 
 export type TUser = {
-  _id: string,
+  _id: mongoose.ObjectId,
   name: string,
   email: string,
   __v?: number
 };
 
 export type TTestUser = {
-  _id?: string,
-  password: string,
   name: string,
   email: string,
-  eventsAttending?: any[],
-  eventsOrganized?: any[],
-  __v?: number
+  password: string,
 };
 
 export type TEvent = {
@@ -27,7 +23,6 @@ export type TEvent = {
   tag: string,
   price: number,
   openPrice: boolean,
-  isFree?: boolean,
   createdAt?: string | Date,
   updatedAt?: string | Date,
   __v?: number

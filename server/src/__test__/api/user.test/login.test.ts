@@ -27,8 +27,8 @@ describe("POST /user/login endpoint tests", () => {
     })
     test("200: returns user details upon successful request", async () => {
         const testUser = {
-            email: "testUser2@gmail.com",
-            password: "testPass2"
+            email: "testUser1@gmail.com",
+            password: "testPass1"
         };
 
         const { body: { userDetails } } = await request(app)
