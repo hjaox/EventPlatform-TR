@@ -103,6 +103,14 @@ describe("/event endpoints tests", () => {
 
             expect(message).toBe("To post an event, it must have the following properties: title, dateStart, dateEnd, address");
         });
+        test("401: returns status code 401 with message Unauthorized access if access token is missing in header", async () => {
+            const { body: { message } } = await request(app)
+                .post("/event")
+                .send(testEvent)
+                .expect(401);
+
+            expect(message).toBe("Unauthorized access");
+        })
     });
 
     describe("PATCH /event/:eventId tests", () => {
