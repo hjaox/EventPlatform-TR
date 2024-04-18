@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { createEvent, deleteEvent, findEvent, insertAttendee, updateEvent } from "../models/event.model";
 import express from "express";
 
@@ -13,6 +14,10 @@ export async function postEvent(req: express.Request, res: express.Response, nex
 }
 
 export async function getEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
+    if(!mongoose.isValidObjectId(req.params.eventId)) {
+        return res.status(400).send({message: "Please provide a valid event id."});
+    }
+
     try {
         const eventDetails = await findEvent(req.params.eventId);
 

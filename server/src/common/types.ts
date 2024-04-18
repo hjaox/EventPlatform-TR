@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import express from "express";
 
 export type TUser = {
   _id: mongoose.ObjectId,
@@ -45,4 +46,4 @@ export type TError = {
   code?: number | string,
   message?: string,
   status?: number,
-}
+};

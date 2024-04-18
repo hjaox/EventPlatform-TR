@@ -1,8 +1,6 @@
 import EventModel from "../mongo/models/event.model";
 import { TEvent, TEventUpdate } from "../common/types";
 
-
-
 export async function createEvent(eventDetails: TEvent) {
     try {
         return await EventModel.create(eventDetails);
@@ -18,7 +16,7 @@ export async function findEvent(eventId: string) {
         if (!result) return Promise.reject({ status: 404, message: "Not Found" })
 
         return result;
-    } catch (err) {
+    } catch {
         return Promise.reject({ status: 400, message: "Bad Request" });
     }
 }
