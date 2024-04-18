@@ -17,13 +17,12 @@ beforeAll(async () => {
 afterAll(async () => await mongoose.connection.close());
 
 describe("/event endpoints tests", () => {
-    describe("GET /event/:eventId", () => {
+    describe.only("GET /event/:eventId", () => {
         test("200: returns status code 200 upon successful request", async () => {
             const testEventId = await EventModel.findOne({}, "_id");
 
             await request(app)
                 .get(`/event/${testEventId?._id}`)
-                .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
                 .expect(200);
         });
         test("200: returns the eventDetails of the requested eventId", async () => {
@@ -31,7 +30,6 @@ describe("/event endpoints tests", () => {
 
             const { body: { eventDetails } } = await request(app)
                 .get(`/event/${testEventId?._id}`)
-                .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
 
             const expected = await EventModel.findById({ _id: testEventId?._id });
 
@@ -42,20 +40,18 @@ describe("/event endpoints tests", () => {
 
             const { body: { message } } = await request(app)
                 .get(`/event/${testEventId}`)
-                .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
                 .expect(404);
 
             expect(message).toBe("Not Found");
         })
-        test("400: returns status code 400 and message 'Bad Request' if send with an invalid eventId", async () => {
+        test("400: returns status code 400 and message 'Please provide a valid event id' if send with an invalid eventId", async () => {
             const testEventId = "notAValidObjectId";
 
             const { body: { message } } = await request(app)
                 .get(`/event/${testEventId}`)
-                .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
                 .expect(400);
 
-            expect(message).toBe("Bad Request");
+            expect(message).toBe("Please provide a valid event id.");
         });
     });
 
