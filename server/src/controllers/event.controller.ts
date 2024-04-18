@@ -4,7 +4,7 @@ import express from "express";
 import { checkPatchEvent, checkPostEvent } from "../utils/utils";
 
 export async function postEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
-    if(!checkPostEvent(req.body)) return res.status(400).send({message: "To post an event, it must have the following properties: title, dateStart, dateEnd, address"});
+    if (!checkPostEvent(req.body)) return res.status(400).send({ message: "To post an event, it must have the following properties: title, dateStart, dateEnd, address" });
 
     try {
         const newEvent = await createEvent(req.body);
@@ -17,8 +17,8 @@ export async function postEvent(req: express.Request, res: express.Response, nex
 }
 
 export async function getEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
-    if(!mongoose.isValidObjectId(req.params.eventId)) {
-        return res.status(400).send({message: "Please provide a valid event id."});
+    if (!mongoose.isValidObjectId(req.params.eventId)) {
+        return res.status(400).send({ message: "Please provide a valid event id." });
     }
 
     try {

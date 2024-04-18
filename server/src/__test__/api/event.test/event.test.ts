@@ -60,14 +60,7 @@ describe("/event endpoints tests", () => {
             title: "testEvent",
             dateStart: new Date("2024-03-26T10:17:25.449Z"),
             dateEnd: new Date("2024-03-26T10:17:25.449Z"),
-            address: "address",
-            openPrice: false,
-            price: 0,
-            details: "",
-            summary: "",
-            attendees: [],
-            images: ["https://images.pexels.com/photos/19080203/pexels-photo-19080203/free-photo-of-the-fernsehturm-tower-at-night-with-trees-in-the-background.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"],
-            tag: ["tag"],
+            address: "address"
         };
 
         test("201: returns status code 201 upon successful request", async () => {
@@ -90,7 +83,6 @@ describe("/event endpoints tests", () => {
                     expect(newEvent).toHaveProperty(key, val);
                 }
             }
-
         });
         test("400: returns status code 400 upon failed request", async () => {
             await request(app)
@@ -99,15 +91,17 @@ describe("/event endpoints tests", () => {
                 .send({})
                 .expect(400);
         });
-        test("400: returns status code 400 when event is missing the required properties", async () => {
+        test("400: returns status code 400 when event is missing the required properties and message with the required properties", async () => {
             const testEvent1 = { ...testEvent } as any;
             delete testEvent1.title;
 
-            await request(app)
+            const { body: { message } } = await request(app)
                 .post("/event")
                 .set({ "Authorization": `Bearer ${process.env.ACCESSTOKEN}` })
                 .send(testEvent1)
                 .expect(400);
+
+            expect(message).toBe("To post an event, it must have the following properties: title, dateStart, dateEnd, address");
         });
     });
 
