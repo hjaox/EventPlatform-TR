@@ -1,6 +1,6 @@
 import { ContentState, EditorState } from "draft-js";
 import { useEffect, useState } from "react";
-import { TEventForm, TNewEvent } from "../../../common/types";
+import { TEventForm, TNewEvent, TReduxUser } from "../../../common/types";
 import file from "../../../assets/default.jpg";
 import { uploadToFirebase } from "../../../utils/firebase/functions";
 import { createEvent, editEvent } from "../../../utils/axios/event";
@@ -10,8 +10,10 @@ import { LiaExclamationCircleSolid } from "react-icons/lia";
 import DateAndLocationForm from "./components/DateAndLocationForm";
 import AboutForm from "./components/AboutForm";
 import { fetchDefaultImage } from "../../../utils/utils";
+import { useSelector } from "react-redux";
 
 export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setRedirect, setCreateEventError }: TEventForm) {
+    const userToken = useSelector((state: TReduxUser) => state.userDetails.accessToken)
     const [expandHeader, setExpandHeader] = useState(false);
     const [expandAbout, setExpandAbout] = useState(false);
     const [expandDateLocation, setExpandDateLocation] = useState(false);
@@ -80,9 +82,9 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
             setIsLoading(true);
 
             if (eventToEdit) {
-                eventDetails = await editEvent(eventToEdit?._id, event);
+                eventDetails = await editEvent(eventToEdit?._id, event, userToken);
             } else {
-                eventDetails = await createEvent(event);
+                eventDetails = await createEvent(event, userToken);
             }
 
 

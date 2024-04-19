@@ -8,21 +8,33 @@ export async function getEvent(eventId: string): Promise<TEvent> {
     return eventDetails;
 }
 
-export async function createEvent(event: TNewEvent) {
+export async function createEvent(event: TNewEvent, token: string) {
     const { data: { newEvent } } = await instance
-        .post("/event", event)
+        .post("/event", event, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
 
     return newEvent;
 }
 
-export async function deleteEvent(eventId: string) {
+export async function deleteEvent(eventId: string, token: string) {
     await instance
-        .delete(`/event/${eventId}`);
+        .delete(`/event/${eventId}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
 }
 
-export async function editEvent(eventId: string, eventDetails: TPatchEvent) {
+export async function editEvent(eventId: string, eventDetails: TPatchEvent, token: string) {
     const { data: { updatedEventDetails } } = await instance
-        .patch(`/event/${eventId}`, eventDetails)
+        .patch(`/event/${eventId}`, eventDetails, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
 
     return updatedEventDetails;
 }

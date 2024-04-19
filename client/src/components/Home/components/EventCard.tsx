@@ -18,6 +18,7 @@ export default function EventCard({ event, setEventList, key, eventsToDisplay }:
     const [isLoading, setIsLoading] = useState(false);
     const [showConfirmPrompt, setComfirmPrompt] = useState(false);
     const isLoggedIn = useSelector((state: TReduxUser) => state.isLoggedIn);
+    const userToken = useSelector((state: TReduxUser) => state.userDetails.accessToken)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -45,7 +46,7 @@ export default function EventCard({ event, setEventList, key, eventsToDisplay }:
     async function handleDeletePrompt(choice: boolean) {
         if (choice) {
             setIsLoading(true)
-            await deleteEvent(event._id);
+            await deleteEvent(event._id, userToken);
 
             setEventList(eventList => {
                 const newList = eventList.filter((item) => item._id !== event._id);
