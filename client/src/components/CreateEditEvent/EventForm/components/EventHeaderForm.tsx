@@ -52,7 +52,7 @@ export default function EventHeaderForm({ setEditorTitleState, editorTitleState,
                         <h4>Price</h4>
                         <div className="price">
                             <span>£ </span>
-                            <input type="number" id="input-price" step={0.01} onChange={e => setPrice(() => Number(e.target.value))} value={price ? price : ""} />
+                            <input type="number" id="input-price" step={0.01} onChange={e => setPrice(() => e.target.value ? Number(e.target.value) : null)} value={price === null ? "" : price} />
                         </div>
                     </div>
                     <div className="openPrice-input">

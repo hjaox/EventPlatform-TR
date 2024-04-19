@@ -132,6 +132,9 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
             if (key === "price" && typeof val === "number") {
                 const allowed = (val > 0 && val < 0.3);
                 setFormError(formError => ({ ...formError, price: allowed }));
+                if(!val) {
+                    setPrice(0);
+                }
             }
         }
 
