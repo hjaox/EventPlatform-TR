@@ -103,7 +103,7 @@ export default [
     summary: "British Book Bash is back again bringing you a host of your favourite romance, paranormal, fantasy authors & more.",
     attendees: [],
     price: 100,
-    openPrice: false,
+    openPrice: true,
     tag: "Books",
     details: `SIGNING INFORMATION
 
@@ -123,7 +123,7 @@ export default [
     summary: "Join Wildlife Adventurer Becca Badger for some sociable outdoor family fun on Cambourne Nature Reserve",
     attendees: [],
     price: 200,
-    openPrice: true,
+    openPrice: false,
     tag: "Outdoor",
     details: `
     This is part of an annual programme of Wild in the Woods family sessions on Wednesdays during school holidays in Cambourne.
@@ -147,8 +147,8 @@ export default [
     address: "South Street Oakham LE15 6HY",
     summary: "Join us for the Sigma Sports CiCLE Classic Sportif from ourOakham store.",
     attendees: [],
-    price: 200,
-    openPrice: false,
+    price: 0,
+    openPrice: true,
     tag: "Sports",
     details: `
     Starting and finishing at our Oakham store, we'll load you up with coffee beforehand and pizza afterwards, not to mention a medal for all finishers.
@@ -171,7 +171,7 @@ export default [
     summary: "Learn how to care for your houseplants and get expert tips from our in-house experienced horticulturist, Sarah Webster.",
     attendees: [],
     price: 0,
-    openPrice: true,
+    openPrice: false,
     tag: "Plants",
     details: `
     In this workshop, you’ll be taken on a journey through the diverse and vibrant universe of houseplants: exploring their origins; care requirements; and the perfect specimens for different areas of your home.
