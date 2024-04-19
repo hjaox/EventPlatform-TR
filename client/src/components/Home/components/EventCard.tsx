@@ -22,8 +22,7 @@ export default function EventCard({ event, setEventList, key, eventsToDisplay }:
 
     useEffect(() => {
         (async () => {
-            console.log("test")
-            setIsLoading(true)
+            setIsLoading(true);
             const url = await downloadImage(event._id);
 
             if (url) {
