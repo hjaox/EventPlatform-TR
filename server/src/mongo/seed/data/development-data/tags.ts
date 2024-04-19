@@ -1,10 +1,12 @@
 export default {
-    tags: ["Music",
+    tags: [
+        "Music",
         "Pets",
         "Films",
         "Books",
         "Outdoor",
         "Sports",
         "Plants",
-        "Community"]
+        "Community"
+    ]
 };

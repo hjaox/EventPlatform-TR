@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import express from "express";
 
 export type TUser = {
   _id: mongoose.ObjectId,

@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { RiCheckLine } from "react-icons/ri";
 import { RiCloseLine } from "react-icons/ri";
 
-export default function EventCard({ event, setEventList, key }: TEventCard) {
+export default function EventCard({ event, setEventList, key, eventsToDisplay }: TEventCard) {
     const [coverPhoto, setCoverPhoto] = useState<string>(defaultImage)
     const [isLoading, setIsLoading] = useState(false);
     const [showConfirmPrompt, setComfirmPrompt] = useState(false);
@@ -22,6 +22,7 @@ export default function EventCard({ event, setEventList, key }: TEventCard) {
 
     useEffect(() => {
         (async () => {
+            console.log("test")
             setIsLoading(true)
             const url = await downloadImage(event._id);
 
@@ -30,7 +31,7 @@ export default function EventCard({ event, setEventList, key }: TEventCard) {
             }
             setIsLoading(false);
         })()
-    }, []);
+    }, [eventsToDisplay]);
 
     async function handleDeleteEvent(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         e.stopPropagation();
@@ -69,7 +70,7 @@ export default function EventCard({ event, setEventList, key }: TEventCard) {
                                     <RiCloseLine className="confirmPropmt-icon" />
                                 </div>
                                 <div className="confirmPropmt-option-container">
-                                    <RiCheckLine className="confirmPropmt-icon" onClick={() => handleDeletePrompt(true)}/>
+                                    <RiCheckLine className="confirmPropmt-icon" onClick={() => handleDeletePrompt(true)} />
                                 </div>
                             </div>
                         </div>
