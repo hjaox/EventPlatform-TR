@@ -103,7 +103,7 @@ export default [
     summary: "British Book Bash is back again bringing you a host of your favourite romance, paranormal, fantasy authors & more.",
     attendees: [],
     price: 100,
-    openPrice: true,
+    openPrice: false,
     tag: "Books",
     details: `SIGNING INFORMATION
 
@@ -165,8 +165,8 @@ export default [
   },
   {
     title: "The Diverse and Vibrant Lives of Houseplants",
-    dateStart: new Date("2024-06-29T15:30:00.000Z"),
-    dateEnd: new Date("2024-06-29T16:30:00.000Z"),
+    dateStart: new Date("2024-06-29T15:30:00"),
+    dateEnd: new Date("2024-06-29T16:30:00"),
     address: "Lyndon Road The Loft Manton LE15 8RN",
     summary: "Learn how to care for your houseplants and get expert tips from our in-house experienced horticulturist, Sarah Webster.",
     attendees: [],

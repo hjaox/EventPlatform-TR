@@ -5,11 +5,11 @@ type TEventSchedule = {
     location: string,
     description: string,
     start: {
-        dateTime: Date,
+        dateTime: string,
         timeZone: string,
     },
     end: {
-        dateTime: Date,
+        dateTime: string,
         timeZone: string,
     }
 };
