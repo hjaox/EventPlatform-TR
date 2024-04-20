@@ -5,10 +5,12 @@ import seed from "../../../mongo/seed/seed";
 import { usersData, eventsData, tagsData } from "../../../mongo/seed/data/test-data";
 import db from "../../../mongo/connection";
 import mongoose from "mongoose";
+import { seedFirebaseUsers } from "../../../utils/firebase/fbFunctions";
 
 beforeAll(async () => {
     await db();
     await seed(usersData, eventsData, tagsData);
+    await seedFirebaseUsers(usersData);
 });
 beforeEach(() => jest.clearAllMocks());
 afterAll(async () => await mongoose.connection.close());
@@ -27,8 +29,8 @@ describe("POST /user/login endpoint tests", () => {
     })
     test("200: returns user details upon successful request", async () => {
         const testUser = {
-            email: "testUser2@gmail.com",
-            password: "testPass2"
+            email: "testUser1@gmail.com",
+            password: "testPass1"
         };
 
         const { body: { userDetails } } = await request(app)
@@ -60,7 +62,7 @@ describe("POST /user/login endpoint tests", () => {
             .post("/user/login")
             .send(testUser);
 
-            expect(message).toBe("Incorrect email or password");
+        expect(message).toBe("Incorrect email or password");
     });
     test("400: returns status code 400 when email or password is not provided", async () => {
         const testUser = {

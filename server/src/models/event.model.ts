@@ -1,12 +1,10 @@
 import EventModel from "../mongo/models/event.model";
 import { TEvent, TEventUpdate } from "../common/types";
 
-
-
 export async function createEvent(eventDetails: TEvent) {
     try {
         return await EventModel.create(eventDetails);
-    } catch (err) {
+    } catch {
         return Promise.reject({ status: 400, message: "Bad Request" });
     }
 }
@@ -18,7 +16,7 @@ export async function findEvent(eventId: string) {
         if (!result) return Promise.reject({ status: 404, message: "Not Found" })
 
         return result;
-    } catch (err) {
+    } catch {
         return Promise.reject({ status: 400, message: "Bad Request" });
     }
 }
@@ -38,7 +36,7 @@ export async function updateEvent(eventId: string, updateDetails: TEventUpdate) 
         if (!result) return Promise.reject({ status: 404, message: "Not Found" });
 
         return result;
-    } catch (err) {
+    } catch {
         return Promise.reject({ status: 400, message: "Bad Request" })
     }
 }
@@ -50,7 +48,7 @@ export async function deleteEvent(eventId: string) {
         if (!result) return Promise.reject({ status: 404, message: "Not Found" });
 
         return result;
-    } catch (err) {
+    } catch {
         return Promise.reject({ status: 400, message: "Bad Request" });
     }
 }
@@ -66,7 +64,7 @@ export async function insertAttendee(eventId: string, name: string, email: strin
         }
 
         return Promise.reject({ status: 401, message: "Event not found." })
-    } catch (err) {
+    } catch {
         return Promise.reject({ status: 400, message: "Bad Request" });
     }
 }

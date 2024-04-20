@@ -55,6 +55,7 @@ export default function Event() {
     function handleDateAndTime(dateStart: Date, dateEnd: Date) {
         const dayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "August", "October", "November", "December"];
+
         const start = new Date(dateStart);
         const end = new Date(dateEnd);
         const month = months[start.getMonth()];

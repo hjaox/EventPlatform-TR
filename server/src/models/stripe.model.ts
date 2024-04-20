@@ -5,7 +5,7 @@ dotenv.config({
     path: `${__dirname}/../../.env.${process.env.NODE_ENV || "development"}`
 });
 
-if(!process.env.SECRET_KEY) throw new Error("missing Stripe Secret Key");
+if (!process.env.SECRET_KEY) throw new Error("missing Stripe Secret Key");
 
 const stripe = new Stripe(process.env.SECRET_KEY);
 
@@ -21,6 +21,6 @@ export async function createPaymentIntent(price: number) {
 
         return paymentIntent;
     } catch (err) {
-        return Promise.reject({status: 400, message: "Error at creating payment intent"});
+        return Promise.reject({ status: 400, message: "Error at creating payment intent" });
     }
 }

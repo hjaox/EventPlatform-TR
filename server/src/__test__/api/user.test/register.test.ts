@@ -5,10 +5,12 @@ import seed from "../../../mongo/seed/seed";
 import { usersData, eventsData, tagsData } from "../../../mongo/seed/data/test-data";
 import db from "../../../mongo/connection";
 import mongoose from "mongoose";
+import { seedFirebaseUsers } from "../../../utils/firebase/fbFunctions";
 
 beforeAll(async () => {
     await db();
     await seed(usersData, eventsData, tagsData);
+    await seedFirebaseUsers(usersData);
 });
 afterAll(async () => await mongoose.connection.close());
 
@@ -46,7 +48,7 @@ describe("POST /user/register endpoint tests", () => {
             email: "testPostEmail1@gmail.com",
         };
 
-        const {body: {message}} = await request(app)
+        const { body: { message } } = await request(app)
             .post("/user/register")
             .send(testUser)
             .expect(400);

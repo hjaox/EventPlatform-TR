@@ -3,13 +3,13 @@ import { google } from "googleapis";
 import express from "express";
 
 dotenv.config({
-    path: `${__dirname}/../..//env/${process.env.NODE_ENV || "development"}`
-})
+    path: `${__dirname}/../../env/${process.env.NODE_ENV || "development"}`
+});
 
 const oauth2Client = new google.auth.OAuth2(
     process.env.clientId,
     process.env.clientSecret,
-    "http://localhost:5173/Popup"
+    process.env.redirect_URI,
 );
 
 export function getConsent(_: express.Request, res: express.Response, next: express.NextFunction) {
@@ -38,7 +38,7 @@ export async function scheduleEvent(req: express.Request, res: express.Response,
     })
 
     try {
-        if(!Object.entries(oauth2Client.credentials).length) {
+        if (!Object.entries(oauth2Client.credentials).length) {
             const { tokens } = await oauth2Client.getToken(code);
             oauth2Client.setCredentials(tokens);
         }
@@ -50,7 +50,7 @@ export async function scheduleEvent(req: express.Request, res: express.Response,
         })
 
         return res.status(201).send({ message: "Successfully added event to calendar" });
-    } catch (err) {
+    } catch {
         return res.status(400).send({ message: "Something went wrong" });
     }
 }

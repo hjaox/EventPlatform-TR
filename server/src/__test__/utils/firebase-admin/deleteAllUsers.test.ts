@@ -45,7 +45,7 @@ describe("firebase-admin deleteAllUsers function tests", () => {
             throw new Error("Unexpected null allUsersAfterDelete");
         }
     });
-    test("returns null if the request is failed", async() => {
+    test("returns null if the request is failed", async () => {
         const testValue = await deleteAllUsers([""]);
         expect(testValue).toBeNull();
     });

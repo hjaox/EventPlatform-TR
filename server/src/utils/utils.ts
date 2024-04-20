@@ -1,9 +1,41 @@
-import { TError } from "../common/types";
+import mongoose from "mongoose";
 
-export function handleMongoDBError(err: TError) {
-    if(err.code === "auth/email-already-in-use") {
-        return {status: 400, message: "Email already exist"};
+export function checkPatchEvent(event: any) {
+    const eventProperties = ["title", "dateStart", "dateEnd", "address", "details", "summary", "tag", "price", "openPrice"];
+
+    if (typeof event !== "object" || Array.isArray(event)) return false;
+
+    for (const property of eventProperties) {
+        if (Object.keys(event).includes(property)) return true;
     }
 
-    return {status: 400, message: "Unhandled Error"};
+    return false;
+};
+
+export function checkPostEvent(event: any) {
+    const eventProperties = ["title", "dateStart", "dateEnd", "address"];
+
+    if (typeof event !== "object" || Array.isArray(event)) return false;
+
+    for (const property of eventProperties) {
+        if (!Object.keys(event).includes(property)) return false;
+    }
+
+    return true;
+};
+
+export function checkAttendee(attendee: any) {
+    const attendeeProperty = ["name", "email", "quantity"];
+
+    if (typeof attendee !== "object" || Array.isArray(attendee)) return false;
+
+    for (const property of attendeeProperty) {
+        if (!Object.keys(attendee).includes(property)) return false;
+    }
+
+    return true;
+}
+
+export function checkIfValidObjectId(objectId: any) {
+    return mongoose.isValidObjectId(objectId);
 }

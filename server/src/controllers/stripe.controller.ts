@@ -6,7 +6,7 @@ export async function getPaymentIntent(req: express.Request, res: express.Respon
         const price = Number(req.params.price) * 100;
         const paymentIntent = await createPaymentIntent(price);
 
-        return res.status(200).send({clientSecret: paymentIntent});
+        return res.status(200).send({ clientSecret: paymentIntent });
     } catch (err) {
         next(err)
     }

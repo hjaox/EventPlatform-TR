@@ -5,9 +5,8 @@ export async function getAllEvents(req: express.Request, res: express.Response, 
     try {
         const allEvents = await fetchAllEvents();
 
-        return res.status(200).send({allEvents});
-    } catch(err) {
+        return res.status(200).send({ allEvents });
+    } catch (err) {
         next(err)
     }
-
 }

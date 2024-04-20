@@ -5,12 +5,8 @@ import seed from "../../../mongo/seed/seed";
 import { usersData, eventsData, tagsData } from "../../../mongo/seed/data/test-data";
 import db from "../../../mongo/connection";
 import mongoose from "mongoose";
-import * as dotenv from "dotenv";
-dotenv.config({
-    path: `${__dirname}/../../../../.env${process.env.NODE_ENV}`
-});
 
-beforeAll(async () => {
+beforeEach(async () => {
     await db();
     await seed(usersData, eventsData, tagsData);
 });
@@ -19,14 +15,12 @@ afterAll(async () => await mongoose.connection.close());
 describe("GET /events endpoint tests", () => {
     test("200: returns status code 200 upon successsful request", async () => {
         await request(app)
-        .get("/events")
-        .set({"Authorization": `Bearer ${process.env.ACCESSTOKEN}`})
-        .expect(200);
+            .get("/events")
+            .expect(200);
     });
     test("200: returns all events available in the database", async () => {
-        const {body : {allEvents}} = await request(app)
-        .get("/events")
-        .set({"Authorization": `Bearer ${process.env.ACCESSTOKEN}`});
+        const { body: { allEvents } } = await request(app)
+            .get("/events");
 
         const expected = await EventModel.find();
 

@@ -56,10 +56,11 @@ export default function Home() {
     function handleEventsToDisplay(eventList: TEvent[]) {
         return eventList.map((event, i) => {
             return (
-                    <EventCard event={event}
-                        eventList={eventList}
-                        setEventList={setEventList}
-                        key={i} />
+                <EventCard event={event}
+                    eventList={eventList}
+                    setEventList={setEventList}
+                    key={i}
+                    eventsToDisplay={eventsToDisplay} />
             )
         })
     }
@@ -68,14 +69,14 @@ export default function Home() {
         <section className="home-page">
             <Header />
             {
-                    error && (
-                        <div className="home-error">
-                            <div className="home-error-message">
-                                Something went wrong. Please refresh the page.
-                            </div>
+                error && (
+                    <div className="home-error">
+                        <div className="home-error-message">
+                            Something went wrong. Please refresh the page.
                         </div>
-                    )
-                }
+                    </div>
+                )
+            }
 
             <section className="home-display">
 
@@ -95,7 +96,7 @@ export default function Home() {
                                         }
                                     </ul>
                                 </div>
-                                {}
+                                { }
                                 {
                                     eventsToDisplay.length
                                         ? (

@@ -123,7 +123,8 @@ export type TEventCard = {
     event: TEvent,
     eventList: TEvent[],
     setEventList: React.Dispatch<React.SetStateAction<TEvent[]>>,
-    key: number
+    key: number,
+    eventsToDisplay: TEvent[]
 };
 
 export type TTagCard = {

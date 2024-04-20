@@ -6,6 +6,7 @@ import { getEvent } from "../../utils/axios/event";
 import { scheduleEvent } from "../../utils/axios/google";
 import { MagnifyingGlass } from "react-loader-spinner";
 import "../../styles/Popup/popup.scss";
+import moment from "moment-timezone";
 
 export default function Popup() {
     const [searchParams] = useSearchParams();
@@ -15,6 +16,22 @@ export default function Popup() {
 
     useEffect(() => {
         window.resizeTo(450, 200);
+
+        function formatDate(date: Date) {
+            const newDate = new Date(date)
+            const offsetInMinutes = newDate.getTimezoneOffset() * -1;
+            const offsetHours = offsetInMinutes / 60;
+            const offsetMinutes = offsetInMinutes - (offsetHours * 60);
+
+            return newDate
+                .toISOString()
+                .replace(/\..*Z$/, "")
+                + "-"
+                + "0".repeat(2 - offsetHours.toString().length)
+                + offsetHours.toString()
+                + "0".repeat(2 - offsetHours.toString().length)
+                + offsetMinutes.toString();
+        }
 
         (async () => {
             try {
@@ -26,11 +43,11 @@ export default function Popup() {
                     location: eventDetails.address,
                     description: eventDetails.summary,
                     start: {
-                        dateTime: eventDetails.dateStart,
+                        dateTime: formatDate(eventDetails.dateStart),
                         timeZone: "Europe/London"
                     },
                     end: {
-                        dateTime: eventDetails.dateEnd,
+                        dateTime: formatDate(eventDetails.dateEnd),
                         timeZone: "Europe/London"
                     }
                 };
@@ -57,22 +74,22 @@ export default function Popup() {
         <div className="popup">
             {
                 loading
-                ? (
-                    <MagnifyingGlass />
-                )
-                : (
-                    <>
-                    {
-                        error
-                        ? (
-                            <p>Something went wrong{error}</p>
-                        )
-                        : (
-                            <p>Event is now in your calendar</p>
-                        )
-                    }
-                    </>
-                )
+                    ? (
+                        <MagnifyingGlass />
+                    )
+                    : (
+                        <>
+                            {
+                                error
+                                    ? (
+                                        <p>Something went wrong{error}</p>
+                                    )
+                                    : (
+                                        <p>Event is now in your calendar</p>
+                                    )
+                            }
+                        </>
+                    )
             }
         </div>
     )

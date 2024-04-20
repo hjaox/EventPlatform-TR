@@ -8,8 +8,8 @@
     "lint": "eslint .",
     "seed": "ts-node ./src/mongo/seed/run-seed.ts",
     "seed-prod": "NODE_ENV=production npm run seed",
-    "test-server": "jest --runInBand ./src/__test__/api",
-    "test-server-utils": "jest --runInBand ./src/__test__/utils"
+    "test-api": "jest --runInBand ./src/__test__/api",
+    "test-utils": "jest --runInBand ./src/__test__/utils"
   },
   "keywords": [],
   "author": "",

@@ -30,16 +30,6 @@ export async function createUser(email: string, password: string) {
     }
 }
 
-export async function getCustomToken(uid: string) {
-    try {
-        const customToken = await auth.createCustomToken(uid);
-
-        return customToken;
-    } catch (err) {
-        return null
-    }
-}
-
 export async function verifyIdToken(uidToken: string) {
     try {
         const decodedToken = await auth.verifyIdToken(uidToken);
