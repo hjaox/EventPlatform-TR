@@ -42,7 +42,7 @@ const router = createBrowserRouter(
       element: <Event />
     },
     {
-      path: "/Popup/google-callback",
+      path: "/Popup",
       element: <Popup />,
     },
     {
