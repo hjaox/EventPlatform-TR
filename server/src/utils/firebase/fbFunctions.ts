@@ -13,7 +13,7 @@ export async function signUp(auth: Auth, email: string, password: string) {
     } catch (err) {
         return Promise.reject(err);
     }
-};
+}
 
 export async function singIn(auth: Auth, email: string, password: string) {
     try {
@@ -23,7 +23,7 @@ export async function singIn(auth: Auth, email: string, password: string) {
     } catch (err) {
         return Promise.reject(err);
     }
-};
+}
 
 export async function seedFirebaseUsers(usersData: TTestUser[]) {
     const usersFirebase = await getAllUsers();
@@ -31,7 +31,7 @@ export async function seedFirebaseUsers(usersData: TTestUser[]) {
     if (usersFirebase && usersFirebase.length) await deleteAllUsers(usersFirebase.map(user => user.uid));
 
     await Promise.all(usersData.map(user => signUp(auth, user.email, user.password)));
-};
+}
 
 export async function uploadToFirebase(path: string, eventId: string) {
     const fileBuffer = await readFile(path);
@@ -47,4 +47,4 @@ export async function uploadToFirebase(path: string, eventId: string) {
     } catch (err) {
         return null;
     }
-};
+}

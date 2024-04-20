@@ -13,6 +13,12 @@ export type TTestUser = {
   password: string,
 };
 
+export type TAttendees = {
+  name: string,
+  email: string,
+  quantity: number
+}
+
 export type TEvent = {
   title: string,
   dateStart: Date,
@@ -20,7 +26,7 @@ export type TEvent = {
   address: string,
   details: string,
   summary: string,
-  attendees?: any[],
+  attendees?: TAttendees[],
   tag: string,
   price: number,
   openPrice: boolean,
@@ -35,7 +41,7 @@ export type TEventUpdate = {
   dateEnd?: Date,
   address?: string,
   details?: string,
-  attendees?: any[],
+  attendees?: TAttendees[],
   summary?: string,
   tag?: string,
   price?: number,
@@ -47,3 +53,7 @@ export type TError = {
   message?: string,
   status?: number,
 };
+
+export type TImagesData = {
+  [key : string] : string
+}

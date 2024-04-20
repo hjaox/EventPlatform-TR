@@ -1,11 +1,11 @@
-import { TTestUser, TEvent } from "../../common/types";
+import { TTestUser, TEvent, TImagesData } from "../../common/types";
 import mongoose from "mongoose";
 import UserModel from "../../mongo/models/user.model";
 import EventsModel from "../../mongo/models/event.model";
 import TagModel from "../../mongo/models/tag.model";
 import { uploadToFirebase } from "../../utils/firebase/fbFunctions";
 
-export default async function seed(usersData: TTestUser[], eventsData: TEvent[], tagsData: { tags: string[] }, imagesData?: any) {
+export default async function seed(usersData: TTestUser[], eventsData: TEvent[], tagsData: { tags: string[] }, imagesData?: TImagesData) {
     try {
         await mongoose.connection.dropDatabase();
         await UserModel.create(usersData);
@@ -13,12 +13,14 @@ export default async function seed(usersData: TTestUser[], eventsData: TEvent[],
         await TagModel.create(tagsData);
 
         if (imagesData) {
-            const allEventId = await Promise.all(Object.entries(imagesData).map(([eventTitle, _]) => {
+            const allEventId = await Promise.all(Object.entries(imagesData).map(([eventTitle]) => {
                 return EventsModel.findOne({ title: eventTitle }, "_id title");
             }));
 
+            // eslint-disable-next-line  @typescript-eslint/no-explicit-any
             await Promise.all(allEventId.map((event: any) => {
-                return uploadToFirebase(imagesData[event.title], event.id)
+                if (event.title && event.id)
+                    return uploadToFirebase(imagesData[event.title], event.id)
             }));
         }
 
