@@ -6,7 +6,6 @@ import { getEvent } from "../../utils/axios/event";
 import { scheduleEvent } from "../../utils/axios/google";
 import { MagnifyingGlass } from "react-loader-spinner";
 import "../../styles/Popup/popup.scss";
-import moment from "moment-timezone";
 
 export default function Popup() {
     const [searchParams] = useSearchParams();
@@ -67,6 +66,8 @@ export default function Popup() {
             }
 
         })();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

@@ -30,7 +30,9 @@ export default function EventCard({ event, setEventList, key, eventsToDisplay }:
                 setCoverPhoto(url);
             }
             setIsLoading(false);
-        })()
+        })();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [eventsToDisplay]);
 
     async function handleDeleteEvent(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {

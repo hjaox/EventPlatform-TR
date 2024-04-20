@@ -20,4 +20,4 @@ export async function fetchDefaultImage() {
     } catch {
         return null
     }
-};
+}

@@ -50,6 +50,8 @@ export default function Event() {
                 await addAttendee(buyerDetails.eventId, buyerDetails.name, buyerDetails.email, buyerDetails.quantity)
             })();
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function handleDateAndTime(dateStart: Date, dateEnd: Date) {
