@@ -54,6 +54,13 @@
                     padding: 0.5rem;
                     align-items: center;
 
+                    .event-expired {
+                        font-weight: bold;
+                        height: 4rem;
+                        @include index.center-elements;
+                        font-size: larger;
+                    }
+
                     .price {
                         font-weight: bold;
                     }

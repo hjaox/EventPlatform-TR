@@ -95,8 +95,19 @@ export default function Event() {
                                 <div className="event-header">
                                     <h1 className="title">{eventDetails.title}</h1>
                                     <div className="ticket">
-                                        <span className="price">{eventDetails.price ? `£${eventDetails.price}` : "Free event"}</span>
-                                        <button onClick={() => setShowBasket(showBasket => !showBasket)}>{eventDetails.price ? "Buy ticket" : "Secure ticket"}</button>
+                                        {
+                                            new Date(eventDetails.dateEnd).getTime() <= Date.now()
+                                                ? (
+                                                    <div className="event-expired">
+                                                        Event Finished
+                                                    </div>
+                                                ) : (
+                                                    <>
+                                                        <span className="price">{eventDetails.price ? `£${eventDetails.price}` : "Free event"}</span>
+                                                        <button onClick={() => setShowBasket(showBasket => !showBasket)}>{eventDetails.price ? "Buy ticket" : "Secure ticket"}</button>
+                                                    </>
+                                                )
+                                        }
                                     </div>
                                 </div>
                                 <div className="summary">{eventDetails.summary}</div>
