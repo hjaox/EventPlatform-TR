@@ -92,6 +92,7 @@ describe("/event endpoints tests", () => {
                 .expect(400);
         });
         test("400: returns status code 400 when event is missing the required properties and message with the required properties", async () => {
+            // eslint-disable-next-line  @typescript-eslint/no-explicit-any
             const testEvent1 = { ...testEvent } as any;
             delete testEvent1.title;
 

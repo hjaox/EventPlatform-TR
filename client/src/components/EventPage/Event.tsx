@@ -50,6 +50,8 @@ export default function Event() {
                 await addAttendee(buyerDetails.eventId, buyerDetails.name, buyerDetails.email, buyerDetails.quantity)
             })();
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function handleDateAndTime(dateStart: Date, dateEnd: Date) {
@@ -93,8 +95,19 @@ export default function Event() {
                                 <div className="event-header">
                                     <h1 className="title">{eventDetails.title}</h1>
                                     <div className="ticket">
-                                        <span className="price">{eventDetails.price ? `£${eventDetails.price}` : "Free event"}</span>
-                                        <button onClick={() => setShowBasket(showBasket => !showBasket)}>{eventDetails.price ? "Buy ticket" : "Secure ticket"}</button>
+                                        {
+                                            new Date(eventDetails.dateEnd).getTime() <= Date.now()
+                                                ? (
+                                                    <div className="event-expired">
+                                                        Event Finished
+                                                    </div>
+                                                ) : (
+                                                    <>
+                                                        <span className="price">{eventDetails.price ? `£${eventDetails.price}` : "Free event"}</span>
+                                                        <button onClick={() => setShowBasket(showBasket => !showBasket)}>{eventDetails.price ? "Buy ticket" : "Secure ticket"}</button>
+                                                    </>
+                                                )
+                                        }
                                     </div>
                                 </div>
                                 <div className="summary">{eventDetails.summary}</div>

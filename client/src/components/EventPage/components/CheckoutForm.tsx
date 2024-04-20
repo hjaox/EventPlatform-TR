@@ -11,10 +11,10 @@ export default function CheckoutForm() {
   const elements = useElements();
   const buyerDetails = useSelector((state: TReduxUser) => state.buyerDetails);
 
-  const [errorMsg, setErrorMsg] = useState<string|null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!stripe || !elements) {
@@ -24,19 +24,19 @@ export default function CheckoutForm() {
     setIsProcessing(true);
 
     const { error } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          return_url: `${window.location.origin}/Event/${buyerDetails.eventId}?quantity=${buyerDetails.quantity}&price=${buyerDetails.price}`,
-        },
-      });
+      elements,
+      confirmParams: {
+        return_url: `${window.location.origin}/Event/${buyerDetails.eventId}?quantity=${buyerDetails.quantity}&price=${buyerDetails.price}`,
+      },
+    });
 
-      if (error.type === "card_error" || error.type === "validation_error") {
-        if(typeof error.message === "string") setErrorMsg(error.message);
-      } else {
-        setErrorMsg("An unexpected error occured.");
-      }
+    if (error.type === "card_error" || error.type === "validation_error") {
+      if (typeof error.message === "string") setErrorMsg(error.message);
+    } else {
+      setErrorMsg("An unexpected error occured.");
+    }
 
-      setIsProcessing(false);
+    setIsProcessing(false);
   };
 
   return (

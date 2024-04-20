@@ -4,7 +4,7 @@ import express from "express";
 export function customErrorHandler(err: express.ErrorRequestHandler,
     _: express.Request,
     res: express.Response,
-    next: express.NextFunction): any {
+    next: express.NextFunction) {
     const error = err as TError;
 
     if (error.message && error.status) {

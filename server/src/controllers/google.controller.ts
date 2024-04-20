@@ -24,7 +24,9 @@ export function getConsent(_: express.Request, res: express.Response, next: expr
         response_type: "code",
         prompt: "consent"
     });
-
+    console.log(process.env.clientId,
+        process.env.clientSecret,
+        process.env.redirect_URI,)
     return res.status(200).send({ url })
 }
 

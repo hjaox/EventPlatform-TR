@@ -37,6 +37,8 @@ export default function CreateEvent() {
                 navigate("/Error")
             }
         })()
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
