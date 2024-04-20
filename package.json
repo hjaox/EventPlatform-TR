@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "seed": "npm run seed --prefix ./server",
+    "seed-prod": "npm run seed-prod --prefix ./server",
     "lint": "npm run lint --prefix ./server",
     "test-server-api": "npm run test-api --prefix ./server",
     "test-server-utils": "npm run test-utils --prefix ./server",
     "server": "npm run server --prefix ./server",
     "client": "npm run --prefix ./client dev",
+    "install-packages": "npm i && npm i --prefix ./server && npm i --prefix ./client",
     "app": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
