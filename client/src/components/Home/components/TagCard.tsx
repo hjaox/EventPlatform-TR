@@ -11,7 +11,7 @@ import { GrGroup } from "react-icons/gr";
 import { TiThSmall } from "react-icons/ti";
 import { TTagCard } from "../../../common/types";
 
-export default function TagCard({ tag, setSelectedTag, selectedTag, key }: TTagCard) {
+export default function TagCard({ tag, setSelectedTag, selectedTag }: TTagCard) {
     function getIcon(item: string) {
         switch (item) {
             case "All":
@@ -38,7 +38,7 @@ export default function TagCard({ tag, setSelectedTag, selectedTag, key }: TTagC
     }
 
     return (
-        <li key={key} className={`home-tags-list-item ${selectedTag === tag ? "active-item" : ""}`} onClick={() => setSelectedTag(tag)}>
+        <li className={`home-tags-list-item ${selectedTag === tag ? "active-item" : ""}`} onClick={() => setSelectedTag(tag)}>
             <span className="icon-container">{getIcon(tag)}</span>
             <span className="text">{tag}</span>
         </li>

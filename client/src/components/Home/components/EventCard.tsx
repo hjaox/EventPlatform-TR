@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { RiCheckLine } from "react-icons/ri";
 import { RiCloseLine } from "react-icons/ri";
 
-export default function EventCard({ event, setEventList, key, eventsToDisplay }: TEventCard) {
+export default function EventCard({ event, setEventList, eventsToDisplay }: TEventCard) {
     const [coverPhoto, setCoverPhoto] = useState<string>(defaultImage)
     const [isLoading, setIsLoading] = useState(false);
     const [showConfirmPrompt, setComfirmPrompt] = useState(false);
@@ -61,7 +61,7 @@ export default function EventCard({ event, setEventList, key, eventsToDisplay }:
     }
 
     return (
-        <li key={key} className="home-events-list-item">
+        <li className="home-events-list-item">
             {
                 showConfirmPrompt && (
                     <div className="confirmPrompt-container">

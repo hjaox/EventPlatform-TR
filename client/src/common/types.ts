@@ -121,7 +121,6 @@ export type TEventCard = {
     event: TEvent,
     eventList: TEvent[],
     setEventList: React.Dispatch<React.SetStateAction<TEvent[]>>,
-    key: number,
     eventsToDisplay: TEvent[]
 };
 
@@ -129,5 +128,4 @@ export type TTagCard = {
     tag: string,
     selectedTag: string,
     setSelectedTag: React.Dispatch<React.SetStateAction<string>>,
-    key: number
 };
