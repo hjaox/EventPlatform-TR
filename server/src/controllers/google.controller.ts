@@ -43,12 +43,12 @@ export async function scheduleEvent(req: express.Request, res: express.Response,
             oauth2Client.setCredentials(tokens);
         }
 
-        const result = await calendar.events.insert({
+        await calendar.events.insert({
             calendarId: 'primary',
             auth: oauth2Client,
             requestBody: eventSchedule
         })
-        console.log(result)
+
         return res.status(201).send({ message: "Successfully added event to calendar" });
     } catch {
         return res.status(400).send({ message: "Something went wrong" });
