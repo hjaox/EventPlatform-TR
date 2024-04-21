@@ -1,9 +1,9 @@
 @font-face {
   font-family: "Poppins-Light";
-  src: url("../../dist/fonts/Poppins/Poppins-Light.ttf") format("woff2");
+  src: url("../assets/fonts/Poppins/Poppins-Light.ttf") format("woff2");
 }
 
 @font-face {
   font-family: "Satisfy";
-  src: url("../../dist/fonts/Satisfy/Satisfy-Regular.ttf") format("woff2");
+  src: url("../assets/fonts/Satisfy/Satisfy-Regular.ttf") format("woff2");
 }
