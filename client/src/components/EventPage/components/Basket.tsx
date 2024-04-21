@@ -106,7 +106,7 @@ export default function Basket({ eventDetails, setShowPurchase, setShowBasket }:
                                         )
                                     }
                                     <input id="buyer-name" type="text" onChange={handleBuyerName} value={buyerDetails.name} />
-                                    <label htmlFor="">Email: </label>
+                                    <label htmlFor="buyer-email">Email: </label>
                                     {
                                         emailError && (
                                             <div className="error">Please enter your email.</div>
