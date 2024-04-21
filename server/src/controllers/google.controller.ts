@@ -24,9 +24,7 @@ export function getConsent(_: express.Request, res: express.Response, next: expr
         response_type: "code",
         prompt: "consent"
     });
-    console.log(process.env.clientId,
-        process.env.clientSecret,
-        process.env.redirect_URI,)
+
     return res.status(200).send({ url })
 }
 
@@ -45,12 +43,12 @@ export async function scheduleEvent(req: express.Request, res: express.Response,
             oauth2Client.setCredentials(tokens);
         }
 
-        await calendar.events.insert({
+        const result = await calendar.events.insert({
             calendarId: 'primary',
             auth: oauth2Client,
             requestBody: eventSchedule
         })
-
+        console.log(result)
         return res.status(201).send({ message: "Successfully added event to calendar" });
     } catch {
         return res.status(400).send({ message: "Something went wrong" });
