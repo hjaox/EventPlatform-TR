@@ -5,9 +5,10 @@
     width: 100%;
     height: 100%;
     border-radius: 1rem;
-    backdrop-filter: blur(5px) brightness(80%);
+    backdrop-filter: blur(5px) brightness(70%);
     z-index: 2;
     pointer-events: auto;
+    box-shadow: 10px 10px 10px gainsboro;
     @include index.center-elements;
 
     .confirmPrompt-display {
