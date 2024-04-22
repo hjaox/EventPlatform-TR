@@ -1,38 +1,72 @@
 @use "../index.scss";
 
-.icon-container {
-    @include index.center-elements;
-    border: 1px solid gainsboro;
-    border-radius: 50%;
-    transition: all 0.3s ease;
+.home-tags-list-item {
+    @include index.center-elements-column;
+    gap: 0.5rem;
+    flex: 1;
+    cursor: pointer;
+    position: relative;
 
-    @media only screen and (min-width: 1360px) {
-        padding: 2rem;
+    .icon-container {
+        @include index.center-elements;
+        border: 1px solid gainsboro;
+        border-radius: 50%;
+        transition: all 0.3s ease;
 
-        .icon {
-            font-size: 2rem;
+        @media only screen and (min-width: 1360px) {
+            padding: 2rem;
+
+            .icon {
+                font-size: 2rem;
+            }
+        }
+
+        @media only screen and (min-width: 641px) and (max-width: 1359px) {
+            padding: 1.5rem;
+            .icon {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media only screen and (max-width: 640px) {
+            padding: 1rem;
+            .icon {
+                font-size: 1rem;
+            }
         }
     }
 
-    @media only screen and (min-width: 641px) and (max-width: 1359px) {
-        padding: 1.5rem;
-        .icon {
-            font-size: 1.5rem;
-        }
-    }
+    .text {
+        transition: all 0.3s ease;
 
-    @media only screen and (max-width: 640px) {
-        padding: 1rem;
-        .icon {
-            font-size: 1rem;
+        @media only screen and (max-width: 640px) {
+            font-size: small;
         }
     }
 }
 
-.text {
-    transition: all 0.3s ease;
+.home-tags-list-item:hover {
+    .icon-container {
+        background-color: gainsboro;
+        color: purple;
+        transition: color 0.3s ease;
+    }
 
-    @media only screen and (max-width: 640px) {
-        font-size: small;
+    .text {
+        color: purple;
+        transition: color 0.3s ease;
+    }
+}
+
+.active-tag {
+    .icon-container {
+        background-color: gainsboro;
+        color: purple;
+        transition: color 0.3s ease;
+    }
+
+    .text {
+        color: purple;
+        transition: color 0.3s ease;
     }
 }

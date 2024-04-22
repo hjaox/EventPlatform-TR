@@ -38,7 +38,7 @@ export default function TagCard({ tag, setSelectedTag, selectedTag }: TTagCard) 
     }
 
     return (
-        <li className={`home-tags-list-item ${selectedTag === tag ? "active-item" : ""}`} onClick={() => setSelectedTag(tag)}>
+        <li className={`home-tags-list-item ${selectedTag === tag ? "active-tag" : ""}`} onClick={() => setSelectedTag(tag)}>
             <span className="icon-container">{getIcon(tag)}</span>
             <span className="text">{tag}</span>
         </li>
