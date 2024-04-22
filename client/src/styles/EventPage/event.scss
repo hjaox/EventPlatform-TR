@@ -16,13 +16,34 @@
         .image-container {
             display: flex;
             width: 100%;
-            background-image: url("/media/image-background.jpg");
+            background-image: url("../../assets//media/image-background.jpg");
             background-size: cover;
             justify-content: center;
 
             img {
                 width: 60rem;
                 height: 30rem;
+            }
+
+            @media only screen and (min-width: 1021px) {
+                img {
+                    width: 60rem;
+                    height: 30rem;
+                }
+            }
+
+            @media only screen and (max-width: 1020px) and (min-width: 641px) {
+                img {
+                    width: 40rem;
+                    height: 20rem;
+                }
+            }
+
+            @media only screen and (max-width: 640px) {
+                img {
+                    width: 100%;
+                    height: 20rem;
+                }
             }
         }
 
@@ -33,11 +54,23 @@
             width: 70vw;
             margin: auto;
 
+            @media only screen and (min-width: 1021px) {
+                width: 70vw;
+            }
+
+            @media only screen and (max-width: 1020px) {
+                width: 90vw;
+            }
+
             .event-header {
                 display: flex;
                 gap: 2rem;
                 justify-content: space-between;
                 position: relative;
+
+                @media only screen and (max-width: 640px) {
+                    flex-direction: column;
+                }
 
                 .title {
                     font-size: 3rem;
