@@ -120,7 +120,7 @@ export default [
     dateStart: new Date("2024-06-29T15:30:00.000Z"),
     dateEnd: new Date("2024-06-29T16:30:00.000Z"),
     address: "Off School Lane Cambourne CB23 5AD",
-    summary: "Join Wildlife Adventurer Becca Badger for some sociable outdoor family fun on Cambourne Nature Reserve",
+    summary: "Join Wildlife Adventurer Mr Forest for some sociable outdoor family fun on Cambourne Nature Reserve",
     attendees: [],
     price: 200,
     openPrice: false,
@@ -128,7 +128,7 @@ export default [
     details: `
     This is part of an annual programme of Wild in the Woods family sessions on Wednesdays during school holidays in Cambourne.
 
-    In this session, join Becca Badger for an adventure on Cambourne Nature Reserve. There'll be a selection of resources and ideas to choose from; we might make something from clay, create sculptures with sticks, take creative photos, make up songs, or even perform a play.
+    In this session, join Mr Forest for an adventure on Cambourne Nature Reserve. There'll be a selection of resources and ideas to choose from; we might make something from clay, create sculptures with sticks, take creative photos, make up songs, or even perform a play.
 
     This session is perfect for families with primary-aged children but older and younger siblings will enjoy them. We will adapt with the group, but please note that there are Little Bugs sessions available which are more appropriate for pre-school children.
 
