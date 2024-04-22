@@ -47,7 +47,6 @@ To run the application locally (Ubuntu/Linux):
 - to be able to test the insert into google calendar functionality of the application, you will need to enable `Google Calendar api`, add scopes the scopes needed, and add a `test user` into your app in `google console`. You may use [this](#google-calendar-setup) as a reference.
 - to be able to explore the functionality of the app as a logged in user (staff), use the user credentials that was seeded (see below) or you can register a user using `/register` endpoint at the backend of this application (requires properties `name, email, and password`).
   - ```email: testUser1@gmail.com, password: testPass1 ```
-
 - run the script `npm run app`. This will start the app.
 - kindly see [notes](#notes) as it might contain some information that you might need.
   <br/>
@@ -123,6 +122,12 @@ This application uses MongoDB as database, Firebase for user authentication and 
 - you will need a redirect uri for google to give prompt for consent to users when opted to insert the event into their google calendar. Follow [this](#setting-up-your-redirect-uri) reference on how to setup your redirect uri.
 - once you have setup your redirect uri, add this to your `.env.development` file with a variable name `redirect_URI`.
     - Example : ```redirect_URI="<YOUR_REDIRECTURI>"```
+- for the automated email when a user purchases an event, you will need a gmail account that will send email to the buyer. To set this up, you will need a `email address` and `app password` and assign them to `nodemailerEmail` and `nodemailerPassword` variable names. To get your `app password`, refer to [this documentation](https://support.google.com/accounts/answer/185833?visit_id=638494123463933141-3125702535&p=InvalidSecondFactor&rd=1).
+  - Example:
+  ```
+  nodemailerEmail="<EMAIL_ADDRESS>"
+  nodemailerPassword="<APP_PASSWORD>"
+  ```
 - at this point, your `.env.development` file is done. Go to the next step in [how to run the application locally](#how-to-run-the-app).
 - if you want to run the tests, add a `.env.test` file in `server` folder (same location for `.env.development` file) and follow the same steps for `.env.development` (it is recommended to have a different environment for test and development).
 - you will need to add an `ACCESSTOKEN` variable to be able to pass some of the tests as some endpoints requires id tokens. Follow steps in [this](#generate-an-accesstoken-for-test-environment) reference to generate a token and paste the value in `.env.test` file.
