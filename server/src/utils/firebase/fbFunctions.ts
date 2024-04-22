@@ -2,7 +2,7 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from
 import auth, { storage } from "./fbAuth";
 import { deleteAllUsers, getAllUsers } from "../../utils/firebase-admin/fbAdminFunctions";
 import { TTestUser } from "common/types";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { deleteObject, getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { readFile } from "fs/promises";
 
 export async function signUp(auth: Auth, email: string, password: string) {
@@ -46,5 +46,19 @@ export async function uploadToFirebase(path: string, eventId: string) {
         return url;
     } catch (err) {
         return null;
+    }
+}
+
+export async function deleteAllImages() {
+    try {
+        const listRef = ref(storage, "images/");
+        const imageList = await listAll(listRef);
+
+        await Promise.all(imageList.items.map(image => {
+            const deleteImageRef = ref(storage, image.fullPath);
+            return deleteObject(deleteImageRef);
+        }));
+    } catch {
+        console.log("Deleting existing images failed.")
     }
 }
