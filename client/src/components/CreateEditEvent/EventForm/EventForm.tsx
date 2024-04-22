@@ -2,7 +2,7 @@ import { ContentState, EditorState } from "draft-js";
 import { useEffect, useState } from "react";
 import { TEventForm, TNewEvent, TReduxUser } from "../../../common/types";
 import file from "../../../assets/default.jpg";
-import { uploadToFirebase } from "../../../utils/firebase/functions";
+import { downloadImage, uploadToFirebase } from "../../../utils/firebase/functions";
 import { createEvent, editEvent } from "../../../utils/axios/event";
 import ImageForm from "./components/ImageForm";
 import EventHeaderForm from "./components/EventHeaderForm";
@@ -53,6 +53,14 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
             setStartDate(eventToEdit.dateStart);
             setEndDate(eventToEdit.dateEnd);
             setTag(eventToEdit.tag);
+
+            (async () => {
+                const testImage = await downloadImage(eventToEdit._id);
+                if (testImage) {
+                    setImageDisplay(testImage)
+                }
+            })();
+
         }
     }, [eventToEdit]);
 
@@ -83,15 +91,18 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
 
             if (eventToEdit) {
                 eventDetails = await editEvent(eventToEdit?._id, event, userToken);
+
+                if (imageFile) {
+                    await uploadToFirebase(imageFile, eventDetails._id);
+                }
             } else {
                 eventDetails = await createEvent(event, userToken);
-            }
 
+                const coverPhoto = imageFile ? imageFile : await fetchDefaultImage();
 
-            const coverPhoto = imageFile ? imageFile : await fetchDefaultImage();
-
-            if (coverPhoto) {
-                await uploadToFirebase(coverPhoto, eventDetails._id);
+                if (coverPhoto) {
+                    await uploadToFirebase(coverPhoto, eventDetails._id);
+                }
             }
 
             setNewEvent(eventDetails);
@@ -132,7 +143,7 @@ export default function EventForm({ eventToEdit, setIsLoading, setNewEvent, setR
             if (key === "price" && typeof val === "number") {
                 const allowed = (val > 0 && val < 0.3);
                 setFormError(formError => ({ ...formError, price: allowed }));
-                if(!val) {
+                if (!val) {
                     setPrice(0);
                 }
             }
