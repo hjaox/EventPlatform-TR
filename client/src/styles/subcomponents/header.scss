@@ -20,6 +20,10 @@
             font-family: Satisfy;
             font-weight: bold;
             font-size: xx-large;
+
+            @media only screen and (max-width: 640px) {
+                font-size: x-large;
+            }
         }
     }
 
