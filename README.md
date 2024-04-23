@@ -32,6 +32,7 @@ Backend :
 - Stripe
 - Jest
 - Supertest
+- Nodemailer
   <br/>
   <br/>
   <br/>
