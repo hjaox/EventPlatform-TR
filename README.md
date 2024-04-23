@@ -1,6 +1,6 @@
 # Events Platform Project
 
-This project serves as a plaform for a small community business where the staff of the business can create and share events to the members of their community. A community member can sign up and add the event to their google calender if they opted for it. The events can be free, or paid, with the option for open price where the members can buy the ticket for how much they feel it is worth.
+This project serves as a platform for a small community business where the staff of the business can create and share events to the members of their community. A community member can sign up and add the event to their google calender if they opted for it. The events can be free, or paid, with the option for open price where the members can buy the ticket for how much they feel it is worth.
 <br/>
 <br/>
 You may view this app at https://eventsplatform-tr.netlify.app.
