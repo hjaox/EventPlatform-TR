@@ -77,6 +77,8 @@ This application uses MongoDB as database, Firebase for user authentication and 
   VITE_PUBLISHABLE_KEY="<YOUR_PUBLISHABLEKEY>"
   VITE_SECRET_KEY="<YOUR_SECRETKEY>"
   ```
+- add the url of where you host your backend and assign it to `VITE_axiosBaseUrl`.
+  - Example: `VITE_axiosBaseUrl="http://localhost:9090"`
 - go back to root and navigate to `server` folder. You will need to create a `.env` or multiple `.env` file depending on your needs.
 
   - To run the application locally and in a development environment, create a `.env.development` file.
