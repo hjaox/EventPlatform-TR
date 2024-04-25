@@ -16,6 +16,7 @@ export default function Home() {
     const [isLoading, setIsLoading] = useState(false);
     const [selectedTag, setSelectedTag] = useState("All");
     const [error, setError] = useState(false);
+    const [showDelayedMessage, setShowDelayedMessage] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -26,6 +27,7 @@ export default function Home() {
                 setEventsToDisplay(() => [...results[0]]);
                 setTagList(tagList => [...tagList, ...results[1]]);
                 setIsLoading(false);
+                setShowDelayedMessage(false);
             } catch {
                 setError(true);
                 setIsLoading(false)
@@ -65,6 +67,13 @@ export default function Home() {
         })
     }
 
+    function delayedLoadingMessage() {
+        setTimeout(() => {
+            setShowDelayedMessage(true);
+        }, 2000);
+        return <></>
+    }
+
     return (
         <section className="home-page">
             <Header />
@@ -85,6 +94,10 @@ export default function Home() {
                         ? (
                             <div className="loading-page">
                                 <MagnifyingGlass color="purple" />
+                                {delayedLoadingMessage()}
+                                {showDelayedMessage && (
+                                    <p className="loading-message">The first load might take a few seconds. The backend of this app is hosted as a free instance on render.com</p>
+                                )}
                             </div>
                         )
                         : (
