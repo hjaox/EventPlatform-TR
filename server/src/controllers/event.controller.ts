@@ -1,6 +1,6 @@
 import { createEvent, deleteEvent, findEvent, insertAttendee, updateEvent } from "../models/event.model";
 import express from "express";
-import { checkAttendee, checkIfValidObjectId, checkPatchEvent, checkPostEvent } from "../utils/utils";
+import { checkAttendee, checkIfValidObjectId, checkPatchEvent, checkPostEvent, sendTicketEmail } from "../utils/utils";
 
 export async function postEvent(req: express.Request, res: express.Response, next: express.NextFunction) {
     if (!checkPostEvent(req.body)) return res.status(400).send({ message: "To post an event, it must have the following properties: title, dateStart, dateEnd, address" });
@@ -71,6 +71,8 @@ export async function addAttendee(req: express.Request, res: express.Response, n
 
     try {
         const updatedAttendees = await insertAttendee(eventId, name, email, Number(quantity));
+        const { title } = await findEvent(eventId);
+        await sendTicketEmail(email, title, quantity);
 
         return res.status(200).send({ updatedAttendees });
     } catch (err) {

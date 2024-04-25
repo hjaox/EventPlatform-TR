@@ -1,4 +1,12 @@
 import mongoose from "mongoose";
+import nodemailer from "nodemailer";
+import * as dotenv from "dotenv";
+
+const ENV = process.env.NODE_ENV || "development";
+
+dotenv.config({
+    path: `${__dirname}/../../.env.${ENV}`
+});
 
 export function checkPatchEvent(event: unknown) {
     const eventProperties = ["title", "dateStart", "dateEnd", "address", "details", "summary", "tag", "price", "openPrice"];
@@ -38,4 +46,29 @@ export function checkAttendee(attendee: unknown) {
 
 export function checkIfValidObjectId(objectId: unknown) {
     return mongoose.isValidObjectId(objectId);
+}
+
+export async function sendTicketEmail(buyerEmail: string, eventTitle: string, quantity: number) {
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        host: "smtp.gmail.email",
+        auth: {
+            user: process.env.nodemailerEmail,
+            pass: process.env.nodemailerPassword,
+        },
+    });
+
+    const subject = `${eventTitle} Event Tickets`;
+    const html = `OUR COMMUNITY <br />
+    Thank you for purchasing ${quantity} ${quantity > 1 ? "tickets" : "ticket"} for ${eventTitle} event.
+    `;
+
+    const info = await transporter.sendMail({
+        from: `"Our Community" <${process.env.nodemailerEmail}>`,
+        to: buyerEmail,
+        subject,
+        html
+    });
+
+    return info;
 }
