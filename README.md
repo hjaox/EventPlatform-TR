@@ -238,3 +238,17 @@ To add scopes and test users:
 - If running tests gives you a `JavaScript heap out of memory` error, run `export NODE_OPTIONS="--max-old-space-size=8192"` in your terminal and run the test again.
 - Requirements (this project was created with these versions):
     NodeJS: v20.11.1
+
+#### Credits
+Credits for photos that was used for this project.
+- [Marcela Laskoski](https://unsplash.com/@marcelalaskoski?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) : for the image used in "Bach Network Dialogue Meeting 2024" event
+- [Aditya Chinchure](https://unsplash.com/@adityachinchure?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) : "Coull Quartet" event
+- [Anoir Chafik](https://unsplash.com/@anoirchafik?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) : "Helping Reactive Dogs Classes, Godmanchester, April 2024" event
+- [KAL VISUALS](https://unsplash.com/@kalvisuals?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) : "Baleen" event
+- [Ugur Akdemir](https://unsplash.com/@ugur?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) : "British Book Bash does Peterborough 2024" event
+- [Patrick](https://unsplash.com/@patsz?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) : "Wild in the Woods (Cambourne): Outdoor Art" event
+- [Markus Spiske](https://unsplash.com/@markusspiske?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) : "The Sigma Sports CiCLE Classic Sportif" event
+- [Prudence Earl](https://unsplash.com/@prudenceearl?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) : "The Diverse and Vibrant Lives of Houseplants" event
+- [Duy Pham](https://unsplash.com/@miinyuii?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) : background image for Login page
+- [starline](http://www.freepik.com) : background image for CreateEvent/EditEvent page
+- [Hannah Busing](https://unsplash.com/@hannahbusing?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) : default image for events
