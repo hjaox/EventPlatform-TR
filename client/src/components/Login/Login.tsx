@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { actions } from "../../utils/redux/reducers";
 import { useState } from "react";
 import { loginUser } from "../../utils/axios/user";
-import { HiOutlineQuestionMarkCircle } from "react-icons/hi2";
 
 export default function Login() {
     const dispatch = useDispatch();

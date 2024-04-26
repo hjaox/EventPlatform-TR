@@ -190,6 +190,29 @@
                 flex-direction: column;
                 gap: 0.5rem;
 
+                p {
+                    position: relative;
+                    cursor: pointer;
+
+                    span {
+                        position: absolute;
+                        background-color: gainsboro;
+                        padding: 0.5rem;
+                        border-radius: 0.5rem;
+                        opacity: 0;
+                        transition: all 0.3s ease;
+                        width: 10rem;
+                        font-size: small;
+                    }
+                }
+
+                p:hover {
+                    span {
+                        opacity: 1;
+                        transition: all 0.3s ease;
+                    }
+                }
+
                 .google-login {
                     align-self: center;
                 }
