@@ -62,6 +62,9 @@ export default function Login() {
                         <label htmlFor="passwordInput">Password: </label>
                         <input type="password" id="passwordInput" onChange={handlePasswordInput} />
                     </div>
+                    <div className="testuser">
+                        <p>Note: You may use the credentials <span>Email: testUser1@gmail.com</span> and <span>Password: testPass1</span> to explore the functionality of the app as a staff.</p>
+                    </div>
 
                     <button className="submit-button" type="submit" form="login-form" value="Submit">Continue</button>
                 </form>

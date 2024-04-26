@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { getOauthConsent } from "../../utils/axios/google";
 import { downloadImage } from "../../utils/firebase/functions";
 import defaultImage from "../../assets/default.jpg";
+import { HiOutlineQuestionMarkCircle } from "react-icons/hi2";
 
 export default function Event() {
     const { eventId } = useParams();
@@ -159,8 +160,13 @@ export default function Event() {
                                 </div>
                             </div>
                             <div className="addToCalendar">
-                                <p>You can add this event to your google calendar.</p>
+                                <p>You can add this event to your google calendar. <HiOutlineQuestionMarkCircle/>
+                                <span>
+                                    This app is in testing phase and is not published and you will not be able to test the add to calendar functionality here. If you want to try this out, clone this <a href="https://github.com/hjaox/EventPlatform-TR">repository</a> and run this locally in your machine.
+                                </span>
+                                </p>
                                 <GoogleLoginButton className="google-login" onClick={() => handleAddToCalendar()} size="2.5rem" style={{ width: "fit-content" }} />
+
                             </div>
                             <IoMdClose className="close-purchase" onClick={() => setShowPurchase(false)} />
                             <div className="navigation">
