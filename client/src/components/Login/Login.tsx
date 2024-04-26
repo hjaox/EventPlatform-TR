@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { actions } from "../../utils/redux/reducers";
 import { useState } from "react";
 import { loginUser } from "../../utils/axios/user";
+import { HiOutlineQuestionMarkCircle } from "react-icons/hi2";
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -61,6 +62,9 @@ export default function Login() {
                     <div className="form-password">
                         <label htmlFor="passwordInput">Password: </label>
                         <input type="password" id="passwordInput" onChange={handlePasswordInput} />
+                    </div>
+                    <div className="testuser">
+                        <p>Note: You may use the credentials <span>Email: testUser1@gmail.com</span> and <span>Password: testPass1</span> to explore the functionality of the app as a staff.</p>
                     </div>
 
                     <button className="submit-button" type="submit" form="login-form" value="Submit">Continue</button>
