@@ -262,3 +262,4 @@ Credits for photos that was used for this project.
 - [starline](http://www.freepik.com) : background image for CreateEvent/EditEvent page
 - [Hannah Busing](https://unsplash.com/@hannahbusing?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) : default image for events
 - [pikisuperstar](https://www.freepik.com/free-vector/error-404-concept-landing-page_4730711.htm#query=404%20page%20found&position=44&from_view=keyword&track=ais&uuid=5612a091-9401-4cf2-91cf-672c3cd9d16c) on [Freepik](http://www.freepik.com) - image background for Error page
+- test
